@@ -28,11 +28,9 @@ public class TrapFactory implements GameFactory {
 
 		System.out.println("Temps de réflexion de l'ordinateur : " + (temps / 1000.0) + "s");
 
-
 		// boucle de jeu
 		etat.afficherJeu();
 		do {
-			
 			Main.mcts(etat, temps, strategie);
 			etat.afficherJeu();
 

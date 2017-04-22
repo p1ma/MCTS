@@ -23,14 +23,15 @@ public class MCTSPW extends MCTS {
 
 	@Override
 	public Noeud executer(Noeud noeud) {
+
 		/* 1. On simule la fin de partie avec une démarche aléatoire */
-		Noeud terminal = simuler(noeud);
-
+		noeud = simuler(noeud);
+		
 		/* 2. On mets a jour le meilleur enfant */
-		Noeud meilleurChoix = mettreAJour(noeud, terminal.resultat());
-
+		noeud = mettreAJour(noeud, noeud.resultat());
+		
 		// On retourne ensuite le noeud initial
-		return meilleurChoix;
+		return noeud;
 	}
 	
 	/* 2. */
@@ -38,19 +39,19 @@ public class MCTSPW extends MCTS {
 		return formule.selectionner(noeud);
 	}
 
-	/* 3. */
+	/* 1. */
 	private Noeud simuler(Noeud noeud) {
 		Noeud simulation = noeud;
 		
-		while( !simulation.estTerminal() ) {
+		while( !simulation.estTerminal() ) { 
 			simulation = developper(simulation);
 		}
+
 		return simulation;
 	}
 
-	/* 4. */
+	/* 3. */
 	private Noeud mettreAJour(Noeud noeud, double recompense) {
-		
 		while( !noeud.estRacine() ) {
 			noeud.setRecompense( noeud.retournerRecompense() + 
 					recompense );

@@ -30,6 +30,8 @@ public abstract class NoeudContinue implements Noeud{
 	}
 	
 	public NoeudContinue(Etat e) {
+		parent = null;
+		action = null;
 		etat = e;
 		enfants = new LinkedList<Noeud>();
 	}
@@ -68,7 +70,7 @@ public abstract class NoeudContinue implements Noeud{
 	
 	@Override
 	public int retournerNbSimulation() {
-		return this.simulations;
+		return simulations;
 	}
 	
 	@Override
@@ -102,9 +104,11 @@ public abstract class NoeudContinue implements Noeud{
 		if( action != null ) {
 			System.out.println("\t-Action : " + action);
 		} else {
-			System.out.println("\t-Action : none");
+			System.out.println("\t-Action : aucune");
 		}
+		
 		System.out.println("\t-Recompense : " + resultat());
+		System.out.println("\t-Position : " + (double)etat.getPosition());
 		System.out.println("\t-Nombre de simulation(s) : " + simulations);
 		System.out.println("\t-Nombre d'enfant(s) : " + enfants.size());
 	}

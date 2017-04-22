@@ -36,7 +36,8 @@ public class EtatTrap implements Etat {
 
 	public EtatTrap() {
 		score = 0;
-		position = 0;		
+		position = 0;	
+		pas = 2;
 	}
 
 	@Override

@@ -18,7 +18,6 @@ import config.TrapFactory;
  */
 public class Main {
 
-	//private final static GameFactory GAME = new Puissance4Factory();
 	private final static GameFactory GAME = new TrapFactory();
 	private final static long TEMPS = Configuration.getInstance().getTemps();
 	
@@ -56,7 +55,7 @@ public class Main {
 			toc = System.currentTimeMillis();
 			iter++;
 		} while (toc < (tic + temps));
-		
+
 		System.out.println("");
 		System.out.println("Itérations effectuées : " + iter);
 		
