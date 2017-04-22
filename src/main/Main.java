@@ -64,7 +64,9 @@ public class Main {
 		 * On choisit la bonne strategie demandée par l'utilisateur
 		 */
 		strategie = new Robuste();
+		System.out.println("Selection...");
 		racine = strategie.selectionner(racine);
+		System.out.println("Node selected !");
 		racine.afficherStatistiques();
 		
 		etat.jouerAction(racine.getAction());

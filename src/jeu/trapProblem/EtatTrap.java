@@ -71,7 +71,7 @@ public class EtatTrap implements Etat {
 		int t = options.size();
 		double step;
 		
-		for(int i = t ; i < (k - t) ; i++) {
+		for(int i = 0 ; i < (k - t) ; i++) {
 			step = ((random.nextDouble() * max) + min) % max;
 			options.add( new ActionTrap(step) );
 		}

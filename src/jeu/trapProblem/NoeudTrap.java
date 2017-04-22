@@ -23,7 +23,6 @@ public class NoeudTrap extends NoeudContinue {
 	
 	public NoeudTrap(Noeud p, Etat e, Action a) {
 		super(p, e, a);
-		etat.jouerAction(a);
 	}
 	
 	public boolean resteAction() {
@@ -32,12 +31,12 @@ public class NoeudTrap extends NoeudContinue {
 
 	@Override
 	public Noeud appliquer(Action action) {
-		return new NoeudTrap(this, getEtat(), action);
+		return new NoeudTrap(this, new EtatTrap(getEtat()), action);
 	}
 
 	@Override
 	public Noeud ajouterEnfant(Action action) {
-		Noeud enfant = new NoeudTrap(this, getEtat(), action);
+		Noeud enfant = new NoeudTrap(this, new EtatTrap(getEtat()), action);
 		this.enfants.add( enfant );
 		return enfant;
 	}

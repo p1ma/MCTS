@@ -16,8 +16,8 @@ import arbre.NoeudContinue;
  */
 public class PWidening implements FormuleSelection{
 
-	private final double C = 1.5; // > 0
-	private final double alpha = 0.8; // ]O,1[
+	private final double C = 2.44; // > 0
+	private final double alpha = 0.9; // ]O,1[
 
 	@Override
 	public Noeud selectionner(Noeud noeud) {
@@ -34,7 +34,6 @@ public class PWidening implements FormuleSelection{
 		 * le noeud avec les k prochaines Actions possibles
 		 */
 		List<Action> actions = noeud.actionsPossible(k);
-
 		Noeud enfant = null;
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
@@ -44,7 +43,7 @@ public class PWidening implements FormuleSelection{
 			enfant = noeud.appliquer( actions.get(i) );
 			int nb = 0;
 
-			for ( int l = 0 ; l < t-1 ; l++ ) {
+			for ( int l = 0 ; l < t-2 ; l++ ) {
 					ol = actions.get(l);
 					if ( ol.equals(actions.get(i)) ) {
 						nb++;

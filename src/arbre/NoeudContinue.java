@@ -41,6 +41,7 @@ public abstract class NoeudContinue implements Noeud{
 		action = a;
 		etat = e;
 		enfants = new LinkedList<Noeud>();
+		etat.jouerAction(a);
 	}
 	
 	@Override

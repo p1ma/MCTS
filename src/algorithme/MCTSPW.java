@@ -44,6 +44,7 @@ public class MCTSPW extends MCTS {
 		Noeud simulation = noeud;
 		
 		while( !simulation.estTerminal() ) { 
+			
 			simulation = developper(simulation);
 		}
 
