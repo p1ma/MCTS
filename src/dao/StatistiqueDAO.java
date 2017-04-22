@@ -14,6 +14,7 @@ import java.io.IOException;
  */
 public class StatistiqueDAO {
 
+	//  temps | simulation | position | recompenses
 	public final static String SIMUS = "simulations";
 	public final static String POS = "position";
 	public final static String RECOMP = "recompenses";

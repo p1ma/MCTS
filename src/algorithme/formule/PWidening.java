@@ -16,8 +16,8 @@ import arbre.NoeudContinue;
  */
 public class PWidening implements FormuleSelection{
 
-	private final double C = 1.0; // > 0
-	private final double alpha = 0.5; // ]O,1[
+	private final double C = 2.44; // > 0
+	private final double alpha = 0.4; // ]O,1[
 
 	@Override
 	public Noeud selectionner(Noeud noeud) {
@@ -52,7 +52,7 @@ public class PWidening implements FormuleSelection{
 			} else {
 				// equivalent UCT
 				totalReward = enfant.resultat() + noeud.resultat();
-
+				
 				bValeur = ( totalReward / (nb + 1));
 				bValeur += k * Math.sqrt( Math.log( t ) / (nb + 1));
 			}
@@ -65,6 +65,7 @@ public class PWidening implements FormuleSelection{
 		/*System.out.println("\nt=" + t + ", k=" + k + " on ajoute rien");
 		noeud.afficherStatistiques();
 		System.out.println("AVEC action : " + noeud.retournerEnfant(best).getAction());*/
+
 		return noeud.retournerEnfant(best);
 	}
 }

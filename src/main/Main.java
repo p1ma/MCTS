@@ -30,7 +30,7 @@ public class Main {
 		GAME.jouer(TEMPS, new PWidening());		
 	}
 
-	public static void mcts(Etat etat, long temps, FormuleSelection strategie) {
+	public static void mcts(Etat etat, long temps, FormuleSelection strategie,  FormuleSelection st) {
 		long tic, toc;
 		// Creer l'arbre de recherche
 		Noeud racine = GAME.getNoeud(etat);
@@ -59,19 +59,17 @@ public class Main {
 		
 		System.out.println("");
 		System.out.println("Itérations effectuées : " + iter);
-		System.out.println("Racine : ");
-		racine.afficherStatistiques();
+
 		/* 
 		 * fin de l'algorithme		
 		 * On choisit la bonne strategie demandée par l'utilisateur
 		 */
-		strategie = new Robuste();
+		strategie = st;
 		
 		System.out.println("\nSelection...");
 		racine = strategie.selectionner(racine);
-		racine.afficherStatistiques();
 		System.out.println("Node selected !");
-		
+		System.out.println("Ce Noeud a " + racine.retournerNbSimulation() + " simulations");
 		etat.jouerAction(racine.getAction());
 	}
 

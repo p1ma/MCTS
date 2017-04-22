@@ -2,6 +2,7 @@ package config;
 
 
 import algorithme.formule.FormuleSelection;
+import algorithme.formule.Robuste;
 import arbre.Etat;
 import arbre.Etat.FinDePartie;
 import arbre.Noeud;
@@ -27,11 +28,12 @@ public class TrapFactory implements GameFactory {
 		etat = getEtat();
 
 		System.out.println("Temps de réflexion de l'ordinateur : " + (temps / 1000.0) + "s");
-
+		FormuleSelection st = new Robuste();
+		
 		// boucle de jeu
 		etat.afficherJeu();
 		do {
-			Main.mcts(etat, temps, strategie);
+			Main.mcts(etat, temps, strategie, st);
 			etat.afficherJeu();
 
 			fin = etat.testFin();

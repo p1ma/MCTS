@@ -20,7 +20,7 @@ public class EtatTrap implements Etat {
 	private Double[][] plateau = {{1.,70.}, {1.7,0.}, {5.,100.}};
 	private double position;
 	
-	private int pas = 2;
+	private int pas = 3;
 	private final int min = 0, max = 1; 
 	private final Random random = new Random();
 	
