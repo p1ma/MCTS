@@ -106,11 +106,9 @@ public abstract class NoeudContinue implements Noeud{
 		} else {
 			System.out.println("\t-Action : none");
 		}
-		System.out.println("\t-Nombre de victoire(s) : " + victoires);
+		System.out.println("\t-Recompense : " + resultat());
 		System.out.println("\t-Nombre de simulation(s) : " + simulations);
 		System.out.println("\t-Nombre d'enfant(s) : " + enfants.size());
-		double pourcentage = (victoires / simulations) * 100.0 ;
-		System.out.println("\t-Pourcentage : " + pourcentage + "\n");
 	}
 
 	@Override

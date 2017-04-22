@@ -59,7 +59,6 @@ public class Main {
 		
 		System.out.println("");
 		System.out.println("Itérations effectuées : " + iter);
-		racine.afficherStatistiques();
 		
 		/* 
 		 * fin de l'algorithme		
@@ -67,7 +66,8 @@ public class Main {
 		 */
 		strategie = new Robuste();
 		racine = strategie.selectionner(racine);
-
+		racine.afficherStatistiques();
+		
 		etat.jouerAction(racine.getAction());
 	}
 

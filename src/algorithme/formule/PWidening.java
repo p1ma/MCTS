@@ -29,11 +29,13 @@ public class PWidening implements FormuleSelection{
 		noeud.visiter(0.0); // nbVisits + 1
 		int t = noeud.retournerNbSimulation();
 		int k = (int)(C * Math.pow(t, alpha));
+		
 		/*
 		 * On va maintenant échantillonner
 		 * le noeud avec les k prochaines Actions possibles
 		 */
 		List<Action> actions = noeud.actionsPossible(k);
+		System.out.println("size => " + actions.size());
 		List<Action> mem = new LinkedList<Action>(actions);
 
 		Noeud enfant = null;
@@ -46,9 +48,6 @@ public class PWidening implements FormuleSelection{
 			int nb = 0;
 
 			for ( int l = 0 ; l < t ; l++ ) {
-				if (l >= k ) {
-					System.out.println("problem : " + l + " avec k = " + k);
-				}
 					ol = actions.get(l);
 					if ( ol.equals(actions.get(i)) ) {
 						nb++;
@@ -58,8 +57,9 @@ public class PWidening implements FormuleSelection{
 			if ( nb == 0 ) {
 				bValeur = Integer.MAX_VALUE;
 				best = i;
+				
 				// on s'arrete car on aura un score infini ici
-				break;
+				return noeud.ajouterEnfant( mem.get(best) );
 			} else {
 				// equivalent UCT
 				bValeur = ( enfant.resultat() / (nb + 1));

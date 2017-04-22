@@ -56,8 +56,6 @@ public class MCTSPW extends MCTS {
 					noeud.retournerRecompense() + recompense);
 			noeud = noeud.predecesseur();
 		}
-		noeud.setStatistique(noeud.retournerNbSimulation(), 
-				noeud.retournerRecompense() + recompense);
 		return noeud;
 	}
 }
