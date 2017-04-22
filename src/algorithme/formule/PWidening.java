@@ -26,7 +26,7 @@ public class PWidening implements FormuleSelection{
 	}
 	
 	public Noeud select(NoeudContinue noeud) {
-		noeud.visiter(0.0); // nbVisits + 1
+		noeud.visiter(); // nbVisits + 1
 		int t = noeud.retournerNbSimulation();
 		int k = (int)(C * Math.pow(t, alpha));
 		

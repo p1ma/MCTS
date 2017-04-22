@@ -34,8 +34,8 @@ public interface Noeud {
 	public int retournerNbEnfant();
 	public int retournerNbSimulation();
 	
-	public void visiter(double recompense);
+	public void visiter();
+	public void setRecompense(double v);
 	
-	public void setStatistique(int s, double v);
 	public void afficherStatistiques();
 }

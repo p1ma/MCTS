@@ -17,7 +17,7 @@ import arbre.Etat;
  */
 public class EtatTrap implements Etat {
 
-	private Integer[][] plateau = {{100,70}, {170,0}, {1000,100}};
+	private Double[][] plateau = {{1.,70.}, {1.7,0.}, {5.,100.}};
 	private double position;
 	
 	private int pas = 2;
@@ -46,11 +46,11 @@ public class EtatTrap implements Etat {
 		System.out.println("Score : " + this.score);
 
 		System.out.print("O \t\t");
-		for (Integer[] tab : this.plateau) {
+		for (Double[] tab : this.plateau) {
 			System.out.print(tab[0] + "\t\t");
 		}
 		System.out.println("");
-		for (Integer[] tab : this.plateau) {
+		for (Double[] tab : this.plateau) {
 			System.out.print("| " + tab[1] + "\t\t");
 		}
 		System.out.println("\n");
@@ -87,7 +87,7 @@ public class EtatTrap implements Etat {
 			position += (double) action.getRepresentation();
 			pas--;
 
-			for (Integer[] i : this.plateau) {
+			for (Double[] i : this.plateau) {
 				if (position <= i[0]) {
 					this.score += i[1];
 					return true;
@@ -121,7 +121,7 @@ public class EtatTrap implements Etat {
 
 	@Override
 	public double resultat() {
-		for (Integer[] i : (Integer[][])plateau) {
+		for (Double[] i : (Double[][])plateau) {
 			if (position <= i[0]) {
 				return i[1];
 			}

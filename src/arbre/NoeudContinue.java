@@ -87,14 +87,12 @@ public abstract class NoeudContinue implements Noeud{
 	}
 	
 	@Override
-	public void visiter(double recompense) {
-		this.victoires += recompense;
+	public void visiter() {
 		this.simulations++;
 	}
 
 	@Override
-	public void setStatistique(int s, double v) {
-		this.simulations = s;
+	public void setRecompense(double v) {
 		this.victoires = v;
 	}
 	
