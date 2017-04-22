@@ -57,6 +57,11 @@ public class MCTSPW extends MCTS {
 					recompense );
 			noeud = noeud.predecesseur();
 		}
+		if(noeud.estTerminal()) {
+			noeud.afficherStatistiques();
+			System.out.println("PROBLEME MAJ");
+			System.exit(1);
+		}
 		return noeud;
 	}
 }

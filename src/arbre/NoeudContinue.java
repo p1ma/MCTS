@@ -107,6 +107,11 @@ public abstract class NoeudContinue implements Noeud{
 			System.out.println("\t-Action : aucune");
 		}
 		
+		if( parent != null ) {
+			System.out.println("\t-Racine : non");
+		} else {
+			System.out.println("\t-Racine : oui");
+		}
 		System.out.println("\t-Recompense : " + resultat());
 		System.out.println("\t-Position : " + (double)etat.getPosition());
 		System.out.println("\t-Nombre de simulation(s) : " + simulations);
