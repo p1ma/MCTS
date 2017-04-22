@@ -37,7 +37,7 @@ public class PWidening implements FormuleSelection{
 		Noeud enfant = null;
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
-		double bValeur = 0.0;
+		double bValeur = 0.0, totalReward;
 		Action ol = null;
 		for(int i = 0 ; i < k ; i++) {
 			enfant = noeud.appliquer( actions.get(i) );
@@ -55,7 +55,9 @@ public class PWidening implements FormuleSelection{
 				return noeud.ajouterEnfant( actions.get(i) );
 			} else {
 				// equivalent UCT
-				bValeur = ( enfant.resultat() / (nb + 1));
+				totalReward = enfant.resultat() + noeud.resultat();
+				
+				bValeur = ( totalReward / (nb + 1));
 				bValeur += k * Math.sqrt( Math.log( t ) / (nb + 1));
 			}
 
@@ -65,6 +67,6 @@ public class PWidening implements FormuleSelection{
 			}
 		}
 		
-		return noeud.ajouterEnfant( actions.get(best) );
+		return noeud.retournerEnfant(best);
 	}
 }

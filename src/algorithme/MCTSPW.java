@@ -43,11 +43,10 @@ public class MCTSPW extends MCTS {
 	private Noeud simuler(Noeud noeud) {
 		Noeud simulation = noeud;
 		
-		while( !simulation.estTerminal() ) { 
-			
+		while( !simulation.estTerminal() ) { 		
 			simulation = developper(simulation);
 		}
-
+		
 		return simulation;
 	}
 
@@ -57,11 +56,6 @@ public class MCTSPW extends MCTS {
 			noeud.setRecompense( noeud.retournerRecompense() + 
 					recompense );
 			noeud = noeud.predecesseur();
-		}
-		if(noeud.estTerminal()) {
-			noeud.afficherStatistiques();
-			System.out.println("PROBLEME MAJ");
-			System.exit(1);
 		}
 		return noeud;
 	}
