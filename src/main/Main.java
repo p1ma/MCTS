@@ -1,34 +1,53 @@
-/**
- * 
- */
 package main;
 
-import algorithm.MCTS;
-import algorithm.MCTSPW;
-import game.trap.TrapState;
-import tree.node.State;
+import algorithme.Algorithme;
+import algorithme.MCTS;
+import algorithme.MCTSPW;
+import algorithme.MctsPw;
+import algorithme.formule.FormuleSelection;
+import algorithme.formule.Maxi;
+import algorithme.formule.PWidening;
+import algorithme.formule.Robuste;
+import arbre.Etat;
+import arbre.Noeud;
+import config.Configuration;
+import config.GameFactory;
+import config.TrapFactory;
+import dao.StatistiqueDAO;
+import jeu.trapProblem.EtatTrap;
 
 /**
  * @author JUNGES Pierre-Marie - M1 Informatique 2016/2017
  *
- * Apr 19, 2017
+ * Jan 26, 2017
  */
 public class Main {
 
-	// 500 ms
-	private final static long TEMPS = 500;
+	//private final static GameFactory GAME = new Puissance4Factory();
+	private final static GameFactory GAME = new TrapFactory();
+	private final static long TEMPS = Configuration.getInstance().getTemps();
 	
 	public static void main(String[] args) {
-		execute( new TrapState() );
+		jouer(args);
 	}
-	
-	private static void execute(State s) {
-		State root = s;
-		MCTS mcts = new MCTSPW( );
+
+	public static void jouer(String[] args) {
+		// on lance le jeu
+		GAME.jouer(TEMPS, new PWidening());		
+	}
+
+	public static void ordijoue_mcts(Etat etat, long temps, FormuleSelection strategie) {
+		long tic, toc;
+		// Creer l'arbre de recherche
+		Noeud racine = GAME.getNoeud(etat);
+
+		MCTS mcts = new MCTSPW( strategie ); // On execute l'algorithme
+
+		// pre rempli déjà l'arbre
+
+		// S'il y  a plusieurs fils alors on execute l'algo MCTS UCT
 		int iter = 0;
-		long toc,
-			tic = System.currentTimeMillis();
-		
+		tic = System.currentTimeMillis();
 		do {
 			/*
 		    	L'algo se decompose en 4 étapes :
@@ -38,12 +57,29 @@ public class Main {
 		    	- Mise à jours des valeurs des Noeuds dans l'arbre, on remonte la valeur de récompense
 		    	du Noeud terminal à la racine.
 			 */
-			root = mcts.execute( root );
+			racine = mcts.executer(racine);
 			toc = System.currentTimeMillis();
 			iter++;
-		} while (toc < (tic + TEMPS));
+		} while (toc < (tic + temps));
 		
-		System.out.println(iter + " iterations done !");
+		System.out.println("");
+		System.out.println("Itérations effectuées : " + iter);
+		racine.afficherStatistiques();
+		
+		/* 
+		 * fin de l'algorithme		
+		 * On choisit la bonne strategie demandée par l'utilisateur
+		 */
+		racine = strategie.selectionner(racine);
+		StatistiqueDAO.getInstance().ecrire(temps);
+		StatistiqueDAO.getInstance().ecrire(racine.retournerNbSimulation());
+		etat.jouerAction(racine.getAction());
+		/*
+		 * Caster comme ca c'est pas top, on devrait ré-organiser encore le code
+		 */
+		StatistiqueDAO.getInstance().ecrire(((EtatTrap)etat).getPosJoueur());
+		StatistiqueDAO.getInstance().ecrire(((EtatTrap)etat).getScore());
+		StatistiqueDAO.getInstance().nouvelleLigne();
 	}
 
 }
