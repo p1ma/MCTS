@@ -37,13 +37,10 @@ public class PWidening implements FormuleSelection{
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
 		double bValeur = 0.0, totalReward;
-		Action ol = null;
+		
 		for(int i = 0 ; i < k ; i++) {
-			enfant = noeud.retournerEnfant(i);
-			if (enfant == null) {
-				enfant = noeud.appliquer( actions.get(i) );
-			}
-			
+			enfant = noeud.recuperer(actions.get(i));
+
 			int nb = enfant.retournerNbSimulation();
 
 			if ( nb == 0 ) {

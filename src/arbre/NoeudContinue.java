@@ -133,4 +133,14 @@ public abstract class NoeudContinue implements Noeud{
 	public double resultat() {
 		return etat.resultat();
 	}
+
+	public Noeud recuperer(Action action) {
+		for(Noeud noeud : enfants) {
+			Action a = noeud.getAction();
+			if (a.equals(action)) {
+				return noeud;
+			}
+		}
+		return appliquer( action );
+	}
 }
