@@ -18,30 +18,26 @@ public interface Noeud {
 	
 	public List<Action> actionsPossible();
 	
+	public Noeud appliquer(Action action); // ajouter Enfant version simulation
 	public Noeud ajouterEnfant(Action action);
 	public Noeud predecesseur();
 	public Noeud retournerEnfant(int indice);
 	
+	public Noeud setAction(Action action);
 	public Action getAction();
 	
 	public Etat getEtat();
 	
 	public double resultat();
-	public double rapportVictoireSimulation();
-	public double retournerNbVictoire();
+	public double retournerRecompense();
 	
 	public int retournerNbEnfant();
 	public int retournerNbSimulation();
-	public int getInitialJoueur();
-	public int getMinOrMax();
 	
 	public void visiter(double recompense);
-	public void setStatistique(int s, double v);
-	public void setInitialJoueur(int joueur);
-	public void setMinOrMax(int minMax);
-	public void afficherStatistiques();
-	public void supprimerEnfants();
-
-	public Noeud setAction(Action action);
 	
+	public void setStatistique(int s, double v);
+	public void afficherStatistiques();
+	
+	public void supprimerEnfants();	
 }

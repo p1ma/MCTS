@@ -17,7 +17,6 @@ public class TrapFactory implements GameFactory {
 
 	public Noeud getNoeud(Etat etat) {
 		Noeud noeud = new NoeudTrap(etat) ;
-		noeud.setInitialJoueur(etat.getJoueur());
 		return noeud;
 	}
 
@@ -36,13 +35,9 @@ public class TrapFactory implements GameFactory {
 		// boucle de jeu
 		etat.afficherJeu();
 		do {
-			// tour de l'humain
-			System.out.println("####################################################");
 			
-			Main.ordijoue_mcts(etat, temps, strategie);
+			Main.mcts(etat, temps, strategie);
 			etat.afficherJeu();
-
-			etat.setJoueur(1 - etat.getJoueur());
 
 			fin = etat.testFin();
 		} while (fin == FinDePartie.NON);

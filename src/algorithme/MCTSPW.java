@@ -5,8 +5,6 @@ package algorithme;
 
 import algorithme.formule.FormuleSelection;
 import arbre.Noeud;
-import arbre.NoeudContinue;
-import arbre.NoeudDiscret;
 
 /**
  * @author JUNGES Pierre-Marie - M1 Informatique 2016/2017
@@ -24,7 +22,7 @@ public class MCTSPW extends MCTS {
 	}
 
 	@Override
-	public Noeud executer(NoeudContinue noeud) throws Exception {
+	public Noeud executer(Noeud noeud) {
 		/* 1. On simule la fin de partie avec une démarche aléatoire */
 		Noeud terminal = simuler(noeud);
 
@@ -55,17 +53,11 @@ public class MCTSPW extends MCTS {
 		
 		while( !noeud.estRacine() ) {
 			noeud.setStatistique(noeud.retournerNbSimulation(), 
-					noeud.retournerNbVictoire() + recompense);
+					noeud.retournerRecompense() + recompense);
 			noeud = noeud.predecesseur();
 		}
 		noeud.setStatistique(noeud.retournerNbSimulation(), 
-				noeud.retournerNbVictoire() + recompense);
+				noeud.retournerRecompense() + recompense);
 		return noeud;
 	}
-
-	@Override
-	public Noeud executer(NoeudDiscret noeud) throws Exception {
-		throw new Exception("Ouups !\n MCTS-PW n'est pas censé marcher avec un NoeudDiscret !");
-	}
-
 }

@@ -5,8 +5,6 @@ package algorithme;
 
 import algorithme.formule.FormuleSelection;
 import arbre.Noeud;
-import arbre.NoeudContinue;
-import arbre.NoeudDiscret;
 
 /**
  * @author JUNGES Pierre-Marie - M1 Informatique 2016/2017
@@ -21,6 +19,5 @@ public abstract class MCTS {
 		formule = fs;
 	}
 
-	public abstract Noeud executer(NoeudContinue noeud) throws Exception;
-	public abstract Noeud executer(NoeudDiscret noeud) throws Exception;
+	public abstract Noeud executer(Noeud noeud);
 }

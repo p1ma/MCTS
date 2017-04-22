@@ -1,11 +1,8 @@
 package main;
 
-import algorithme.Algorithme;
 import algorithme.MCTS;
 import algorithme.MCTSPW;
-import algorithme.MctsPw;
 import algorithme.formule.FormuleSelection;
-import algorithme.formule.Maxi;
 import algorithme.formule.PWidening;
 import algorithme.formule.Robuste;
 import arbre.Etat;
@@ -13,8 +10,6 @@ import arbre.Noeud;
 import config.Configuration;
 import config.GameFactory;
 import config.TrapFactory;
-import dao.StatistiqueDAO;
-import jeu.trapProblem.EtatTrap;
 
 /**
  * @author JUNGES Pierre-Marie - M1 Informatique 2016/2017
@@ -36,7 +31,7 @@ public class Main {
 		GAME.jouer(TEMPS, new PWidening());		
 	}
 
-	public static void ordijoue_mcts(Etat etat, long temps, FormuleSelection strategie) {
+	public static void mcts(Etat etat, long temps, FormuleSelection strategie) {
 		long tic, toc;
 		// Creer l'arbre de recherche
 		Noeud racine = GAME.getNoeud(etat);
@@ -70,16 +65,10 @@ public class Main {
 		 * fin de l'algorithme		
 		 * On choisit la bonne strategie demandée par l'utilisateur
 		 */
+		strategie = new Robuste();
 		racine = strategie.selectionner(racine);
-		StatistiqueDAO.getInstance().ecrire(temps);
-		StatistiqueDAO.getInstance().ecrire(racine.retournerNbSimulation());
+
 		etat.jouerAction(racine.getAction());
-		/*
-		 * Caster comme ca c'est pas top, on devrait ré-organiser encore le code
-		 */
-		StatistiqueDAO.getInstance().ecrire(((EtatTrap)etat).getPosJoueur());
-		StatistiqueDAO.getInstance().ecrire(((EtatTrap)etat).getScore());
-		StatistiqueDAO.getInstance().nouvelleLigne();
 	}
 
 }

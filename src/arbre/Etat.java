@@ -6,8 +6,6 @@ public interface Etat {
 	
 	// Critéres de fin de partie
 	public enum FinDePartie {NON, MATCHNUL, ORDI_GAGNE, HUMAIN_GAGNE};
-	public static int HUMAIN = 0;
-	public static int ORDI = 1;
 	
 	public void afficherJeu();
 	public void setJoueur(int j);
@@ -26,5 +24,7 @@ public interface Etat {
 	public Object[][] getPlateau();
 	
 	public Etat cloneable();
+
+	public double resultat();
 	
 }

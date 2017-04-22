@@ -16,4 +16,8 @@ import arbre.Etat;
  */
 public class EtatTrap implements Etat {
 
+	public EtatTrap(Etat etat) {
+		// TODO Auto-generated constructor stub
+	}
+
 }
