@@ -4,7 +4,7 @@ public class Configuration {
 
 	public static Configuration INSTANCE = new Configuration();
 	
-	private final int TEMPS = 500; // 2000 ms
+	private final int TEMPS = 100; // 2000 ms
 	
 	private Configuration() {
 	}

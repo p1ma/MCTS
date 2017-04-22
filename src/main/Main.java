@@ -59,14 +59,15 @@ public class Main {
 		
 		System.out.println("");
 		System.out.println("Itérations effectuées : " + iter);
-		
+		System.out.println("Racine : ");
+		racine.afficherStatistiques();
 		/* 
 		 * fin de l'algorithme		
 		 * On choisit la bonne strategie demandée par l'utilisateur
 		 */
 		strategie = new Robuste();
 		
-		System.out.println("Selection...");
+		System.out.println("\nSelection...");
 		racine = strategie.selectionner(racine);
 		racine.afficherStatistiques();
 		System.out.println("Node selected !");

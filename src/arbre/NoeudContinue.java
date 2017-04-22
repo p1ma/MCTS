@@ -16,7 +16,7 @@ import arbre.Etat.FinDePartie;
 public abstract class NoeudContinue implements Noeud{
 
 	protected List<Noeud>  enfants;
-	
+
 	protected Noeud parent = null;
 	protected Action action = null;
 
@@ -24,11 +24,11 @@ public abstract class NoeudContinue implements Noeud{
 
 	protected int simulations = 0;
 	protected double victoires = 0.0;
-	
+
 	public NoeudContinue() {
 		enfants = new LinkedList<Noeud>();
 	}
-	
+
 	public NoeudContinue(Etat e) {
 		parent = null;
 		action = null;
@@ -43,42 +43,46 @@ public abstract class NoeudContinue implements Noeud{
 		enfants = new LinkedList<Noeud>();
 		etat.jouerAction(a);
 	}
-	
+
 	@Override
 	public boolean estTerminal() {
 		return this.etat.testFin() != FinDePartie.NON;
 	}
-	
+
 	@Override
 	public boolean estRacine() {
 		return this.parent == null;
 	}
-	
+
 	@Override
 	public Noeud predecesseur() {
 		return this.parent;
 	}
-	
+
 	@Override
 	public Noeud retournerEnfant(int indice) {
-		return enfants.get(indice);
+		if (enfants != null && indice < enfants.size()) {
+			return enfants.get(indice);
+		} else {
+			return null;
+		}
 	}
-	
+
 	@Override
 	public double retournerRecompense() {
 		return victoires;
 	}
-	
+
 	@Override
 	public int retournerNbSimulation() {
 		return simulations;
 	}
-	
+
 	@Override
 	public int retournerNbEnfant() {
 		return enfants.size();
 	}
-	
+
 	@Override
 	public Action getAction() {
 		return this.action;
@@ -88,7 +92,7 @@ public abstract class NoeudContinue implements Noeud{
 	public Etat getEtat() {
 		return this.etat;
 	}
-	
+
 	@Override
 	public void visiter() {
 		this.simulations++;
@@ -98,7 +102,7 @@ public abstract class NoeudContinue implements Noeud{
 	public void setRecompense(double v) {
 		this.victoires = v;
 	}
-	
+
 	@Override
 	public void afficherStatistiques() {
 		System.out.println("Statistiques : ");
@@ -107,7 +111,7 @@ public abstract class NoeudContinue implements Noeud{
 		} else {
 			System.out.println("\t-Action : aucune");
 		}
-		
+
 		if( parent != null ) {
 			System.out.println("\t-Racine : non");
 		} else {
@@ -124,7 +128,7 @@ public abstract class NoeudContinue implements Noeud{
 		this.action = action;
 		return this;
 	}
-	
+
 	@Override
 	public double resultat() {
 		return etat.resultat();

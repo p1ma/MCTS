@@ -39,17 +39,12 @@ public class PWidening implements FormuleSelection{
 		double bValeur = 0.0, totalReward;
 		Action ol = null;
 		for(int i = 0 ; i < k ; i++) {
-			enfant = noeud.appliquer( actions.get(i) );
-			int nb = 0;
-			int l = 0;
-			
-			while( l < t-1 ) {
-				ol = actions.get(l);
-				if ( ol.equals(actions.get(i)) ) {
-					nb++;
-				}
-				l++;
+			enfant = noeud.retournerEnfant(i);
+			if (enfant == null) {
+				enfant = noeud.appliquer( actions.get(i) );
 			}
+			
+			int nb = enfant.retournerNbSimulation();
 
 			if ( nb == 0 ) {
 				/*System.out.println("\nt=" + t + ", k=" + k + " on ajoute");
