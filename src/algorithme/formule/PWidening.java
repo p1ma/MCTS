@@ -16,19 +16,18 @@ import arbre.NoeudContinue;
  */
 public class PWidening implements FormuleSelection{
 
-	private final double C = 2.44; // > 0
-	private final double alpha = 0.9; // ]O,1[
+	private final double C = 1.0; // > 0
+	private final double alpha = 0.5; // ]O,1[
 
 	@Override
 	public Noeud selectionner(Noeud noeud) {
 		return select((NoeudContinue) noeud);
 	}
-	
+
 	public Noeud select(NoeudContinue noeud) {
 		noeud.visiter(); // nbVisits + 1
 		int t = noeud.retournerNbSimulation();
-		int k = (int)(C * Math.pow(t, alpha));
-
+		int k = (int)Math.ceil((C * Math.pow(t, alpha)));		
 		/*
 		 * On va maintenant échantillonner
 		 * le noeud avec les k prochaines Actions possibles
@@ -42,21 +41,26 @@ public class PWidening implements FormuleSelection{
 		for(int i = 0 ; i < k ; i++) {
 			enfant = noeud.appliquer( actions.get(i) );
 			int nb = 0;
-
-			for ( int l = 0 ; l < t-2 ; l++ ) {
-					ol = actions.get(l);
-					if ( ol.equals(actions.get(i)) ) {
-						nb++;
-					}
+			int l = 0;
+			
+			while( l < t-1 ) {
+				ol = actions.get(l);
+				if ( ol.equals(actions.get(i)) ) {
+					nb++;
+				}
+				l++;
 			}
 
 			if ( nb == 0 ) {
+				/*System.out.println("\nt=" + t + ", k=" + k + " on ajoute");
+				noeud.afficherStatistiques();
+				System.out.println("AVEC action : " + actions.get(i));*/
 				// on s'arrete car on aura un score infini ici
 				return noeud.ajouterEnfant( actions.get(i) );
 			} else {
 				// equivalent UCT
 				totalReward = enfant.resultat() + noeud.resultat();
-				
+
 				bValeur = ( totalReward / (nb + 1));
 				bValeur += k * Math.sqrt( Math.log( t ) / (nb + 1));
 			}
@@ -66,7 +70,9 @@ public class PWidening implements FormuleSelection{
 				best = i;
 			}
 		}
-		
+		/*System.out.println("\nt=" + t + ", k=" + k + " on ajoute rien");
+		noeud.afficherStatistiques();
+		System.out.println("AVEC action : " + noeud.retournerEnfant(best).getAction());*/
 		return noeud.retournerEnfant(best);
 	}
 }

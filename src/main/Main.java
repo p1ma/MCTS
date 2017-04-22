@@ -52,10 +52,11 @@ public class Main {
 		    	du Noeud terminal à la racine.
 			 */
 			racine = mcts.executer(racine);
+			
 			toc = System.currentTimeMillis();
 			iter++;
 		} while (toc < (tic + temps));
-
+		
 		System.out.println("");
 		System.out.println("Itérations effectuées : " + iter);
 		
@@ -67,8 +68,8 @@ public class Main {
 		
 		System.out.println("Selection...");
 		racine = strategie.selectionner(racine);
-		System.out.println("Node selected !");
 		racine.afficherStatistiques();
+		System.out.println("Node selected !");
 		
 		etat.jouerAction(racine.getAction());
 	}

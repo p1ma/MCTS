@@ -18,8 +18,7 @@ public class Robuste implements FormuleSelection {
 			}
 			k++;
 		}
-
-		return noeud.setAction( noeud.retournerEnfant(indice).getAction() );
+		return noeud.retournerEnfant(indice);
 	}
 
 }
