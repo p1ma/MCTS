@@ -8,23 +8,18 @@ public interface Etat {
 	public enum FinDePartie {NON, MATCHNUL, ORDI_GAGNE, HUMAIN_GAGNE};
 	
 	public void afficherJeu();
-	public void setJoueur(int j);
-	public void supprimerAction(Action action);
-	
-	public Action demanderAction();
-	
-	public List<Action> coups_possibles();
+
+	public List<Action> coups_possibles(int k);
 	public FinDePartie testFin();
 	
 	public boolean jouerAction(Action action);
 	
-	public int getJoueur();
-	public int getNbCoups();
+	public int getPas();
+	public double getScore();
+	public Object getPosition();
 	
 	public Object[][] getPlateau();
 	
-	public Etat cloneable();
-
 	public double resultat();
 	
 }

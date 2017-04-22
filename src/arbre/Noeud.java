@@ -16,7 +16,7 @@ public interface Noeud {
 	public boolean resteAction();
 	public boolean estRacine();
 	
-	public List<Action> actionsPossible();
+	public List<Action> actionsPossible(int k);
 	
 	public Noeud appliquer(Action action); // ajouter Enfant version simulation
 	public Noeud ajouterEnfant(Action action);
@@ -38,6 +38,4 @@ public interface Noeud {
 	
 	public void setStatistique(int s, double v);
 	public void afficherStatistiques();
-	
-	public void supprimerEnfants();	
 }

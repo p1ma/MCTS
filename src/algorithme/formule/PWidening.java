@@ -33,7 +33,7 @@ public class PWidening implements FormuleSelection{
 		 * On va maintenant échantillonner
 		 * le noeud avec les k prochaines Actions possibles
 		 */
-		List<Action> actions = noeud.echantillonner(k);
+		List<Action> actions = noeud.actionsPossible(k);
 		List<Action> mem = new LinkedList<Action>(actions);
 
 		Noeud enfant = null;

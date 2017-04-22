@@ -40,8 +40,6 @@ public abstract class NoeudContinue implements Noeud{
 		etat = e;
 		enfants = new LinkedList<Noeud>();
 	}
-
-	public abstract List<Action> echantillonner(int k);
 	
 	@Override
 	public boolean estTerminal() {

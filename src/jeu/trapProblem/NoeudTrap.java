@@ -27,7 +27,7 @@ public class NoeudTrap extends NoeudContinue {
 	}
 	
 	public boolean resteAction() {
-		return (this.etat.getNbCoups() != 0);
+		return true;
 	}
 
 	@Override
@@ -43,10 +43,7 @@ public class NoeudTrap extends NoeudContinue {
 	}
 
 	@Override
-	public List<Action> echantillonner(int k) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
+	public List<Action> actionsPossible(int k) {
+		return etat.coups_possibles(k);
+	}	
 }

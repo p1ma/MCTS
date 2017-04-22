@@ -11,13 +11,12 @@ import main.Main;
 
 public class TrapFactory implements GameFactory {
 
-	public Etat getEtat(int joueur) {
+	public Etat getEtat() {
 		return new EtatTrap();
 	}
 
 	public Noeud getNoeud(Etat etat) {
-		Noeud noeud = new NoeudTrap(etat) ;
-		return noeud;
+		return new NoeudTrap(etat) ;
 	}
 
 	public void jouer(long temps, FormuleSelection strategie) {
@@ -25,9 +24,7 @@ public class TrapFactory implements GameFactory {
 
 		// initialisation
 		Etat etat = null;
-
-		int joueur = Etat.HUMAIN;
-		etat = getEtat(joueur);
+		etat = getEtat();
 
 		System.out.println("Temps de réflexion de l'ordinateur : " + (temps / 1000.0) + "s");
 

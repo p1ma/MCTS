@@ -19,21 +19,14 @@ public class ActionTrap implements Action{
 		this.pas = ls;
 	}
 
-	public double retournerPas() {
+	@Override
+	public Object getRepresentation() {
 		return this.pas;
 	}
 
+	@Override
 	public boolean estGagnante(Noeud noeud) {
-		/*
-		 * Le jeu n'a pas de critère d'arret
-		 * telle qu'une victoire ou non
-		 * return (noeud.getEtat().getNbCoups() == 0);
-		 */
 		return false;
-	}
-
-	public void ajouterBruit(double x) {
-		this.pas += x;
 	}
 
 	@Override

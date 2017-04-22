@@ -3,8 +3,9 @@
  */
 package jeu.trapProblem;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import arbre.Action;
 import arbre.Etat;
@@ -16,8 +17,115 @@ import arbre.Etat;
  */
 public class EtatTrap implements Etat {
 
+	private Integer[][] plateau = {{100,70}, {170,0}, {1000,100}};
+	private double position;
+	
+	private int pas = 2;
+	private final int min = 0, max = 1; 
+	private final Random random = new Random();
+	
+	private List<Action> options = null;
+	
+	private double score;
+	
 	public EtatTrap(Etat etat) {
-		// TODO Auto-generated constructor stub
+		this.position = (double)etat.getPosition();
+		this.pas = etat.getPas();
+		this.score = etat.getScore();
 	}
 
+	public EtatTrap() {
+		score = 0;
+		position = 0;		
+	}
+
+	@Override
+	public void afficherJeu() {
+		System.out.println("----------------------------------------------------");
+		System.out.println("Position du joueur : " + position);
+		System.out.println("Score : " + this.score);
+
+		System.out.print("O \t\t");
+		for (Integer[] tab : this.plateau) {
+			System.out.print(tab[0] + "\t\t");
+		}
+		System.out.println("");
+		for (Integer[] tab : this.plateau) {
+			System.out.print("| " + tab[1] + "\t\t");
+		}
+		System.out.println("\n");
+	}
+
+	@Override
+	public List<Action> coups_possibles(int k) {
+		if (options == null) {
+			options = new LinkedList<Action>();
+		}
+		uniforme(k);
+		return options;
+	}
+
+	private void uniforme(int k) {
+		// options is not null
+		int t = options.size();
+		double step;
+		
+		for(int i = t ; i < (k - t) ; i++) {
+			step = ((random.nextDouble() * max) + min) % max;
+			options.add( new ActionTrap(step) );
+		}
+	}
+
+	@Override
+	public FinDePartie testFin() {
+		return pas == 0 ? FinDePartie.HUMAIN_GAGNE : FinDePartie.NON;
+	}
+
+	@Override
+	public boolean jouerAction(Action action) {
+		if (pas > 0) {
+			position += (double) action.getRepresentation();
+			pas--;
+
+			for (Integer[] i : this.plateau) {
+				if (position <= i[0]) {
+					this.score += i[1];
+					return true;
+				}
+			}
+			this.score += this.plateau[this.plateau.length-1][1];
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int getPas() {
+		return pas;
+	}
+
+	@Override
+	public double getScore() {
+		return score;
+	}
+
+	@Override
+	public Object getPosition() {
+		return position;
+	}
+
+	@Override
+	public Object[][] getPlateau() {
+		return plateau;
+	}
+
+	@Override
+	public double resultat() {
+		for (Integer[] i : (Integer[][])plateau) {
+			if (position <= i[0]) {
+				return i[1];
+			}
+		}
+		return plateau[plateau.length - 1][1];
+	}
 }

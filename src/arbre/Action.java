@@ -13,4 +13,6 @@ public interface Action {
 	public boolean estGagnante(Noeud noeud);
 	
 	public String toString();
+
+	public Object getRepresentation();
 }
