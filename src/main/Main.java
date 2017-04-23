@@ -10,6 +10,7 @@ import arbre.Noeud;
 import config.Configuration;
 import config.GameFactory;
 import config.TrapFactory;
+import dao.StatistiqueDAO;
 
 /**
  * @author JUNGES Pierre-Marie - M1 Informatique 2016/2017
@@ -20,9 +21,11 @@ public class Main {
 
 	private final static GameFactory GAME = new TrapFactory();
 	private final static long TEMPS = Configuration.getInstance().getTemps();
-	
+
 	public static void main(String[] args) {
-		jouer(args);
+		for(int i = 0 ; i < 100 ; i++) {
+			jouer(args);
+		}
 	}
 
 	public static void jouer(String[] args) {
@@ -52,25 +55,27 @@ public class Main {
 		    	du Noeud terminal à la racine.
 			 */
 			racine = mcts.executer(racine);
-			
+
 			toc = System.currentTimeMillis();
 			iter++;
 		} while (toc < (tic + temps));
-		
+
 		System.out.println("");
 		System.out.println("Itérations effectuées : " + iter);
-
+		racine.afficherStatistiques();
 		/* 
 		 * fin de l'algorithme		
 		 * On choisit la bonne strategie demandée par l'utilisateur
 		 */
 		strategie = st;
-		
+
 		System.out.println("\nSelection...");
 		racine = strategie.selectionner(racine);
 		System.out.println("Node selected !");
 		System.out.println("Ce Noeud a " + racine.retournerNbSimulation() + " simulations");
 		etat.jouerAction(racine.getAction());
+
+		StatistiqueDAO.getInstance().ecrire(temps, PWidening.C, PWidening.alpha, racine);
 	}
 
 }

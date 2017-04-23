@@ -16,8 +16,8 @@ import arbre.NoeudContinue;
  */
 public class PWidening implements FormuleSelection{
 
-	private final double C = 2.44; // > 0
-	private final double alpha = 0.4; // ]O,1[
+	public static final double C = 2.44; // > 0
+	public static final double alpha = 0.4; // ]O,1[
 
 	@Override
 	public Noeud selectionner(Noeud noeud) {
