@@ -28,12 +28,11 @@ public class TrapFactory implements GameFactory {
 		etat = getEtat();
 
 		System.out.println("Temps de réflexion de l'ordinateur : " + (temps / 1000.0) + "s");
-		FormuleSelection st = new Robuste();
 		
 		// boucle de jeu
 		etat.afficherJeu();
 		do {
-			Main.mcts(etat, temps, strategie, st);
+			Main.mcts(etat, temps, strategie, new Robuste());
 			etat.afficherJeu();
 
 			fin = etat.testFin();

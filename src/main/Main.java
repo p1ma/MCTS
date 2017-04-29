@@ -4,7 +4,6 @@ import algorithme.MCTS;
 import algorithme.MCTSPW;
 import algorithme.formule.FormuleSelection;
 import algorithme.formule.PWidening;
-import algorithme.formule.Robuste;
 import arbre.Etat;
 import arbre.Noeud;
 import config.Configuration;
@@ -62,20 +61,25 @@ public class Main {
 
 		System.out.println("");
 		System.out.println("Itérations effectuées : " + iter);
-		racine.afficherStatistiques();
+		//racine.afficherStatistiques();
 		/* 
 		 * fin de l'algorithme		
 		 * On choisit la bonne strategie demandée par l'utilisateur
 		 */
 		strategie = st;
 
-		System.out.println("\nSelection...");
-		racine = strategie.selectionner(racine);
-		System.out.println("Node selected !");
-		System.out.println("Ce Noeud a " + racine.retournerNbSimulation() + " simulations");
-		etat.jouerAction(racine.getAction());
-
-		StatistiqueDAO.getInstance().ecrire(temps, PWidening.C, PWidening.alpha, racine);
+		//System.out.println("\nSelection...");
+		Noeud enfant = strategie.selectionner(racine);
+		//System.out.println("Node selected !");
+		//System.out.println("Ce Noeud a " + racine.retournerNbSimulation() + " simulations");
+		etat.jouerAction(enfant.getAction());
+		
+		StatistiqueDAO.getInstance().ecrire(temps, 
+				PWidening.C, 
+				PWidening.alpha, 
+				iter,
+				racine,
+				enfant);
 	}
 
 }

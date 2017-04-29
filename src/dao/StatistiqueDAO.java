@@ -18,12 +18,16 @@ import arbre.Noeud;
 public class StatistiqueDAO {
 
 	//  temps | simulation | position | recompenses
-	public final static String SIMUS = "simulations";
+	public final static String SIMUS = "simulations noeud racine";
+	public final static String SSIMUS = "simulations noeud enfant sélectionné";
+	public final static String ENFANTS = "nombre d'enfants";
 	public final static String C = "C";
 	public final static String ALPHA = "alpha";
-	public final static String POS = "position";
+	public final static String POS = "position noeud racine";
+	public final static String SPOS = "position noeud enfant sélectionné";
 	public final static String RECOMP = "recompenses";
 	public final static String TEMP = "temps(ms)";
+	public final static String ITER = "iterations";
 	
 	private static StatistiqueDAO INSTANCE = null;
 	private FileWriter writer;
@@ -41,13 +45,21 @@ public class StatistiqueDAO {
 				writer = new FileWriter(file, false);
 				writer.append(TEMP);
 				writer.append(separateur);
+				writer.append(ITER);
+				writer.append(separateur);
 				writer.append(C);
 				writer.append(separateur);
 				writer.append(ALPHA);
 				writer.append(separateur);
+				writer.append(ENFANTS);
+				writer.append(separateur);
 				writer.append(SIMUS);
 				writer.append(separateur);
+				writer.append(SSIMUS);
+				writer.append(separateur);
 				writer.append(POS);
+				writer.append(separateur);
+				writer.append(SPOS);
 				writer.append(separateur);
 				writer.append(RECOMP);
 				writer.append(separateur);
@@ -81,23 +93,36 @@ public class StatistiqueDAO {
 	}
 	
 	//  temps | simulation | position | recompenses
-	public void ecrire(long temps, double C, double a, Noeud noeud) {
+	public void ecrire(long temps, 
+			double C, 
+			double a, 
+			int iter, 
+			Noeud noeudRacine,
+			Noeud noeudEnfant) {
 		try {
 			writer.append(temps + "");
+			writer.append(separateur);
+			writer.append(iter + "");
 			writer.append(separateur);
 			writer.append(C + "");
 			writer.append(separateur);
 			writer.append(a + "");
 			writer.append(separateur);
-			writer.append(noeud.retournerNbSimulation() + "");
+			writer.append(noeudRacine.retournerNbEnfant() + "");
 			writer.append(separateur);
-			Etat e = noeud.getEtat();
+			writer.append(noeudRacine.retournerNbSimulation() + "");
+			writer.append(separateur);
+			writer.append(noeudEnfant.retournerNbSimulation() + "");
+			writer.append(separateur);
+			Etat e = noeudRacine.getEtat();
+			writer.append((double)e.getPosition() + "");
+			writer.append(separateur);
+			e = noeudEnfant.getEtat();
 			writer.append((double)e.getPosition() + "");
 			writer.append(separateur);
 			writer.append(e.getScore() + "");
 			writer.append(separateur);
 			writer.append("\n");
-			writer.flush();
 			writer.flush();
 		} catch (IOException e) {
 			System.err.println(e.getMessage());

@@ -16,7 +16,7 @@ import arbre.NoeudContinue;
  */
 public class PWidening implements FormuleSelection{
 
-	public static final double C = 2.44; // > 0
+	public static final double C = 3; // > 0
 	public static final double alpha = 0.4; // ]O,1[
 
 	@Override
@@ -62,10 +62,6 @@ public class PWidening implements FormuleSelection{
 				best = i;
 			}
 		}
-		/*System.out.println("\nt=" + t + ", k=" + k + " on ajoute rien");
-		noeud.afficherStatistiques();
-		System.out.println("AVEC action : " + noeud.retournerEnfant(best).getAction());*/
-
 		return noeud.retournerEnfant(best);
 	}
 }
