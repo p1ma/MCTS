@@ -15,7 +15,7 @@ import arbre.Etat.FinDePartie;
  */
 public abstract class NoeudContinue implements Noeud{
 
-	protected List<Noeud>  enfants;
+	protected List<Noeud> enfants;
 
 	protected Noeud parent = null;
 	protected Action action = null;
@@ -143,4 +143,59 @@ public abstract class NoeudContinue implements Noeud{
 		}
 		return appliquer( action );
 	}
+
+	@Override
+	public boolean contientEnfant(Noeud enfant) {
+		for(Noeud noeud : enfants) {
+			if (noeud.equals(enfant)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Noeud verif = (NoeudContinue) obj;
+		boolean simu = verif.retournerNbSimulation() == simulations;
+		if (!simu ) {
+			return false;
+		}
+		boolean en = verif.retournerNbEnfant() == enfants.size();
+		if (!en) {
+			return false;
+		}
+		
+		Action act = verif.getAction();
+		if (act == null) {
+			if (action != null) {
+				return false;
+			}
+		} else {
+			if (action == null) {
+				return false;
+			} else {
+				if ( !action.equals(act) ) {
+					return false;
+				}
+			}
+		}
+		
+		if ( !etat.equals(verif.getEtat()) ) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public abstract boolean resteAction();
+
+	@Override
+	public abstract List<Action> actionsPossible(int k);
+
+	@Override
+	public abstract Noeud appliquer(Action action);
+
+	@Override
+	public abstract Noeud ajouterEnfant(Action action);
 }

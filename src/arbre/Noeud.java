@@ -15,6 +15,7 @@ public interface Noeud {
 	public boolean estTerminal();
 	public boolean resteAction();
 	public boolean estRacine();
+	public boolean contientEnfant(Noeud enfant);
 	
 	public List<Action> actionsPossible(int k);
 	

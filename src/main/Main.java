@@ -22,7 +22,7 @@ public class Main {
 	private final static long TEMPS = Configuration.getInstance().getTemps();
 
 	public static void main(String[] args) {
-		for(int i = 0 ; i < 100 ; i++) {
+		for(int i = 0 ; i < 50 ; i++) {
 			jouer(args);
 		}
 	}

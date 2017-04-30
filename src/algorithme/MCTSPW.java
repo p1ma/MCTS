@@ -46,7 +46,7 @@ public class MCTSPW extends MCTS {
 		while( !simulation.estTerminal() ) { 		
 			simulation = developper(simulation);
 		}
-		
+		simulation.visiter();
 		return simulation;
 	}
 
@@ -55,7 +55,7 @@ public class MCTSPW extends MCTS {
 		while( !noeud.estRacine() ) {
 			noeud.setRecompense( noeud.retournerRecompense() + 
 					recompense );
-			noeud.visiter();
+			//noeud.visiter();
 			noeud = noeud.predecesseur();
 		}
 		return noeud;

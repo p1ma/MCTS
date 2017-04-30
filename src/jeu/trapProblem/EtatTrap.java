@@ -129,4 +129,31 @@ public class EtatTrap implements Etat {
 		}
 		return plateau[plateau.length - 1][1];
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		EtatTrap etat = (EtatTrap) obj;
+		double pos = (double)etat.getPosition();
+		
+		if(position != pos) {
+			return false;
+		}
+		
+		double res = etat.resultat();
+		double thisRes = resultat();
+		if (res != thisRes) {
+			return false;
+		}
+		
+		if (etat.getPas() != pas) {
+			return false;
+		}
+		
+		if (etat.getScore() != score) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 }
