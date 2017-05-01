@@ -1,3 +1,3 @@
 Projet de Bellec - Junges
 
-Java 1.8
+Java 8
