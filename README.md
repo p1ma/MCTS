@@ -1,3 +1,3 @@
 Projet de Bellec - Junges
 
-Java 8
+MCTS dans un monde continue.
