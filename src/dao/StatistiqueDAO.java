@@ -28,10 +28,13 @@ public class StatistiqueDAO {
 	public final static String RECOMP = "recompenses";
 	public final static String TEMP = "temps(ms)";
 	public final static String ITER = "iterations";
+	public final static String VALEURS = "valeurs";
 	
 	private static StatistiqueDAO INSTANCE = null;
 	private FileWriter writer;
+	private FileWriter writer2;
 	private final String file = "stats01Mai.csv";
+	private final String random = "randoms.csv";
 	private final String separateur = ",";
 	
 	/*
@@ -70,6 +73,18 @@ public class StatistiqueDAO {
 				writer.append("\n");
 				writer.flush();
 			}
+			f = new File(random);
+			if (!f.exists()) {
+				writer2 = new FileWriter(random, false);
+				writer2.append(VALEURS);
+				writer2.append(separateur);
+				writer2.append("\n");
+				writer2.flush();
+			} else {
+				writer2 = new FileWriter(random, true);
+				writer2.append("\n");
+				writer2.flush();
+			}
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -84,9 +99,10 @@ public class StatistiqueDAO {
 	
 	public void ecrire(double valeur) {
 		try {
-			writer.append(valeur + "");
-			writer.append(separateur);
-			writer.flush();
+			writer2.append(valeur + "");
+			writer2.append(separateur);
+			writer2.append("\n");
+			writer2.flush();
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}

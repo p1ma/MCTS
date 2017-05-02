@@ -5,6 +5,7 @@ package arbre;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import arbre.Etat.FinDePartie;
 
@@ -24,6 +25,8 @@ public abstract class NoeudContinue implements Noeud{
 
 	protected int simulations = 0;
 	protected double victoires = 0.0;
+	
+	public static double R = 0.5;
 
 	public NoeudContinue() {
 		enfants = new LinkedList<Noeud>();
@@ -133,7 +136,9 @@ public abstract class NoeudContinue implements Noeud{
 	public double resultat() {
 		return etat.resultat();
 	}
-
+	
+	public abstract void bruitage();
+	
 	public Noeud recuperer(Action action) {
 		for(Noeud noeud : enfants) {
 			Action a = noeud.getAction();

@@ -8,6 +8,7 @@ public interface Etat {
 	public enum FinDePartie {NON, MATCHNUL, ORDI_GAGNE, HUMAIN_GAGNE};
 	
 	public void afficherJeu();
+	public void mettreAJour(Object o);
 
 	public List<Action> coups_possibles(int k);
 	public FinDePartie testFin();

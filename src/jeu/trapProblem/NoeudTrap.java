@@ -18,8 +18,6 @@ import arbre.NoeudContinue;
  */
 public class NoeudTrap extends NoeudContinue {
 	
-	public static double R = 0.5;
-	
 	public NoeudTrap(Etat etat) {
 		super(new EtatTrap(etat));
 	}
@@ -39,11 +37,6 @@ public class NoeudTrap extends NoeudContinue {
 
 	@Override
 	public Noeud ajouterEnfant(Action action) {
-		double length = (double)action.getRepresentation();
-		length += R * (new Random()).nextDouble();
-		
-		action.setRepresentation(length);
-		
 		Noeud enfant = new NoeudTrap(this, new EtatTrap(getEtat()), action);
 		this.enfants.add( enfant );
 		return enfant;
@@ -53,4 +46,13 @@ public class NoeudTrap extends NoeudContinue {
 	public List<Action> actionsPossible(int k) {
 		return etat.coups_possibles(k);
 	}	
+	
+	public void bruitage() {
+		double length = (double)action.getRepresentation();
+		double bruit = R * (new Random()).nextDouble();
+		
+		length += bruit;
+		action.setRepresentation(length);
+		etat.mettreAJour(bruit);
+	}
 }

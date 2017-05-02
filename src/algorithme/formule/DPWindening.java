@@ -61,10 +61,11 @@ public class DPWindening implements FormuleSelection {
 				best = i;
 			}
 			nb++;
-			k = (int)Math.ceil((C * Math.pow(nb, alpha)));
+			int kprim = (int)Math.ceil((C * Math.pow(nb, alpha)));
 			
 			// pas sur
-			if (k > enfant.retournerNbEnfant()) {
+			if (kprim > enfant.retournerNbEnfant()) {
+				Noeud nouvelEnfant = enfant.
 				if ( !noeud.contientEnfant( enfant ) ) {
 					noeud.ajouterEnfant( actions.get(i) );
 				} else {
