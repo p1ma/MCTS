@@ -25,7 +25,7 @@ public abstract class NoeudContinue implements Noeud {
 	protected int simulations = 0;
 	protected double victoires = 0.0;
 	
-	public static double R = 0.5;
+	public static double R = 0.05;
 
 	public NoeudContinue() {
 		enfants = new LinkedList<NoeudContinue>();
