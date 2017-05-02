@@ -35,7 +35,7 @@ public class DPWindening implements FormuleSelection {
 		 * le noeud avec les k prochaines Actions possibles
 		 */
 		List<Action> actions = noeud.actionsPossible(k);
-		Noeud enfant = null;
+		NoeudContinue enfant = null;
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
 		double bValeur = 0.0, totalReward;
@@ -64,8 +64,9 @@ public class DPWindening implements FormuleSelection {
 			int kprim = (int)Math.ceil((C * Math.pow(nb, alpha)));
 			
 			// pas sur
-			if (kprim > enfant.retournerNbEnfant()) {
-				Noeud nouvelEnfant = enfant.
+			if (kprim > enfant.retournerNbEnfant()){
+				NoeudContinue nouvelEnfant = enfant.copy();
+				nouvelEnfant.bruitage();
 				if ( !noeud.contientEnfant( enfant ) ) {
 					noeud.ajouterEnfant( actions.get(i) );
 				} else {

@@ -18,6 +18,10 @@ public class ActionTrap implements Action{
 	public ActionTrap(double ls) {
 		this.pas = ls;
 	}
+	
+	public ActionTrap(Action act) {
+		pas = (double) act.getRepresentation();
+	}
 
 	@Override
 	public Object getRepresentation() {

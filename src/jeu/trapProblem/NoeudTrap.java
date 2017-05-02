@@ -31,15 +31,20 @@ public class NoeudTrap extends NoeudContinue {
 	}
 
 	@Override
-	public Noeud appliquer(Action action) {
+	public NoeudContinue appliquer(Action action) {
 		return new NoeudTrap(this, new EtatTrap(getEtat()), action);
 	}
 
 	@Override
-	public Noeud ajouterEnfant(Action action) {
-		Noeud enfant = new NoeudTrap(this, new EtatTrap(getEtat()), action);
+	public NoeudContinue ajouterEnfant(Action action) {
+		NoeudContinue enfant = new NoeudTrap(this, new EtatTrap(getEtat()), action);
 		this.enfants.add( enfant );
 		return enfant;
+	}
+	
+	@Override
+	public NoeudContinue copy() {
+		return new NoeudTrap(this, new EtatTrap(etat), new ActionTrap(action));
 	}
 
 	@Override

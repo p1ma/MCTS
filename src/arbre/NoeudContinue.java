@@ -5,7 +5,6 @@ package arbre;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 import arbre.Etat.FinDePartie;
 
@@ -14,9 +13,9 @@ import arbre.Etat.FinDePartie;
  *
  * Apr 22, 2017
  */
-public abstract class NoeudContinue implements Noeud{
+public abstract class NoeudContinue implements Noeud {
 
-	protected List<Noeud> enfants;
+	protected List<NoeudContinue> enfants;
 
 	protected Noeud parent = null;
 	protected Action action = null;
@@ -29,21 +28,21 @@ public abstract class NoeudContinue implements Noeud{
 	public static double R = 0.5;
 
 	public NoeudContinue() {
-		enfants = new LinkedList<Noeud>();
+		enfants = new LinkedList<NoeudContinue>();
 	}
 
 	public NoeudContinue(Etat e) {
 		parent = null;
 		action = null;
 		etat = e;
-		enfants = new LinkedList<Noeud>();
+		enfants = new LinkedList<NoeudContinue>();
 	}
 
 	public NoeudContinue(Noeud p, Etat e, Action a) {
 		parent = p;
 		action = a;
 		etat = e;
-		enfants = new LinkedList<Noeud>();
+		enfants = new LinkedList<NoeudContinue>();
 		etat.jouerAction(a);
 	}
 
@@ -139,8 +138,8 @@ public abstract class NoeudContinue implements Noeud{
 	
 	public abstract void bruitage();
 	
-	public Noeud recuperer(Action action) {
-		for(Noeud noeud : enfants) {
+	public NoeudContinue recuperer(Action action) {
+		for(NoeudContinue noeud : enfants) {
 			Action a = noeud.getAction();
 			if (a.equals(action)) {
 				return noeud;
@@ -199,8 +198,10 @@ public abstract class NoeudContinue implements Noeud{
 	public abstract List<Action> actionsPossible(int k);
 
 	@Override
-	public abstract Noeud appliquer(Action action);
+	public abstract NoeudContinue appliquer(Action action);
 
 	@Override
-	public abstract Noeud ajouterEnfant(Action action);
+	public abstract NoeudContinue ajouterEnfant(Action action);
+	
+	public abstract NoeudContinue copy();
 }
