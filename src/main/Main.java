@@ -2,6 +2,7 @@ package main;
 
 import algorithme.MCTS;
 import algorithme.MCTSPW;
+import algorithme.formule.DPWindening;
 import algorithme.formule.FormuleSelection;
 import algorithme.formule.PWidening;
 import arbre.Etat;
@@ -22,14 +23,14 @@ public class Main {
 	private final static long TEMPS = Configuration.getInstance().getTemps();
 
 	public static void main(String[] args) {
-		for(int i = 0 ; i < 50 ; i++) {
+		for(int i = 0 ; i < 1 ; i++) {
 			jouer(args);
 		}
 	}
 
 	public static void jouer(String[] args) {
 		// on lance le jeu
-		GAME.jouer(TEMPS, new PWidening());		
+		GAME.jouer(TEMPS, new DPWindening());		
 	}
 
 	public static void mcts(Etat etat, long temps, FormuleSelection strategie,  FormuleSelection st) {

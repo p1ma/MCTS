@@ -40,4 +40,10 @@ public class ActionTrap implements Action{
 		return "pas = " + pas;
 	}
 
+	@Override
+	public void setRepresentation(Object o) {
+		double r = (double) o;
+		pas = r;
+	}
+
 }

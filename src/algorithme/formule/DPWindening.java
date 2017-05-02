@@ -60,13 +60,15 @@ public class DPWindening implements FormuleSelection {
 				min = bValeur;
 				best = i;
 			}
-			
+			nb++;
 			k = (int)Math.ceil((C * Math.pow(nb, alpha)));
 			
 			// pas sur
 			if (k > enfant.retournerNbEnfant()) {
 				if ( !noeud.contientEnfant( enfant ) ) {
 					noeud.ajouterEnfant( actions.get(i) );
+				} else {
+					//enfant.visiter();
 				}
 			} else {
 				return noeud.retournerEnfant(random.nextInt(nb));

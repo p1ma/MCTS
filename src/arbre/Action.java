@@ -15,4 +15,6 @@ public interface Action {
 	public String toString();
 
 	public Object getRepresentation();
+	
+	public void setRepresentation(Object o);
 }

@@ -4,6 +4,7 @@
 package jeu.trapProblem;
 
 import java.util.List;
+import java.util.Random;
 
 import arbre.Action;
 import arbre.Etat;
@@ -16,6 +17,8 @@ import arbre.NoeudContinue;
  * Feb 16, 2017
  */
 public class NoeudTrap extends NoeudContinue {
+	
+	public static double R = 0.5;
 	
 	public NoeudTrap(Etat etat) {
 		super(new EtatTrap(etat));
@@ -36,6 +39,11 @@ public class NoeudTrap extends NoeudContinue {
 
 	@Override
 	public Noeud ajouterEnfant(Action action) {
+		double length = (double)action.getRepresentation();
+		length += R * (new Random()).nextDouble();
+		
+		action.setRepresentation(length);
+		
 		Noeud enfant = new NoeudTrap(this, new EtatTrap(getEtat()), action);
 		this.enfants.add( enfant );
 		return enfant;

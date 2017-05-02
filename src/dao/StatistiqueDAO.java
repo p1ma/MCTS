@@ -31,7 +31,7 @@ public class StatistiqueDAO {
 	
 	private static StatistiqueDAO INSTANCE = null;
 	private FileWriter writer;
-	private final String file = "stats.csv";
+	private final String file = "stats01Mai.csv";
 	private final String separateur = ",";
 	
 	/*
