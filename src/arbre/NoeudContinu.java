@@ -3,8 +3,10 @@
  */
 package arbre;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import arbre.Etat.FinDePartie;
 
@@ -45,12 +47,18 @@ public abstract class NoeudContinu implements Noeud {
 	 * Récompense du Noeud
 	 */
 	protected double recompenses = 0.0;
-
+	
+	/**
+	 * Bruit
+	 */
+	public Set<Double> bruits;
+	
 	/**
 	 * Constructeur de NoeudContinu
 	 */
 	public NoeudContinu() {
 		enfants = new LinkedList<NoeudContinu>();
+		bruits = new HashSet<Double>();
 	}
 
 	/**
@@ -62,6 +70,7 @@ public abstract class NoeudContinu implements Noeud {
 		etat = e;
 		etat.setScore(0);
 		enfants = new LinkedList<NoeudContinu>();
+		bruits = new HashSet<Double>();
 	}
 
 	/**
@@ -72,14 +81,17 @@ public abstract class NoeudContinu implements Noeud {
 		action = a;
 		etat = e;
 		enfants = new LinkedList<NoeudContinu>();
-		etat.setScore(parent.resultat());
-		etat.jouerAction(a);
+		bruits = new HashSet<Double>();
+		/*etat.setScore(parent.resultat());
+		etat.jouerAction(a);*/
 	}
 	
 	/*
 	 * FONCTIONS ABSTRAITES
 	 */
 	public abstract NoeudContinu bruite();
+	
+	public abstract NoeudContinu ajouterEnfantBruite(Action action);
 	
 	@Override
 	public abstract boolean resteAction();
@@ -92,10 +104,7 @@ public abstract class NoeudContinu implements Noeud {
 
 	@Override
 	public abstract NoeudContinu ajouterEnfant(Action action);
-
-	public abstract NoeudContinu copy();
 	
-
 	@Override
 	public boolean estTerminal() {
 		return this.etat.testFin() != FinDePartie.NON;

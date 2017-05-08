@@ -7,8 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import dao.StatistiqueDAO;
-
 import arbre.Action;
 import arbre.Etat;
 
@@ -82,7 +80,7 @@ public class EtatTrap implements Etat {
 
 		for(int i = 0 ; i < (k - t) ; i++) {
 			step = ((random.nextDouble() * max) + min) % max;
-			StatistiqueDAO.getInstance().ecrire(step);
+			//StatistiqueDAO.getInstance().ecrire(step);
 			options.add( new ActionTrap(step) );
 		}
 	}
@@ -103,11 +101,13 @@ public class EtatTrap implements Etat {
 		score += resultat();
 		return false;
 	}
-
-	public void mettreAJour(Object o) {
-		bruit = (double)o;
-		position += bruit;
-		resultat();
+	
+	public void mettreAJour(Action action) {
+		if (pas > 0) {
+			position += (double) action.getRepresentation();
+			score += resultat();
+		}
+		score += resultat();
 	}
 
 	@Override

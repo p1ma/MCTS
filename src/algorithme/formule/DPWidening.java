@@ -65,17 +65,16 @@ public class DPWidening implements FormuleSelection {
 		}
 		// progressive widening on the random part then
 		enfant = s.retournerEnfant(best);
-		
 		nb = enfant.nbSimulation();
+		
 		int kprim = (int)Math.ceil((C * Math.pow(nb, alpha)));
-
 
 		if ( kprim > enfant.nbEnfant() ){
 
+			// On recupere un Noeud bruité
 			NoeudContinu bruite = enfant.bruite();
-
 			if ( !enfant.contientEnfant( bruite ) ) {
-				return enfant.ajouterEnfant( bruite.getAction() );
+				return enfant.ajouterEnfantBruite( bruite.getAction() );
 			} else {
 				return enfant;
 			}
