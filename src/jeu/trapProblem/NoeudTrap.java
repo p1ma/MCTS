@@ -9,14 +9,14 @@ import java.util.Random;
 import arbre.Action;
 import arbre.Etat;
 import arbre.Noeud;
-import arbre.NoeudContinue;
+import arbre.NoeudContinu;
 
 /**
  * @author JUNGES Pierre-Marie - M1 Informatique 2016/2017
  *
  * Feb 16, 2017
  */
-public class NoeudTrap extends NoeudContinue {
+public class NoeudTrap extends NoeudContinu {
 	
 	public NoeudTrap(Etat etat) {
 		super(new EtatTrap(etat));
@@ -31,19 +31,19 @@ public class NoeudTrap extends NoeudContinue {
 	}
 
 	@Override
-	public NoeudContinue appliquer(Action action) {
+	public NoeudContinu appliquer(Action action) {
 		return new NoeudTrap(this, new EtatTrap(getEtat()), action);
 	}
 
 	@Override
-	public NoeudContinue ajouterEnfant(Action action) {
-		NoeudContinue enfant = new NoeudTrap(this, new EtatTrap(getEtat()), action);
+	public NoeudContinu ajouterEnfant(Action action) {
+		NoeudContinu enfant = new NoeudTrap(this, new EtatTrap(getEtat()), action);
 		this.enfants.add( enfant );
 		return enfant;
 	}
 	
 	@Override
-	public NoeudContinue copy() {
+	public NoeudContinu copy() {
 		return new NoeudTrap(this, new EtatTrap(etat), new ActionTrap(action));
 	}
 

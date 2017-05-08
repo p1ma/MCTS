@@ -57,7 +57,7 @@ public abstract class GameFactory {
 		sauvegarder(strategie, iter, racine, enfant);
 	}
 	
-	public void sauvegarder(FormuleSelection strategie, int iter, Noeud racine, Noeud enfant) {
+	private void sauvegarder(FormuleSelection strategie, int iter, Noeud racine, Noeud enfant) {
 		/*
 		 * sale mais efficace
 		 */

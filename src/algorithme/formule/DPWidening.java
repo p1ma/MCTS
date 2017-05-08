@@ -8,7 +8,7 @@ import java.util.Random;
 
 import arbre.Action;
 import arbre.Noeud;
-import arbre.NoeudContinue;
+import arbre.NoeudContinu;
 
 /**
  * @author JUNGES Pierre-Marie - M1 Informatique 2016/2017
@@ -23,10 +23,10 @@ public class DPWidening implements FormuleSelection {
 
 	@Override
 	public Noeud selectionner(Noeud noeud) {
-		return select((NoeudContinue) noeud);
+		return select((NoeudContinu) noeud);
 	}
 
-	public Noeud select(NoeudContinue s) {
+	public Noeud select(NoeudContinu s) {
 		s.visiter(); // nbVisits + 1
 		int t = s.nbSimulation();
 		int k = (int)Math.ceil((C * Math.pow(t, alpha)));		
@@ -35,7 +35,7 @@ public class DPWidening implements FormuleSelection {
 		 * le noeud avec les k prochaines Actions possibles
 		 */
 		List<Action> actions = s.actionsPossible(k);
-		NoeudContinue enfant = null;
+		NoeudContinu enfant = null;
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
 		double score = 0.0, totalReward;

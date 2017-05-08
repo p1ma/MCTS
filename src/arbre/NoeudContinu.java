@@ -13,9 +13,9 @@ import arbre.Etat.FinDePartie;
  *
  * Apr 22, 2017
  */
-public abstract class NoeudContinue implements Noeud {
+public abstract class NoeudContinu implements Noeud {
 
-	protected List<NoeudContinue> enfants;
+	protected List<NoeudContinu> enfants;
 
 	protected Noeud parent = null;
 	protected Action action = null;
@@ -27,23 +27,23 @@ public abstract class NoeudContinue implements Noeud {
 
 	public static double R = 0.05;
 
-	public NoeudContinue() {
-		enfants = new LinkedList<NoeudContinue>();
+	public NoeudContinu() {
+		enfants = new LinkedList<NoeudContinu>();
 	}
 
-	public NoeudContinue(Etat e) {
+	public NoeudContinu(Etat e) {
 		parent = null;
 		action = null;
 		etat = e;
 		etat.setScore(0);
-		enfants = new LinkedList<NoeudContinue>();
+		enfants = new LinkedList<NoeudContinu>();
 	}
 
-	public NoeudContinue(Noeud p, Etat e, Action a) {
+	public NoeudContinu(Noeud p, Etat e, Action a) {
 		parent = p;
 		action = a;
 		etat = e;
-		enfants = new LinkedList<NoeudContinue>();
+		enfants = new LinkedList<NoeudContinu>();
 		etat.setScore(parent.resultat());
 		etat.jouerAction(a);
 	}
@@ -147,8 +147,8 @@ public abstract class NoeudContinue implements Noeud {
 		}
 	}
 
-	public NoeudContinue recuperer(Action action) {
-		for(NoeudContinue noeud : enfants) {
+	public NoeudContinu recuperer(Action action) {
+		for(NoeudContinu noeud : enfants) {
 			Action a = noeud.getAction();
 			if (a.equals(action)) {
 				return noeud;
@@ -169,7 +169,7 @@ public abstract class NoeudContinue implements Noeud {
 
 	@Override
 	public boolean equals(Object obj) {
-		Noeud verif = (NoeudContinue) obj;
+		Noeud verif = (NoeudContinu) obj;
 		boolean simu = verif.nbSimulation() == simulations;
 		if (!simu ) {
 			return false;
@@ -209,10 +209,10 @@ public abstract class NoeudContinue implements Noeud {
 	public abstract List<Action> actionsPossible(int k);
 
 	@Override
-	public abstract NoeudContinue appliquer(Action action);
+	public abstract NoeudContinu appliquer(Action action);
 
 	@Override
-	public abstract NoeudContinue ajouterEnfant(Action action);
+	public abstract NoeudContinu ajouterEnfant(Action action);
 
-	public abstract NoeudContinue copy();
+	public abstract NoeudContinu copy();
 }

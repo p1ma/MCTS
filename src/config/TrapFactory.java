@@ -47,7 +47,7 @@ public class TrapFactory extends GameFactory {
 		etat = getEtat();
 		mcts = getMCTS();
 
-		System.out.println("Temps de réflexion de l'ordinateur : " + (TEMPS / 1000.0) + "s");
+		System.out.println("Temps de réflexion de l'ordinateur : " + TEMPS + " msecs");
 
 		// affichage du jeu à l'état initial
 		etat.afficherJeu();

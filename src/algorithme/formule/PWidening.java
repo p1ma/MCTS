@@ -7,7 +7,7 @@ import java.util.List;
 
 import arbre.Action;
 import arbre.Noeud;
-import arbre.NoeudContinue;
+import arbre.NoeudContinu;
 
 /**
  * @author JUNGES Pierre-Marie - M1 Informatique 2016/2017
@@ -21,10 +21,10 @@ public class PWidening implements FormuleSelection{
 
 	@Override
 	public Noeud selectionner(Noeud noeud) {
-		return select((NoeudContinue) noeud);
+		return select((NoeudContinu) noeud);
 	}
 
-	public Noeud select(NoeudContinue s) {
+	public Noeud select(NoeudContinu s) {
 		s.visiter(); // nbVisits + 1
 		int t = s.nbSimulation();
 		int k = (int)Math.ceil((C * Math.pow(t, alpha)));		
