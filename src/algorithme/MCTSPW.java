@@ -53,9 +53,7 @@ public class MCTSPW extends MCTS {
 	/* 3. */
 	private Noeud mettreAJour(Noeud noeud, double recompense) {
 		while( !noeud.estRacine() ) {
-			noeud.setRecompense( noeud.retournerRecompense() + 
-					recompense );
-			//noeud.visiter();
+			noeud.visiter( recompense );
 			noeud = noeud.predecesseur();
 		}
 		return noeud;

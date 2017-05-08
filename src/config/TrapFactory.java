@@ -24,20 +24,18 @@ public class TrapFactory implements GameFactory {
 		FinDePartie fin = FinDePartie.NON;
 
 		// initialisation
-		Etat etat = null;
-		etat = getEtat();
+		Etat etat = getEtat();
 
 		System.out.println("Temps de réflexion de l'ordinateur : " + (temps / 1000.0) + "s");
 		
 		// boucle de jeu
-		etat.afficherJeu();
+		//etat.afficherJeu();
 		do {
 			Main.mcts(etat, temps, strategie, new Robuste());
-			etat.afficherJeu();
+			//etat.afficherJeu();
 
 			fin = etat.testFin();
 		} while (fin == FinDePartie.NON);
-		System.out.println("Fin de partie.");
 	}
 
 }

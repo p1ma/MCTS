@@ -16,5 +16,5 @@ public interface Action {
 
 	public Object getRepresentation();
 	
-	public void setRepresentation(Object o);
+	public void setValeurAction(Object o);
 }

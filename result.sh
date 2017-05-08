@@ -1,6 +1,6 @@
 #!/bin/bash
 i=0
-cat stats.csv | while read ligne
+cat $1 | while read ligne
 do
 	if [ $(($i % 2)) == 0 ] 
 	then

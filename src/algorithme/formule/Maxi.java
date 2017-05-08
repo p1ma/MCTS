@@ -17,7 +17,7 @@ public class Maxi implements FormuleSelection {
 		double maxi = Double.MIN_VALUE;
 		int indice = 0;
 		double value = 0;
-		int enfants = noeud.retournerNbEnfant();
+		int enfants = noeud.nbEnfant();
 		System.out.println("MAXI sur " + enfants + " noeuds");
 		while(k < enfants ) {
 			value = noeud.retournerEnfant(k).resultat();

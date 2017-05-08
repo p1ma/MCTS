@@ -16,11 +16,13 @@ public interface Etat {
 	public boolean jouerAction(Action action);
 	
 	public int getPas();
-	public double getScore();
+	
 	public Object getPosition();
+	public Object getBruit();
 	
 	public Object[][] getPlateau();
 	
 	public double resultat();
-	
+	public double getScore();
+	public void setScore(double sc);
 }

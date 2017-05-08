@@ -30,13 +30,14 @@ public interface Noeud {
 	public Etat getEtat();
 	
 	public double resultat();
-	public double retournerRecompense();
+	public double nbRecompense();
+	public double totalRecompense();
 	
-	public int retournerNbEnfant();
-	public int retournerNbSimulation();
+	public int nbEnfant();
+	public int nbSimulation();
 	
 	public void visiter();
-	public void setRecompense(double v);
+	public void visiter(double r);
 	
 	public void afficherStatistiques();
 }

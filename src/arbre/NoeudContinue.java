@@ -23,8 +23,8 @@ public abstract class NoeudContinue implements Noeud {
 	protected Etat etat;
 
 	protected int simulations = 0;
-	protected double victoires = 0.0;
-	
+	protected double recompenses = 0.0;
+
 	public static double R = 0.05;
 
 	public NoeudContinue() {
@@ -35,6 +35,7 @@ public abstract class NoeudContinue implements Noeud {
 		parent = null;
 		action = null;
 		etat = e;
+		etat.setScore(0);
 		enfants = new LinkedList<NoeudContinue>();
 	}
 
@@ -43,6 +44,7 @@ public abstract class NoeudContinue implements Noeud {
 		action = a;
 		etat = e;
 		enfants = new LinkedList<NoeudContinue>();
+		etat.setScore(parent.resultat());
 		etat.jouerAction(a);
 	}
 
@@ -71,17 +73,17 @@ public abstract class NoeudContinue implements Noeud {
 	}
 
 	@Override
-	public double retournerRecompense() {
-		return victoires;
+	public double nbRecompense() {
+		return recompenses;
 	}
 
 	@Override
-	public int retournerNbSimulation() {
+	public int nbSimulation() {
 		return simulations;
 	}
 
 	@Override
-	public int retournerNbEnfant() {
+	public int nbEnfant() {
 		return enfants.size();
 	}
 
@@ -101,8 +103,8 @@ public abstract class NoeudContinue implements Noeud {
 	}
 
 	@Override
-	public void setRecompense(double v) {
-		this.victoires = v;
+	public void visiter(double r) {
+		this.recompenses += r;
 	}
 
 	@Override
@@ -136,8 +138,15 @@ public abstract class NoeudContinue implements Noeud {
 		return etat.resultat();
 	}
 	
-	public abstract void bruitage();
-	
+	@Override
+	public double totalRecompense() {
+		if ( estRacine() ) {
+			return resultat();
+		} else {
+			return resultat() + parent.totalRecompense();
+		}
+	}
+
 	public NoeudContinue recuperer(Action action) {
 		for(NoeudContinue noeud : enfants) {
 			Action a = noeud.getAction();
@@ -161,15 +170,15 @@ public abstract class NoeudContinue implements Noeud {
 	@Override
 	public boolean equals(Object obj) {
 		Noeud verif = (NoeudContinue) obj;
-		boolean simu = verif.retournerNbSimulation() == simulations;
+		boolean simu = verif.nbSimulation() == simulations;
 		if (!simu ) {
 			return false;
 		}
-		boolean en = verif.retournerNbEnfant() == enfants.size();
+		boolean en = verif.nbEnfant() == enfants.size();
 		if (!en) {
 			return false;
 		}
-		
+
 		Action act = verif.getAction();
 		if (act == null) {
 			if (action != null) {
@@ -184,13 +193,15 @@ public abstract class NoeudContinue implements Noeud {
 				}
 			}
 		}
-		
+
 		if ( !etat.equals(verif.getEtat()) ) {
 			return false;
 		}
 		return true;
 	}
 
+	public abstract void bruitage();
+	
 	@Override
 	public abstract boolean resteAction();
 
@@ -202,6 +213,6 @@ public abstract class NoeudContinue implements Noeud {
 
 	@Override
 	public abstract NoeudContinue ajouterEnfant(Action action);
-	
+
 	public abstract NoeudContinue copy();
 }

@@ -29,11 +29,14 @@ public class StatistiqueDAO {
 	public final static String TEMP = "temps(ms)";
 	public final static String ITER = "iterations";
 	public final static String VALEURS = "valeurs";
+	public final static String BRUIT = "dont bruit";
 	
 	private static StatistiqueDAO INSTANCE = null;
 	private FileWriter writer;
 	private FileWriter writer2;
-	private final String file = "stats01Mai.csv";
+	private FileWriter writer3;
+	private final String file = "statsPW.csv";
+	private final String file2 = "statsDPW.csv";
 	private final String random = "randoms.csv";
 	private final String separateur = ",";
 	
@@ -85,6 +88,41 @@ public class StatistiqueDAO {
 				writer2.append("\n");
 				writer2.flush();
 			}
+			
+			f = new File(file2);
+			if (!f.exists()) {
+				writer3 = new FileWriter(file2, false);
+				writer3.append(TEMP);
+				writer3.append(separateur);
+				writer3.append(ITER);
+				writer3.append(separateur);
+				writer3.append(C);
+				writer3.append(separateur);
+				writer3.append(ALPHA);
+				writer3.append(separateur);
+				writer3.append(ENFANTS);
+				writer3.append(separateur);
+				writer3.append(SIMUS);
+				writer3.append(separateur);
+				writer3.append(SSIMUS);
+				writer3.append(separateur);
+				writer3.append(POS);
+				writer3.append(separateur);
+				writer3.append(BRUIT);
+				writer3.append(separateur);
+				writer3.append(SPOS);
+				writer3.append(separateur);
+				writer3.append(BRUIT);
+				writer3.append(separateur);
+				writer3.append(RECOMP);
+				writer3.append(separateur);
+				writer3.append("\n");
+				writer3.flush();
+			} else {
+				writer3 = new FileWriter(file2, true);
+				writer3.append("\n");
+				writer3.flush();
+			}
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -109,7 +147,7 @@ public class StatistiqueDAO {
 	}
 	
 	//  temps | simulation | position | recompenses
-	public void ecrire(long temps, 
+	public void ecrireSPW(long temps, 
 			double C, 
 			double a, 
 			int iter, 
@@ -124,11 +162,11 @@ public class StatistiqueDAO {
 			writer.append(separateur);
 			writer.append(a + "");
 			writer.append(separateur);
-			writer.append(noeudRacine.retournerNbEnfant() + "");
+			writer.append(noeudRacine.nbEnfant() + "");
 			writer.append(separateur);
-			writer.append(noeudRacine.retournerNbSimulation() + "");
+			writer.append(noeudRacine.nbSimulation() + "");
 			writer.append(separateur);
-			writer.append(noeudEnfant.retournerNbSimulation() + "");
+			writer.append(noeudEnfant.nbSimulation() + "");
 			writer.append(separateur);
 			Etat e = noeudRacine.getEtat();
 			writer.append((double)e.getPosition() + "");
@@ -136,10 +174,50 @@ public class StatistiqueDAO {
 			e = noeudEnfant.getEtat();
 			writer.append((double)e.getPosition() + "");
 			writer.append(separateur);
-			writer.append(e.getScore() + "");
+			writer.append(noeudEnfant.totalRecompense() + "");
 			writer.append(separateur);
 			writer.append("\n");
 			writer.flush();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+	}
+
+	public void ecrireDPW(long temps, 
+			double C, 
+			double a, 
+			int iter, 
+			Noeud noeudRacine,
+			Noeud noeudEnfant) {
+		try {
+			writer3.append(temps + "");
+			writer3.append(separateur);
+			writer3.append(iter + "");
+			writer3.append(separateur);
+			writer3.append(C + "");
+			writer3.append(separateur);
+			writer3.append(a + "");
+			writer3.append(separateur);
+			writer3.append(noeudRacine.nbEnfant() + "");
+			writer3.append(separateur);
+			writer3.append(noeudRacine.nbSimulation() + "");
+			writer3.append(separateur);
+			writer3.append(noeudEnfant.nbSimulation() + "");
+			writer3.append(separateur);
+			Etat e = noeudRacine.getEtat();
+			writer3.append((double)e.getPosition() + "");
+			writer3.append(separateur);
+			writer3.append((double)e.getBruit() + "");
+			writer3.append(separateur);
+			e = noeudEnfant.getEtat();
+			writer3.append((double)e.getPosition() + "");
+			writer3.append(separateur);
+			writer3.append((double)e.getBruit() + "");
+			writer3.append(separateur);
+			writer3.append(e.getScore() + "");
+			writer3.append(separateur);
+			writer3.append("\n");
+			writer3.flush();
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}

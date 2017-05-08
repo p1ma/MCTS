@@ -26,7 +26,7 @@ public class PWidening implements FormuleSelection{
 
 	public Noeud select(NoeudContinue noeud) {
 		noeud.visiter(); // nbVisits + 1
-		int t = noeud.retournerNbSimulation();
+		int t = noeud.nbSimulation();
 		int k = (int)Math.ceil((C * Math.pow(t, alpha)));		
 		/*
 		 * On va maintenant échantillonner
@@ -41,17 +41,14 @@ public class PWidening implements FormuleSelection{
 		for(int i = 0 ; i < k ; i++) {
 			enfant = noeud.recuperer(actions.get(i));
 
-			int nb = enfant.retournerNbSimulation();
+			int nb = enfant.nbSimulation();
 
 			if ( nb == 0 ) {
-				/*System.out.println("\nt=" + t + ", k=" + k + " on ajoute");
-				noeud.afficherStatistiques();
-				System.out.println("AVEC action : " + actions.get(i));*/
-				// on s'arrete car on aura un score infini ici
+				// on ajoute et on retourne l'enfant
 				return noeud.ajouterEnfant( actions.get(i) );
 			} else {
-				// equivalent UCT
-				totalReward = enfant.resultat() + noeud.resultat();
+				// equivalent UCB
+				totalReward = enfant.nbRecompense();
 				
 				bValeur = ( totalReward / (nb + 1));
 				bValeur += k * Math.sqrt( Math.log( t ) / (nb + 1));
@@ -62,6 +59,7 @@ public class PWidening implements FormuleSelection{
 				best = i;
 			}
 		}
+		// on retourne le meilleur enfant selon les criteres UCB
 		return noeud.retournerEnfant(best);
 	}
 }

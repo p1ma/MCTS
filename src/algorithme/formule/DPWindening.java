@@ -26,35 +26,32 @@ public class DPWindening implements FormuleSelection {
 		return select((NoeudContinue) noeud);
 	}
 
-	public Noeud select(NoeudContinue noeud) {
-		noeud.visiter(); // nbVisits + 1
-		int t = noeud.retournerNbSimulation();
+	public Noeud select(NoeudContinue s) {
+		s.visiter(); // nbVisits + 1
+		int t = s.nbSimulation();
 		int k = (int)Math.ceil((C * Math.pow(t, alpha)));		
 		/*
 		 * On va maintenant échantillonner
 		 * le noeud avec les k prochaines Actions possibles
 		 */
-		List<Action> actions = noeud.actionsPossible(k);
+		List<Action> actions = s.actionsPossible(k);
 		NoeudContinue enfant = null;
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
 		double score = 0.0, totalReward;
 		int nb = 0;
-		for(int i = 0 ; i < k ; i++) {
-			enfant = noeud.recuperer(actions.get(i));
+		for (int i = 0 ; i < k ; i++) {
+			enfant = s.recuperer(actions.get(i));
 
-			nb = enfant.retournerNbSimulation();
+			nb = enfant.nbSimulation();
 
-			if ( nb == 0 ) {
-				totalReward = Double.POSITIVE_INFINITY;
-				best = i;
-				min = totalReward;
-				
+			if ( nb == 0 ) {	
 				enfant.visiter();
+				best = i;
 				break;
 			} else {
 				// equivalent UCT
-				totalReward = enfant.resultat() + noeud.resultat();
+				totalReward = enfant.resultat() + s.resultat();
 
 				score = ( totalReward / (nb + 1));
 				score += k * Math.sqrt( Math.log( t ) / (nb + 1));
@@ -64,24 +61,24 @@ public class DPWindening implements FormuleSelection {
 				best = i;
 			}
 		}
+		// progressive widening on the random part then
 		
-		nb = enfant.retournerNbSimulation();
+		nb = enfant.nbSimulation();
 		int kprim = (int)Math.ceil((C * Math.pow(nb, alpha)));
 
-		// pas sur
-		if (kprim > enfant.retournerNbEnfant()){
-
-			NoeudContinue nouvelEnfant = enfant.copy();
-			nouvelEnfant.bruitage();
-
-			if ( !noeud.contientEnfant( nouvelEnfant ) ) {
-				noeud.ajouterEnfant( nouvelEnfant.getAction() );
-			} else {
-				//enfant.visiter();
+		
+		if ( kprim > enfant.nbEnfant() ){
+			enfant.bruitage();
+			//NoeudContinue bruite = enfant.bruitage();
+			
+			if ( !enfant.contientEnfant( enfant ) ) {
+				return enfant.ajouterEnfant( enfant.getAction() );
 			}
-			return noeud.retournerEnfant(best);
+			return s.retournerEnfant(best);
 		} else {		
-			return noeud.retournerEnfant(random.nextInt(nb));
+			return enfant.retournerEnfant(
+					random.nextInt(enfant.nbEnfant())
+					);
 		}
 	}
 }

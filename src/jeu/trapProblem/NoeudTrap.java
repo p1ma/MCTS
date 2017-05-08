@@ -52,12 +52,13 @@ public class NoeudTrap extends NoeudContinue {
 		return etat.coups_possibles(k);
 	}	
 	
+	@Override
 	public void bruitage() {
 		double length = (double)action.getRepresentation();
 		double bruit = R * (new Random()).nextDouble();
 		
 		length += bruit;
-		action.setRepresentation(length);
+		action.setValeurAction(length);
 		etat.mettreAJour(bruit);
 	}
 }

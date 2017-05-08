@@ -45,7 +45,7 @@ public class ActionTrap implements Action{
 	}
 
 	@Override
-	public void setRepresentation(Object o) {
+	public void setValeurAction(Object o) {
 		double r = (double) o;
 		pas = r;
 	}

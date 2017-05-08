@@ -21,25 +21,32 @@ public class EtatTrap implements Etat {
 
 	private Double[][] plateau = {{1.,70.}, {1.7,0.}, {5.,100.}};
 	private double position;
-	
-	private int pas = 3;
+	private double bruit;
+
+	private int pas = 2;
 	private final int min = 0, max = 1; 
 	private final Random random = new Random();
-	
+
 	private List<Action> options = null;
-	
+
 	private double score;
-	
+
 	public EtatTrap(Etat etat) {
-		this.position = (double)etat.getPosition();
-		this.pas = etat.getPas();
-		this.score = etat.getScore();
+		position = (double)etat.getPosition();
+		pas = etat.getPas();
+		score = etat.getScore();
+		bruit = 0.0;
 	}
 
 	public EtatTrap() {
 		score = 0;
-		position = 0;	
+		position = 0.0;	
 		pas = 2;
+		bruit = 0.0;
+	}
+	
+	private boolean etatInitial() {
+		return pas == 2 && position == 0.0;
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class EtatTrap implements Etat {
 		// options is not null
 		int t = options.size();
 		double step;
-		
+
 		for(int i = 0 ; i < (k - t) ; i++) {
 			step = ((random.nextDouble() * max) + min) % max;
 			StatistiqueDAO.getInstance().ecrire(step);
@@ -90,22 +97,17 @@ public class EtatTrap implements Etat {
 		if (pas > 0) {
 			position += (double) action.getRepresentation();
 			pas--;
-
-			for (Double[] i : this.plateau) {
-				if (position <= i[0]) {
-					this.score += i[1];
-					return true;
-				}
-			}
-			this.score += this.plateau[this.plateau.length-1][1];
+			score += resultat();
 			return true;
 		}
+		score += resultat();
 		return false;
 	}
-	
+
 	public void mettreAJour(Object o) {
-		double bruit = (double)o;
+		bruit = (double)o;
 		position += bruit;
+		resultat();
 	}
 
 	@Override
@@ -114,8 +116,18 @@ public class EtatTrap implements Etat {
 	}
 
 	@Override
+	public void setScore(double sc) {
+		score += score;
+	}
+
+	@Override
 	public double getScore() {
 		return score;
+	}
+
+	@Override
+	public Object getBruit() {
+		return bruit;
 	}
 
 	@Override
@@ -130,38 +142,42 @@ public class EtatTrap implements Etat {
 
 	@Override
 	public double resultat() {
-		for (Double[] i : (Double[][])plateau) {
-			if (position <= i[0]) {
-				return i[1];
+		if ( !etatInitial() ) {
+			for (Double[] i : (Double[][])plateau) {
+				if (position <= i[0]) {
+					return i[1];
+				}
 			}
+			return plateau[plateau.length - 1][1];
+		} else {
+			return 0.0;
 		}
-		return plateau[plateau.length - 1][1];
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		EtatTrap etat = (EtatTrap) obj;
 		double pos = (double)etat.getPosition();
-		
+
 		if(position != pos) {
 			return false;
 		}
-		
+
 		double res = etat.resultat();
 		double thisRes = resultat();
 		if (res != thisRes) {
 			return false;
 		}
-		
+
 		if (etat.getPas() != pas) {
 			return false;
 		}
-		
+
 		if (etat.getScore() != score) {
 			return false;
 		}
 		return true;
 	}
-	
-	
+
+
 }

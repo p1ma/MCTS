@@ -25,12 +25,13 @@ public class Main {
 	public static void main(String[] args) {
 		for(int i = 0 ; i < 1 ; i++) {
 			jouer(args);
+			System.out.println("Fin de la partie " + (i+1) + ".");
 		}
 	}
 
 	public static void jouer(String[] args) {
 		// on lance le jeu
-		GAME.jouer(TEMPS, new DPWindening());		
+		GAME.jouer(TEMPS, new PWidening());		
 	}
 
 	public static void mcts(Etat etat, long temps, FormuleSelection strategie,  FormuleSelection st) {
@@ -52,7 +53,8 @@ public class Main {
 		    	- Developpement d'un Noeud fils choisit aléatoirement (et non déjà développé)
 		    	- Simulation de la fin de la partie avec une marche aléatoire
 		    	- Mise à jours des valeurs des Noeuds dans l'arbre, on remonte la valeur de récompense
-		    	du Noeud terminal à la racine.
+		    	du Noeud terminalnoeud.retournerRecompense() + 
+					 à la racine.
 			 */
 			racine = mcts.executer(racine);
 
@@ -60,22 +62,17 @@ public class Main {
 			iter++;
 		} while (toc < (tic + temps));
 
-		System.out.println("");
-		System.out.println("Itérations effectuées : " + iter);
-		//racine.afficherStatistiques();
+		/*System.out.println("");
+		System.out.println("Itérations effectuées : " + iter);*/
 		/* 
 		 * fin de l'algorithme		
-		 * On choisit la bonne strategie demandée par l'utilisateur
+		 * On choisit la strategie ROBUSTE
 		 */
 		strategie = st;
-
-		//System.out.println("\nSelection...");
 		Noeud enfant = strategie.selectionner(racine);
-		//System.out.println("Node selected !");
-		//System.out.println("Ce Noeud a " + racine.retournerNbSimulation() + " simulations");
 		etat.jouerAction(enfant.getAction());
-		
-		StatistiqueDAO.getInstance().ecrire(temps, 
+
+		StatistiqueDAO.getInstance().ecrireSPW(temps, 
 				PWidening.C, 
 				PWidening.alpha, 
 				iter,
