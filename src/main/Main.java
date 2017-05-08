@@ -12,18 +12,18 @@ import config.TrapFactory;
 public class Main {
 
 	public static void main(String[] args) {
+		// si on desire des affichages sur la sortie std
+		boolean output = true;
+		
 		for(int i = 0 ; i < 1 ; i++) {
 			// continu avec PWidening
 			new TrapFactory().jouer(new PWidening(), 
-					new Robuste());
+					new Robuste(), output);
 
 			// continu avec DPWidening
 			/*new TrapFactory().jouer(new DPWidening(), 
-					 new Robuste());*/
-			
-			//discret avec P4
-			/*new Puissance4Factory().jouer(new Uct(),
-			 new Robuste()); */
+					 new Robuste(), output);*/
+
 		}
 	}
 }

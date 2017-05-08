@@ -68,7 +68,7 @@ public class DPWidening implements FormuleSelection {
 
 		
 		if ( kprim > enfant.nbEnfant() ){
-			enfant.bruitage();
+			//enfant.bruitage();
 			//NoeudContinue bruite = enfant.bruitage();
 			
 			if ( !enfant.contientEnfant( enfant ) ) {

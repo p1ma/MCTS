@@ -33,7 +33,7 @@ public class PWidening implements FormuleSelection{
 		 * le noeud avec les k prochaines Actions possibles
 		 */
 		List<Action> actions = s.actionsPossible(k);
-		Noeud enfant = null;
+		NoeudContinu enfant = null;
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
 		double score = 0.0, totalReward;
@@ -59,8 +59,14 @@ public class PWidening implements FormuleSelection{
 				best = i;
 			}
 		}
-		// on retourne le meilleur enfant selon les criteres UCB
-		return s.retournerEnfant(best);
+		// On recupere le meilleur enfant selon les criteres UCB
+		enfant = s.retournerEnfant(best);
+		
+		// On lui applique un bruit
+		enfant = enfant.bruite();
+		
+		// On retourne le noeud
+		return enfant;
 	}
 	
 	public String toString() {

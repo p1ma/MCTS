@@ -15,22 +15,47 @@ import arbre.Etat.FinDePartie;
  */
 public abstract class NoeudContinu implements Noeud {
 
+	/**
+	 * Liste des Noeuds enfant
+	 */
 	protected List<NoeudContinu> enfants;
 
+	/**
+	 * Noeud parent,
+	 * si null alors le Noeud this est racine
+	 */
 	protected Noeud parent = null;
+	
+	/**
+	 * Action choisit
+	 */
 	protected Action action = null;
 
+	/**
+	 * Etat du Noeud this
+	 */
 	protected Etat etat;
 
+	/**
+	 * Nombre de simulations
+	 */
 	protected int simulations = 0;
+	
+	/**
+	 * Récompense du Noeud
+	 */
 	protected double recompenses = 0.0;
 
-	public static double R = 0.05;
-
+	/**
+	 * Constructeur de NoeudContinu
+	 */
 	public NoeudContinu() {
 		enfants = new LinkedList<NoeudContinu>();
 	}
 
+	/**
+	 * Constructeur de NoeudContinu
+	 */
 	public NoeudContinu(Etat e) {
 		parent = null;
 		action = null;
@@ -39,6 +64,9 @@ public abstract class NoeudContinu implements Noeud {
 		enfants = new LinkedList<NoeudContinu>();
 	}
 
+	/**
+	 * Constructeur de NoeudContinu
+	 */
 	public NoeudContinu(Noeud p, Etat e, Action a) {
 		parent = p;
 		action = a;
@@ -47,6 +75,26 @@ public abstract class NoeudContinu implements Noeud {
 		etat.setScore(parent.resultat());
 		etat.jouerAction(a);
 	}
+	
+	/*
+	 * FONCTIONS ABSTRAITES
+	 */
+	public abstract NoeudContinu bruite();
+	
+	@Override
+	public abstract boolean resteAction();
+
+	@Override
+	public abstract List<Action> actionsPossible(int k);
+
+	@Override
+	public abstract NoeudContinu appliquer(Action action);
+
+	@Override
+	public abstract NoeudContinu ajouterEnfant(Action action);
+
+	public abstract NoeudContinu copy();
+	
 
 	@Override
 	public boolean estTerminal() {
@@ -64,7 +112,7 @@ public abstract class NoeudContinu implements Noeud {
 	}
 
 	@Override
-	public Noeud retournerEnfant(int indice) {
+	public NoeudContinu retournerEnfant(int indice) {
 		if (enfants != null && indice < enfants.size()) {
 			return enfants.get(indice);
 		} else {
@@ -199,20 +247,4 @@ public abstract class NoeudContinu implements Noeud {
 		}
 		return true;
 	}
-
-	public abstract void bruitage();
-	
-	@Override
-	public abstract boolean resteAction();
-
-	@Override
-	public abstract List<Action> actionsPossible(int k);
-
-	@Override
-	public abstract NoeudContinu appliquer(Action action);
-
-	@Override
-	public abstract NoeudContinu ajouterEnfant(Action action);
-
-	public abstract NoeudContinu copy();
 }

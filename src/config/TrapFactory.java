@@ -35,7 +35,8 @@ public class TrapFactory extends GameFactory {
 	@Override
 	public void jouer(
 			FormuleSelection strategie,
-			FormuleSelection selectionFinale) {
+			FormuleSelection selectionFinale,
+			boolean output) {
 		// La partie n'est pas terminée
 		FinDePartie fin = FinDePartie.NON;
 
@@ -47,18 +48,30 @@ public class TrapFactory extends GameFactory {
 		etat = getEtat();
 		mcts = getMCTS();
 
-		System.out.println("Temps de réflexion de l'ordinateur : " + TEMPS + " msecs");
 
-		// affichage du jeu à l'état initial
-		etat.afficherJeu();
+		if (output) { 
+			// affichage du temps de réflexion accordé à l'algorithme
+			System.out.println("Temps de réflexion de l'ordinateur : " + TEMPS + " msecs");
+
+			// affichage du jeu à l'état initial
+			etat.afficherJeu();
+		}
 
 		// boucle de décision
 		do {
-			mcts(etat, strategie, selectionFinale, mcts);
+			// execution de MCTS
+			mcts(etat, strategie, selectionFinale, mcts, output);
 
-			etat.afficherJeu();
+			// affichage de l'état du jeu (ou non si output = false)
+			if (output) { etat.afficherJeu(); }
+
+			// on verifie si on le jeu est terminé
 			fin = etat.testFin();
 		} while (fin == FinDePartie.NON);
-		System.out.println("Fin de partie.");
+
+		// Le jeu est fini
+		if (output) {
+			System.out.println("Fin de partie.");
+		}
 	}
 }

@@ -18,14 +18,34 @@ import arbre.NoeudContinu;
  */
 public class NoeudTrap extends NoeudContinu {
 	
+	/**
+	 * Variable utilisé pour la génération du bruit
+	 * bruit = R x Y , avec Y aléatoire dans ]0, 1[
+	 */
+	public static double R = 0.5;
+	
+	/** 
+	 * Constructeur de NoeudTrap
+	 * @param etat, l'Etat du Noeud
+	 */
 	public NoeudTrap(Etat etat) {
 		super(new EtatTrap(etat));
 	}
 	
+	/** 
+	 * Constructeur de NoeudTrap
+	 * @param e, l'Etat du Noeud
+	 * @param p, le Noeud parent
+	 * @param a, l'Action du Noeud
+	 */
 	public NoeudTrap(Noeud p, Etat e, Action a) {
 		super(p, e, a);
 	}
 	
+	/**
+	 * Indique s'il reste des Actions au Noeud,
+	 * dans notre cas : oui tout le temps
+	 */
 	public boolean resteAction() {
 		return true;
 	}
@@ -52,13 +72,19 @@ public class NoeudTrap extends NoeudContinu {
 		return etat.coups_possibles(k);
 	}	
 	
+	/**
+	 * Bruite le Noeud this
+	 */
 	@Override
-	public void bruitage() {
+	public NoeudContinu bruite() {
+		// On recupere la valeur actuelle de l'action
 		double length = (double)action.getRepresentation();
-		double bruit = R * (new Random()).nextDouble();
 		
-		length += bruit;
-		action.setValeurAction(length);
-		etat.mettreAJour(bruit);
+		// On calcul le bruit a ajouter
+		double Y = (new Random()).nextDouble();
+		double bruit = R * Y;
+		ActionTrap actionBruit = new ActionTrap(bruit);
+		
+		return this; //appliquer(actionBruit);
 	}
 }
