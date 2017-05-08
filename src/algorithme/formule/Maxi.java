@@ -33,4 +33,8 @@ public class Maxi implements FormuleSelection {
 		}
 		return noeud.retournerEnfant(indice);
 	}
+	
+	public String toString() {
+		return "Maxi";
+	}
 }

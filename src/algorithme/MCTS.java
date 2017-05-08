@@ -15,8 +15,14 @@ public abstract class MCTS {
 
 	protected FormuleSelection formule;
 	
-	public MCTS(FormuleSelection fs) {
-		formule = fs;
+	public MCTS(FormuleSelection form) {
+		formule = form;
+	}
+	
+	public MCTS() { }
+	
+	public void setFormuleSelection(FormuleSelection form) {
+		formule = form;
 	}
 
 	public abstract Noeud executer(Noeud noeud);

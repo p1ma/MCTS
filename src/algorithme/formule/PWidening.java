@@ -24,42 +24,46 @@ public class PWidening implements FormuleSelection{
 		return select((NoeudContinue) noeud);
 	}
 
-	public Noeud select(NoeudContinue noeud) {
-		noeud.visiter(); // nbVisits + 1
-		int t = noeud.nbSimulation();
+	public Noeud select(NoeudContinue s) {
+		s.visiter(); // nbVisits + 1
+		int t = s.nbSimulation();
 		int k = (int)Math.ceil((C * Math.pow(t, alpha)));		
 		/*
 		 * On va maintenant échantillonner
 		 * le noeud avec les k prochaines Actions possibles
 		 */
-		List<Action> actions = noeud.actionsPossible(k);
+		List<Action> actions = s.actionsPossible(k);
 		Noeud enfant = null;
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
-		double bValeur = 0.0, totalReward;
+		double score = 0.0, totalReward;
 		
 		for(int i = 0 ; i < k ; i++) {
-			enfant = noeud.recuperer(actions.get(i));
+			enfant = s.recuperer(actions.get(i));
 
 			int nb = enfant.nbSimulation();
 
 			if ( nb == 0 ) {
 				// on ajoute et on retourne l'enfant
-				return noeud.ajouterEnfant( actions.get(i) );
+				return s.ajouterEnfant( actions.get(i) );
 			} else {
 				// equivalent UCB
 				totalReward = enfant.nbRecompense();
 				
-				bValeur = ( totalReward / (nb + 1));
-				bValeur += k * Math.sqrt( Math.log( t ) / (nb + 1));
+				score = ( totalReward / (nb + 1));
+				score += k * Math.sqrt( Math.log( t ) / (nb + 1));
 			}
 
-			if ( bValeur > min ) {
-				min = bValeur;
+			if ( score > min ) {
+				min = score;
 				best = i;
 			}
 		}
 		// on retourne le meilleur enfant selon les criteres UCB
-		return noeud.retournerEnfant(best);
+		return s.retournerEnfant(best);
+	}
+	
+	public String toString() {
+		return "Progressive widening";
 	}
 }

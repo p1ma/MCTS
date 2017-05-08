@@ -20,6 +20,10 @@ public class MCTSPW extends MCTS {
 	public MCTSPW(FormuleSelection fs) {
 		super(fs);
 	}
+	
+	public MCTSPW() {
+		super();
+	}
 
 	@Override
 	public Noeud executer(Noeud noeud) {

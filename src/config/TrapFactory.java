@@ -1,41 +1,64 @@
 package config;
 
 
+import algorithme.MCTS;
+import algorithme.MCTSPW;
 import algorithme.formule.FormuleSelection;
-import algorithme.formule.Robuste;
 import arbre.Etat;
 import arbre.Etat.FinDePartie;
 import arbre.Noeud;
 import jeu.trapProblem.EtatTrap;
 import jeu.trapProblem.NoeudTrap;
-import main.Main;
 
-public class TrapFactory implements GameFactory {
+public class TrapFactory extends GameFactory {
 
+	@Override
+	public Etat getEtat(int joueur) {
+		return new EtatTrap();
+	}
+
+	@Override
 	public Etat getEtat() {
 		return new EtatTrap();
 	}
 
-	public Noeud getNoeud(Etat etat) {
-		return new NoeudTrap(etat) ;
+	@Override
+	public MCTS getMCTS() {
+		return new MCTSPW();
 	}
 
-	public void jouer(long temps, FormuleSelection strategie) {
+	@Override
+	public Noeud getNoeud(Etat etat) {
+		return new NoeudTrap(etat);
+	}
+
+	@Override
+	public void jouer(
+			FormuleSelection strategie,
+			FormuleSelection selectionFinale) {
+		// La partie n'est pas terminée
 		FinDePartie fin = FinDePartie.NON;
 
 		// initialisation
-		Etat etat = getEtat();
+		Etat etat = null;
+		MCTS mcts = null;
 
-		System.out.println("Temps de réflexion de l'ordinateur : " + (temps / 1000.0) + "s");
-		
-		// boucle de jeu
-		//etat.afficherJeu();
+		// affectation
+		etat = getEtat();
+		mcts = getMCTS();
+
+		System.out.println("Temps de réflexion de l'ordinateur : " + (TEMPS / 1000.0) + "s");
+
+		// affichage du jeu à l'état initial
+		etat.afficherJeu();
+
+		// boucle de décision
 		do {
-			Main.mcts(etat, temps, strategie, new Robuste());
-			//etat.afficherJeu();
+			mcts(etat, strategie, selectionFinale, mcts);
 
+			etat.afficherJeu();
 			fin = etat.testFin();
 		} while (fin == FinDePartie.NON);
+		System.out.println("Fin de partie.");
 	}
-
 }

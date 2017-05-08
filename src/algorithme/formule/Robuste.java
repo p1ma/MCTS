@@ -21,5 +21,9 @@ public class Robuste implements FormuleSelection {
 		}
 		return noeud.retournerEnfant(indice);
 	}
+	
+	public String toString() {
+		return "Robuste";
+	}
 
 }

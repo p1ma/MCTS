@@ -15,7 +15,7 @@ import arbre.NoeudContinue;
  *
  * Apr 30, 2017
  */
-public class DPWindening implements FormuleSelection {
+public class DPWidening implements FormuleSelection {
 
 	public static final double C = 3; // > 0
 	public static final double alpha = 0.4; // ]O,1[
@@ -51,7 +51,7 @@ public class DPWindening implements FormuleSelection {
 				break;
 			} else {
 				// equivalent UCT
-				totalReward = enfant.resultat() + s.resultat();
+				totalReward = enfant.nbRecompense();
 
 				score = ( totalReward / (nb + 1));
 				score += k * Math.sqrt( Math.log( t ) / (nb + 1));
@@ -80,5 +80,9 @@ public class DPWindening implements FormuleSelection {
 					random.nextInt(enfant.nbEnfant())
 					);
 		}
+	}
+	
+	public String toString() {
+		return "Double progressive widening";
 	}
 }
