@@ -77,14 +77,14 @@ public class NoeudTrap extends NoeudContinu {
 	 */
 	@Override
 	public NoeudContinu bruite() {
-		// On recupere la valeur actuelle de l'action
-		double length = (double)action.getRepresentation();
-		
 		// On calcul le bruit a ajouter
 		double Y = (new Random()).nextDouble();
 		double bruit = R * Y;
+		
+		// On créé l'action
 		ActionTrap actionBruit = new ActionTrap(bruit);
 		
-		return this; //appliquer(actionBruit);
+		// On ajoute l'enfant
+		return appliquer(actionBruit);
 	}
 }

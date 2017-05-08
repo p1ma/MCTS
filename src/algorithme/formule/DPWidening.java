@@ -19,6 +19,7 @@ public class DPWidening implements FormuleSelection {
 
 	public static final double C = 3; // > 0
 	public static final double alpha = 0.4; // ]O,1[
+
 	public final Random random = new Random();
 
 	@Override
@@ -46,11 +47,12 @@ public class DPWidening implements FormuleSelection {
 			nb = enfant.nbSimulation();
 
 			if ( nb == 0 ) {	
+				enfant = s.ajouterEnfant( actions.get(i) );
 				enfant.visiter();
 				best = i;
 				break;
 			} else {
-				// equivalent UCT
+				// equivalent UCB
 				totalReward = enfant.nbRecompense();
 
 				score = ( totalReward / (nb + 1));
@@ -62,26 +64,28 @@ public class DPWidening implements FormuleSelection {
 			}
 		}
 		// progressive widening on the random part then
+		enfant = s.retournerEnfant(best);
 		
 		nb = enfant.nbSimulation();
 		int kprim = (int)Math.ceil((C * Math.pow(nb, alpha)));
 
-		
+
 		if ( kprim > enfant.nbEnfant() ){
-			//enfant.bruitage();
-			//NoeudContinue bruite = enfant.bruitage();
-			
-			if ( !enfant.contientEnfant( enfant ) ) {
-				return enfant.ajouterEnfant( enfant.getAction() );
+
+			NoeudContinu bruite = enfant.bruite();
+
+			if ( !enfant.contientEnfant( bruite ) ) {
+				return enfant.ajouterEnfant( bruite.getAction() );
+			} else {
+				return enfant;
 			}
-			return s.retournerEnfant(best);
-		} else {		
+		} else {	
 			return enfant.retournerEnfant(
 					random.nextInt(enfant.nbEnfant())
 					);
 		}
 	}
-	
+
 	public String toString() {
 		return "Double progressive widening";
 	}

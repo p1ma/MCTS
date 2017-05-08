@@ -62,8 +62,8 @@ public class PWidening implements FormuleSelection{
 		// On recupere le meilleur enfant selon les criteres UCB
 		enfant = s.retournerEnfant(best);
 		
-		// On lui applique un bruit
-		enfant = enfant.bruite();
+		// On lui applique un bruit (ou non)
+		//enfant = enfant.bruite();
 		
 		// On retourne le noeud
 		return enfant;
