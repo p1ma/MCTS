@@ -22,7 +22,7 @@ public class NoeudTrap extends NoeudContinu {
 	 * Variable utilisé pour la génération du bruit
 	 * bruit = R x Y , avec Y aléatoire dans ]0, 1[
 	 */
-	public static double R = 0.15;
+	public static double R = 0.07;
 	
 	/** 
 	 * Constructeur de NoeudTrap
@@ -34,7 +34,7 @@ public class NoeudTrap extends NoeudContinu {
 	
 	/** 
 	 * Constructeur de NoeudTrap
-	 * @param e, l'Etat du Noeud
+	 * @param e, l'Etat alonzodu Noeud
 	 * @param p, le Noeud parent
 	 * @param a, l'Action du Noeud
 	 */

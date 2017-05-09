@@ -19,6 +19,7 @@ public class DPWidening implements FormuleSelection {
 
 	public static final double C = 3; // > 0
 	public static final double alpha = 0.4; // ]O,1[
+	public static final double kucb = Math.sqrt(2.0);
 
 	public final Random random = new Random();
 
@@ -47,7 +48,7 @@ public class DPWidening implements FormuleSelection {
 			nb = enfant.nbSimulation();
 
 			if ( nb == 0 ) {	
-				enfant = s.ajouterEnfant( actions.get(i) );
+				s.ajouterEnfant( actions.get(i) );
 				best = i;
 				break;
 			} else {
@@ -55,7 +56,7 @@ public class DPWidening implements FormuleSelection {
 				totalReward = enfant.nbRecompense();
 
 				score = ( totalReward / (nb + 1));
-				score += k * Math.sqrt( Math.log( t ) / (nb + 1));
+				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
 			}
 			if ( score > min ) {
 				min = score;

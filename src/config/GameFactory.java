@@ -54,7 +54,6 @@ public abstract class GameFactory {
 			toc = System.currentTimeMillis();
 			iter++;
 		} while (toc < (tic + TEMPS));
-
 		/* 
 		 * Affiche le nombre d'itération et le nom de la formule de selection,
 		 * ainsi que le nombre d'enfant développé pendant la boucle ci-dessus
@@ -66,10 +65,10 @@ public abstract class GameFactory {
 
 		// On selectionne le meilleur enfant en utilisant les propriétés de 'selectionFinale'
 		enfant = selectionFinale.selectionner(racine);
-
+		
 		// On affiche (ou non) l'Action choisit
 		if (output) {
-			System.out.println(enfant.getAction());
+			System.out.println("Action choisi " + enfant.getAction());
 		}
 		
 		// On joue l'Action
