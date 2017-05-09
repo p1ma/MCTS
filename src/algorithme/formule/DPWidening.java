@@ -48,7 +48,6 @@ public class DPWidening implements FormuleSelection {
 
 			if ( nb == 0 ) {	
 				enfant = s.ajouterEnfant( actions.get(i) );
-				enfant.visiter();
 				best = i;
 				break;
 			} else {
@@ -65,6 +64,8 @@ public class DPWidening implements FormuleSelection {
 		}
 		// progressive widening on the random part then
 		enfant = s.retournerEnfant(best);
+		enfant.visiter();
+		
 		nb = enfant.nbSimulation();
 		
 		int kprim = (int)Math.ceil((C * Math.pow(nb, alpha)));
@@ -76,9 +77,15 @@ public class DPWidening implements FormuleSelection {
 			if ( !enfant.contientEnfant( bruite ) ) {
 				return enfant.ajouterEnfantBruite( bruite.getAction() );
 			} else {
-				return enfant;
+				return enfant.retournerEnfant(bruite);
 			}
 		} else {	
+			/*System.out.println("--------1----------");
+			System.out.println("(enfant)nb enfants " + enfant.nbEnfant());
+			System.out.println("(enfant)nb simu " + enfant.nbSimulation());
+			System.out.println("(noeud)nb enfants " + s.nbEnfant());
+			System.out.println("(noeud)nb simu " + s.nbSimulation());
+			System.out.println("---------2----------");*/
 			return enfant.retournerEnfant(
 					random.nextInt(enfant.nbEnfant())
 					);

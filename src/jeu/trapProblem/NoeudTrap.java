@@ -75,7 +75,10 @@ public class NoeudTrap extends NoeudContinu {
 		Etat et = enfant.getEtat();
 		Noeud pare = enfant.predecesseur();
 		et.setScore(pare.resultat());
+		
+		// equivalent à jouerAction, sans le pas--
 		et.mettreAJour(action);
+		
 		this.enfants.add( enfant );
 		return enfant;
 	}

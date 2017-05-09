@@ -128,6 +128,16 @@ public abstract class NoeudContinu implements Noeud {
 			return null;
 		}
 	}
+	
+	@Override
+	public Noeud retournerEnfant(Noeud enfant) {
+		for( NoeudContinu nd : enfants) {
+			if( nd.equals(enfant)) {
+				return nd;
+			}
+		}
+		return enfant;
+	}
 
 	@Override
 	public double nbRecompense() {

@@ -214,7 +214,7 @@ public class StatistiqueDAO {
 			writer3.append(separateur);
 			writer3.append((double)e.getBruit() + "");
 			writer3.append(separateur);
-			writer3.append(e.getScore() + "");
+			writer3.append(noeudEnfant.totalRecompense() + "");
 			writer3.append(separateur);
 			writer3.append("\n");
 			writer3.flush();
