@@ -10,7 +10,7 @@ import dao.StatistiqueDAO;
 
 public abstract class GameFactory {
 
-	protected final int TEMPS = 10; // 50 ms
+	protected final int TEMPS = 1; // 50 ms
 
 	public abstract Etat getEtat(int joueur);
 	public abstract Etat getEtat();
@@ -70,7 +70,7 @@ public abstract class GameFactory {
 		if (output) {
 			System.out.println("Action choisi " + enfant.getAction());
 		}
-		
+
 		// On joue l'Action
 		etat.jouerAction(enfant.getAction());
 

@@ -81,12 +81,6 @@ public class DPWidening implements FormuleSelection {
 				return enfant.retournerEnfant(bruite);
 			}
 		} else {	
-			/*System.out.println("--------1----------");
-			System.out.println("(enfant)nb enfants " + enfant.nbEnfant());
-			System.out.println("(enfant)nb simu " + enfant.nbSimulation());
-			System.out.println("(noeud)nb enfants " + s.nbEnfant());
-			System.out.println("(noeud)nb simu " + s.nbSimulation());
-			System.out.println("---------2----------");*/
 			return enfant.retournerEnfant(
 					random.nextInt(enfant.nbEnfant())
 					);

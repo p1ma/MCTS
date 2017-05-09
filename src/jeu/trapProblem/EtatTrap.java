@@ -104,7 +104,7 @@ public class EtatTrap implements Etat {
 	
 	public void mettreAJour(Action action) {
 		position += (double) action.getRepresentation();
-		score += resultat();
+		score = resultat();
 	}
 
 	@Override
