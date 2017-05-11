@@ -19,7 +19,6 @@ public class EtatTrap implements Etat {
 
 	private Double[][] plateau = {{1.,70.}, {1.7,0.}, {5.,100.}};
 	private double position;
-	private double bruit;
 
 	private int pas = 2;
 	private final int min = 0, max = 1; 
@@ -27,20 +26,14 @@ public class EtatTrap implements Etat {
 
 	private List<Action> options = null;
 
-	private double score;
-
 	public EtatTrap(Etat etat) {
 		position = (double)etat.getPosition();
 		pas = etat.getPas();
-		score = etat.getScore();
-		bruit = 0.0;
 	}
 
 	public EtatTrap() {
-		score = 0;
 		position = 0.0;	
 		pas = 2;
-		bruit = 0.0;
 	}
 	
 	private boolean etatInitial() {
@@ -51,7 +44,6 @@ public class EtatTrap implements Etat {
 	public void afficherJeu() {
 		System.out.println("----------------------------------------------------");
 		System.out.println("Position du joueur : " + position);
-		System.out.println("Score : " + this.score);
 
 		System.out.print("O \t\t");
 		for (Double[] tab : this.plateau) {
@@ -95,36 +87,24 @@ public class EtatTrap implements Etat {
 		if (pas > 0) {
 			position += (double) action.getRepresentation();
 			pas--;
-			score += resultat();
 			return true;
 		}
-		score += resultat();
 		return false;
 	}
 	
-	public void mettreAJour(Action action) {
+	@Override
+	public void jouerActionBruite(Action action) {
+		/*
+		 * Action contient un bruit,
+		 * donc on ajoute ce bruit à la position initiale
+		 * sans changer le nombre de pas.
+		 */
 		position += (double) action.getRepresentation();
-		score = resultat();
 	}
 
 	@Override
 	public int getPas() {
 		return pas;
-	}
-
-	@Override
-	public void setScore(double sc) {
-		score += score;
-	}
-
-	@Override
-	public double getScore() {
-		return score;
-	}
-
-	@Override
-	public Object getBruit() {
-		return bruit;
 	}
 
 	@Override
@@ -139,16 +119,16 @@ public class EtatTrap implements Etat {
 
 	@Override
 	public double resultat() {
-		if ( !etatInitial() ) {
+		/*if ( !etatInitial() ) {*/
 			for (Double[] i : (Double[][])plateau) {
 				if (position <= i[0]) {
 					return i[1];
 				}
 			}
 			return plateau[plateau.length - 1][1];
-		} else {
+		/*} else {
 			return 0.0;
-		}
+		}*/
 	}
 
 	@Override
@@ -167,10 +147,6 @@ public class EtatTrap implements Etat {
 		}
 
 		if (etat.getPas() != pas) {
-			return false;
-		}
-
-		if (etat.getScore() != score) {
 			return false;
 		}
 		return true;

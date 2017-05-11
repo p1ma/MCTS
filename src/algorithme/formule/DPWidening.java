@@ -53,7 +53,7 @@ public class DPWidening implements FormuleSelection {
 				break;
 			} else {
 				// equivalent UCB
-				totalReward = enfant.nbRecompense();
+				totalReward = s.nbRecompense() + enfant.resultat();
 
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
@@ -66,6 +66,10 @@ public class DPWidening implements FormuleSelection {
 		// progressive widening on the random part then
 		enfant = s.retournerEnfant(best);
 		enfant.visiter();
+		
+		/*System.out.println("1-Noeud sélectionné : ");
+		enfant.afficherStatistiques();
+		System.out.println("2-Noeud sélectionné");*/
 		
 		nb = enfant.nbSimulation();
 		

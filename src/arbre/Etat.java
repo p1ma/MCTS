@@ -13,17 +13,13 @@ public interface Etat {
 	public FinDePartie testFin();
 	
 	public boolean jouerAction(Action action);
-	public void mettreAJour(Action action);
+	public void jouerActionBruite(Action action);
 	
 	public int getPas();
 	
 	public Object getPosition();
-	public Object getBruit();
 	
 	public Object[][] getPlateau();
 	
 	public double resultat();
-	public double getScore();
-	public void setScore(double sc);
-
 }

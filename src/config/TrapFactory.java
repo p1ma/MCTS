@@ -59,12 +59,13 @@ public class TrapFactory extends GameFactory {
 
 		// boucle de décision
 		do {
+			System.out.println("Position : " + (double)etat.getPosition());
 			// execution de MCTS
 			mcts(etat, strategie, selectionFinale, mcts, output);
 
 			// affichage de l'état du jeu (ou non si output = false)
 			if (output) { etat.afficherJeu(); }
-
+			System.out.println("\nPAS TERMINÉ\n");
 			// on verifie si on le jeu est terminé
 			fin = etat.testFin();
 		} while (fin == FinDePartie.NON);

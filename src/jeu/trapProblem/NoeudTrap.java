@@ -52,32 +52,39 @@ public class NoeudTrap extends NoeudContinu {
 
 	@Override
 	public NoeudContinu appliquer(Action action) {
-		return new NoeudTrap(this, new EtatTrap(getEtat()), action);
+		return new NoeudTrap(this, new EtatTrap(etat), action);
 	}
 
 	@Override
 	public NoeudContinu ajouterEnfant(Action action) {
-		NoeudContinu enfant = new NoeudTrap(this, new EtatTrap(getEtat()), action);
+		NoeudContinu enfant = new NoeudTrap(this, new EtatTrap(etat), action);
 		
+		// On recupere l'Etat puis on lui applique le bruit
 		Etat et = enfant.getEtat();
-		Noeud pare = enfant.predecesseur();
-		et.setScore(pare.resultat());
+		
+		// On lui applique l'action
 		et.jouerAction(action);
 		
 		this.enfants.add( enfant );
+		
 		return enfant;
 	}
 	
 	@Override
 	public NoeudContinu ajouterEnfantBruite(Action action) {
-		NoeudContinu enfant = new NoeudTrap(this, new EtatTrap(getEtat()), action);
+		NoeudContinu enfant = new NoeudTrap(this, new EtatTrap(etat), action);
+		
+		
+		bruits.add( (double)action.getRepresentation() );
 		
 		// On recupere l'Etat puis on lui applique le bruit
 		Etat et = enfant.getEtat();
-		
+
 		// equivalent à jouerAction, sans le pas--, applique le bruit
-		et.mettreAJour(action);
+		et.jouerActionBruite(action);
+		
 		this.enfants.add( enfant );
+		
 		return enfant;
 	}
 
@@ -95,12 +102,19 @@ public class NoeudTrap extends NoeudContinu {
 		double Y = (new Random()).nextDouble();
 		double bruit = R * Y;
 		
-		bruits.add(bruit);
+		// On garde que les 3 decimales apres le .
+		int decimal = 1000;
+		bruit = bruit * decimal;
+		bruit = Math.round(bruit);
+		bruit = bruit / decimal;
 		
 		// On créé l'action
 		ActionTrap actionBruit = new ActionTrap(bruit);
 		
-		// On ajoute l'enfant
+		/*
+		 * On créé un NoeudTrap avec l'Etat this.etat
+		 * et l'Action actionBruit
+		 */
 		return appliquer(actionBruit);
 	}
 }

@@ -68,7 +68,6 @@ public abstract class NoeudContinu implements Noeud {
 		parent = null;
 		action = null;
 		etat = e;
-		etat.setScore(0);
 		enfants = new LinkedList<NoeudContinu>();
 		bruits = new HashSet<Double>();
 	}
@@ -82,8 +81,6 @@ public abstract class NoeudContinu implements Noeud {
 		etat = e;
 		enfants = new LinkedList<NoeudContinu>();
 		bruits = new HashSet<Double>();
-		/*etat.setScore(parent.resultat());
-		etat.jouerAction(a);*/
 	}
 	
 	/*
@@ -176,9 +173,11 @@ public abstract class NoeudContinu implements Noeud {
 
 	@Override
 	public void afficherStatistiques() {
+		double debut = .0;
 		System.out.println("Statistiques : ");
 		if( action != null ) {
 			System.out.println("\t-Action : " + action);
+			debut = (double)action.getRepresentation();
 		} else {
 			System.out.println("\t-Action : aucune");
 		}
@@ -188,10 +187,19 @@ public abstract class NoeudContinu implements Noeud {
 		} else {
 			System.out.println("\t-Racine : oui");
 		}
-		System.out.println("\t-Recompense : " + resultat());
-		System.out.println("\t-Position : " + (double)etat.getPosition());
+		double pos = (double)etat.getPosition();
+		System.out.println("\t-Recompense : " + recompenses);
+		System.out.println("\t-Resultat : " + resultat());
+		System.out.println("\t-Position avant : " + (pos - debut));
+		System.out.println("\t-Position : " + pos);
 		System.out.println("\t-Nombre de simulation(s) : " + simulations);
 		System.out.println("\t-Nombre d'enfant(s) : " + enfants.size());
+		int k = 1;
+		for(NoeudContinu enfant : enfants) {
+			System.out.println("\t\t-Position enfant " + k + " : " + (double)enfant.getEtat().getPosition());
+			System.out.println("\t\t-Recompense enfant " + k + ": " + enfant.resultat());
+			k++;
+		}
 	}
 
 	@Override
@@ -226,13 +234,10 @@ public abstract class NoeudContinu implements Noeud {
 
 	@Override
 	public boolean contientEnfant(Noeud enfant) {
-		for(Noeud noeud : enfants) {
-			if (noeud.equals(enfant)) {
-				return true;
-			}
-		}
-		return false;
+		double action = (double)enfant.getAction().getRepresentation();
+		return bruits.contains( action );
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {

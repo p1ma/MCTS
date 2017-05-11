@@ -207,12 +207,12 @@ public class StatistiqueDAO {
 			Etat e = noeudRacine.getEtat();
 			writer3.append((double)e.getPosition() + "");
 			writer3.append(separateur);
-			writer3.append((double)e.getBruit() + "");
+			writer3.append( "");
 			writer3.append(separateur);
 			e = noeudEnfant.getEtat();
 			writer3.append((double)e.getPosition() + "");
 			writer3.append(separateur);
-			writer3.append((double)e.getBruit() + "");
+			writer3.append( "");
 			writer3.append(separateur);
 			writer3.append(noeudEnfant.totalRecompense() + "");
 			writer3.append(separateur);

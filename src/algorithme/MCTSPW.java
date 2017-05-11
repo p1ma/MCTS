@@ -30,7 +30,9 @@ public class MCTSPW extends MCTS {
 
 		/* 1. On simule la fin de partie avec une démarche aléatoire */
 		noeud = simuler(noeud);
-		
+		/*System.out.println("Noeud terminal DEBUT ");
+		noeud.afficherStatistiques();
+		System.out.println("Noeud terminal FIN");*/
 		/* 2. On mets a jour le meilleur enfant */
 		noeud = mettreAJour(noeud, noeud.resultat());
 		
@@ -56,8 +58,11 @@ public class MCTSPW extends MCTS {
 
 	/* 3. */
 	private Noeud mettreAJour(Noeud noeud, double recompense) {
+
 		while( !noeud.estRacine() ) {
+			// On augmente le reward des noeuds precedents
 			noeud.visiter( recompense );
+			
 			noeud = noeud.predecesseur();
 		}
 		return noeud;
