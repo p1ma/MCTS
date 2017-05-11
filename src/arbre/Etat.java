@@ -8,6 +8,7 @@ public interface Etat {
 	public enum FinDePartie {NON, MATCHNUL, ORDI_GAGNE, HUMAIN_GAGNE};
 	
 	public void afficherJeu();
+	public void setScore(double score);
 
 	public List<Action> coups_possibles(int k);
 	public FinDePartie testFin();
@@ -18,6 +19,7 @@ public interface Etat {
 	public int getPas();
 	
 	public Object getPosition();
+	public Object getScore();
 	
 	public Object[][] getPlateau();
 	

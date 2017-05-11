@@ -49,7 +49,7 @@ public class PWidening implements FormuleSelection{
 				return s.ajouterEnfant( actions.get(i) );
 			} else {
 				// equivalent UCB
-				totalReward = enfant.nbRecompense();
+				totalReward = s.nbRecompense() + enfant.resultat();
 				
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));

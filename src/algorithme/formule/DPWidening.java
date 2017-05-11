@@ -67,10 +67,6 @@ public class DPWidening implements FormuleSelection {
 		enfant = s.retournerEnfant(best);
 		enfant.visiter();
 		
-		/*System.out.println("1-Noeud sélectionné : ");
-		enfant.afficherStatistiques();
-		System.out.println("2-Noeud sélectionné");*/
-		
 		nb = enfant.nbSimulation();
 		
 		int kprim = (int)Math.ceil((C * Math.pow(nb, alpha)));

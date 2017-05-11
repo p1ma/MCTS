@@ -216,7 +216,7 @@ public abstract class NoeudContinu implements Noeud {
 	@Override
 	public double totalRecompense() {
 		if ( estRacine() ) {
-			return resultat();
+			return 0.0;
 		} else {
 			return resultat() + parent.totalRecompense();
 		}

@@ -73,7 +73,8 @@ public abstract class GameFactory {
 
 		// On joue l'Action
 		etat.jouerAction(enfant.getAction());
-
+		etat.setScore(enfant.resultat());
+		
 		// On sauvegarde les informations
 		sauvegarder(strategie, iter, racine, enfant);
 	}

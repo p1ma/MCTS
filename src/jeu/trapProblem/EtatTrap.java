@@ -18,7 +18,7 @@ import arbre.Etat;
 public class EtatTrap implements Etat {
 
 	private Double[][] plateau = {{1.,70.}, {1.7,0.}, {5.,100.}};
-	private double position;
+	private double position, score;
 
 	private int pas = 2;
 	private final int min = 0, max = 1; 
@@ -29,11 +29,21 @@ public class EtatTrap implements Etat {
 	public EtatTrap(Etat etat) {
 		position = (double)etat.getPosition();
 		pas = etat.getPas();
+		score = (double)etat.getScore();
 	}
 
 	public EtatTrap() {
 		position = 0.0;	
 		pas = 2;
+		score = 0.0;
+	}
+	
+	public void setScore(double score) {
+		this.score += score;
+	}
+	
+	public Object getScore() {
+		return score;
 	}
 	
 	private boolean etatInitial() {
@@ -44,7 +54,7 @@ public class EtatTrap implements Etat {
 	public void afficherJeu() {
 		System.out.println("----------------------------------------------------");
 		System.out.println("Position du joueur : " + position);
-
+		System.out.println("Score : " + score);
 		System.out.print("O \t\t");
 		for (Double[] tab : this.plateau) {
 			System.out.print(tab[0] + "\t\t");
@@ -119,7 +129,7 @@ public class EtatTrap implements Etat {
 
 	@Override
 	public double resultat() {
-		/*if ( !etatInitial() ) {*/
+		//if ( !etatInitial() ) {
 			for (Double[] i : (Double[][])plateau) {
 				if (position <= i[0]) {
 					return i[1];
@@ -127,7 +137,7 @@ public class EtatTrap implements Etat {
 			}
 			return plateau[plateau.length - 1][1];
 		/*} else {
-			return 0.0;
+			return .0;
 		}*/
 	}
 
@@ -151,6 +161,4 @@ public class EtatTrap implements Etat {
 		}
 		return true;
 	}
-
-
 }
