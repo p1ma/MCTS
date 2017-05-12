@@ -19,3 +19,5 @@ hs_err_pid*
 /LATEX/*.blg
 /LATEX/*.log
 /LATEX/*.aux
+/LATEX/*.out
+/LATEX/*.bbl
