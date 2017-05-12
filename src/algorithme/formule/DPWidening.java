@@ -42,13 +42,14 @@ public class DPWidening implements FormuleSelection {
 		double min = Double.NEGATIVE_INFINITY;
 		double score = 0.0, totalReward;
 		int nb = 0;
+
 		for (int i = 0 ; i < k ; i++) {
 			enfant = s.recuperer(actions.get(i));
 
 			nb = enfant.nbSimulation();
 
 			if ( nb == 0 ) {	
-				s.ajouterEnfant( actions.get(i) );
+				enfant = s.ajouterEnfant( actions.get(i) );
 				best = i;
 				break;
 			} else {
@@ -57,6 +58,15 @@ public class DPWidening implements FormuleSelection {
 
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
+				System.out.println();
+				System.out.println("pos enfant num " + i + " = " + (double)enfant.getEtat().getPosition());
+				System.out.println("#enfant enfant num " + i + " = " + enfant.nbEnfant());
+				for(int j = 0 ; j < enfant.nbEnfant() ; j++) {
+					System.out.println("\tpos enfant d'enfant num " + i + " = " + (double)enfant.retournerEnfant(j).getEtat().getPosition());
+				}
+				System.out.println("totalReward enfant num " + i + " = " + totalReward);
+				System.out.println("score enfant num " + i + " = " + score);
+				System.out.println();
 			}
 			if ( score > min ) {
 				min = score;

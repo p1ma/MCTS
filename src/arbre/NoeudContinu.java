@@ -197,6 +197,7 @@ public abstract class NoeudContinu implements Noeud {
 		int k = 1;
 		for(NoeudContinu enfant : enfants) {
 			System.out.println("\t\t-Position enfant " + k + " : " + (double)enfant.getEtat().getPosition());
+			System.out.println("\t\t-Action enfant " + k + " : " + enfant.getAction());
 			System.out.println("\t\t-Recompense enfant " + k + ": " + enfant.resultat());
 			k++;
 		}

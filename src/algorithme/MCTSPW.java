@@ -63,6 +63,7 @@ public class MCTSPW extends MCTS {
 			
 			noeud = noeud.predecesseur();
 		}
+		noeud.visiter( recompense );
 		return noeud;
 	}
 }
