@@ -15,4 +15,18 @@
 \contentsline {subsection}{\numberline {2.3}Strat\IeC {\'e}gies de s\IeC {\'e}lection terminale}{5}{subsection.2.3}
 \contentsline {subsection}{\numberline {2.4}Application sur un exemple}{6}{subsection.2.4}
 \contentsline {section}{\numberline {3}Application dans un monde continue}{8}{section.3}
+\contentsline {subsection}{\numberline {3.1}Abstrait}{8}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}D\IeC {\'e}finitions}{8}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Contexte}{8}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Premi\IeC {\`e}re approche}{8}{subsubsection.3.1.3}
+\contentsline {subsubsubsection}{\numberline {3.1.3.a}Modification du MCTS discret}{8}{subsubsubsection.3.1.3.1}
+\contentsline {subsubsection}{\numberline {3.1.4}Progressive widening}{8}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.5}Double peogressive widening}{8}{subsubsection.3.1.5}
+\contentsline {subsection}{\numberline {3.2}Exp\IeC {\'e}rimentations}{8}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}MCTS discret dans un monde continu}{8}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Progressive widening}{8}{subsubsection.3.2.2}
+\contentsline {subsubsubsection}{\numberline {3.2.2.a}Sans ajout de bruit}{8}{subsubsubsection.3.2.2.1}
+\contentsline {subsubsubsection}{\numberline {3.2.2.b}Avec ajout de bruit}{8}{subsubsubsection.3.2.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Double progressive widening}{8}{subsubsection.3.2.3}
+\contentsline {subsection}{\numberline {3.3}Conclusion}{8}{subsection.3.3}
 \select@language {french}

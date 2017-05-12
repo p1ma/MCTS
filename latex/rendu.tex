@@ -18,8 +18,23 @@
 \usepackage{caption}
 \usepackage{hyperref}
 
+% modifie les parametres de la balise \paragraph
+
 % where to find images:
-\graphicspath{{./images/}}
+\graphicspath{{../images/}}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+\makeatletter
+\newcounter {subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
 
 \begin{document}
 \selectlanguage{english}
@@ -256,7 +271,20 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 
 \newpage
 \section{Application dans un monde continue}
-\textit{to be continued...}
+\subsection{Abstrait}
+	\subsubsection{Définitions}
+	\subsubsection{Contexte}
+	\subsubsection{Première approche}
+		\subsubsubsection{Modification du MCTS discret}
+	\subsubsection{Progressive widening}
+	\subsubsection{Double peogressive widening}
+\subsection{Expérimentations}
+	\subsubsection{MCTS discret dans un monde continu}
+	\subsubsection{Progressive widening}
+		\subsubsubsection{Sans ajout de bruit}
+		\subsubsubsection{Avec ajout de bruit}
+	\subsubsection{Double progressive widening}
+\subsection{Conclusion}
 \newpage
 \selectlanguage{french}
 \bibliographystyle{alpha}

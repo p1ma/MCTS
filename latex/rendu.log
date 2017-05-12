@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.3.2)  17 MAR 2017 07:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.3.2)  12 MAY 2017 16:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -681,6 +681,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip53
 )
+\c@subsubsubsection=\count123
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
@@ -689,38 +690,38 @@ Package csquotes Info: Redefining alias 'default' -> 'english'.
 (./rendu.aux)
 \openout1 = `rendu.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/pzccm/m/n on input line 24.
-LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 24
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/pzccm/m/n on input line 39.
+LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 39
 .
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omspzccm.fd
 File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
 )
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count123
+\scratchcounter=\count124
 \scratchdimen=\dimen129
 \scratchbox=\box29
-\nofMPsegments=\count124
-\nofMParguments=\count125
+\nofMPsegments=\count125
+\nofMParguments=\count126
 \everyMPshowfont=\toks25
-\MPscratchCnt=\count126
+\MPscratchCnt=\count127
 \MPscratchDim=\dimen130
-\MPnumerator=\count127
-\makeMPintoPDFobject=\count128
+\MPnumerator=\count128
+\makeMPintoPDFobject=\count129
 \everyMPtoPDFconversion=\toks26
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -737,9 +738,9 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \degres on input line 24.
-LaTeX Info: Redefining \dots on input line 24.
-LaTeX Info: Redefining \up on input line 24.
+LaTeX Info: Redefining \degres on input line 39.
+LaTeX Info: Redefining \dots on input line 39.
+LaTeX Info: Redefining \up on input line 39.
 
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -778,37 +779,37 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box30
-Package hyperref Info: Link coloring OFF on input line 24.
+Package hyperref Info: Link coloring OFF on input line 39.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count129
+\c@section@level=\count130
 )
-LaTeX Info: Redefining \ref on input line 24.
-LaTeX Info: Redefining \pageref on input line 24.
-LaTeX Info: Redefining \nameref on input line 24.
+LaTeX Info: Redefining \ref on input line 39.
+LaTeX Info: Redefining \pageref on input line 39.
+LaTeX Info: Redefining \nameref on input line 39.
 
 (./rendu.out) (./rendu.out)
 \@outlinefile=\write3
 \openout3 = `rendu.out'.
 
 
-<./Images/lorraine.png, id=56, 260.975pt x 91.34125pt>
-File: ./Images/lorraine.png Graphic file (type png)
+<../images/lorraine.png, id=112, 260.975pt x 91.34125pt>
+File: ../images/lorraine.png Graphic file (type png)
 
-<use ./Images/lorraine.png>
-Package pdftex.def Info: ./Images/lorraine.png used on input line 36.
+<use ../images/lorraine.png>
+Package pdftex.def Info: ../images/lorraine.png used on input line 51.
 (pdftex.def)             Requested size: 260.97437pt x 91.34102pt.
 LaTeX Font Info:    Font shape `T1/ptm/bx/sc' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/sc' tried instead on input line 41.
+(Font)              Font shape `T1/ptm/b/sc' tried instead on input line 56.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Images/lorraine.png>]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <../images/lorraine.png>]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 59.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 74.
  (./rendu.toc
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 5.
@@ -853,82 +854,99 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.62 \newpage
+l.77 \newpage
               [1]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 65.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 80.
 
-Overfull \hbox (9.48654pt too wide) in paragraph at lines 68--69
+Overfull \hbox (9.48654pt too wide) in paragraph at lines 83--84
 \T1/ptm/m/n/10 Nous avions étudié lors de l'UE \T1/ptm/m/it/10 Mod-èles de per-
 cep-tion, de raison-nement et d'interaction
  []
 
 
-Overfull \hbox (26.1271pt too wide) in paragraph at lines 81--82
+Overfull \hbox (26.1271pt too wide) in paragraph at lines 96--97
 []\T1/ptm/m/n/10 Afin de pou-voir met-tre en place l'algorithme, nous avions de
 ux choix d'implémentations,
  []
 
-[2] <./Images/etapes.png, id=93, 811.03pt x 271.0125pt>
-File: ./Images/etapes.png Graphic file (type png)
+[2] <../images/etapes.png, id=163, 811.03pt x 271.0125pt>
+File: ../images/etapes.png Graphic file (type png)
 
-<use ./Images/etapes.png>
-Package pdftex.def Info: ./Images/etapes.png used on input line 98.
+<use ../images/etapes.png>
+Package pdftex.def Info: ../images/etapes.png used on input line 113.
 (pdftex.def)             Requested size: 340.00969pt x 113.61769pt.
- [3 <./Images/etapes.png>]
+ [3 <../images/etapes.png>]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 127.
+put line 142.
 
-Underfull \hbox (badness 10000) in paragraph at lines 158--159
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
 
  []
 
 [4]
-Overfull \hbox (3.80705pt too wide) in paragraph at lines 201--202
+Overfull \hbox (3.80705pt too wide) in paragraph at lines 216--217
 \T1/ptm/m/n/10 Maintenant que nous avons vu com-ment l'algorithme fonc-tion-nai
 t de manière générale,
  []
 
 [5]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 204.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 219.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 204.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 219.
 
-Underfull \hbox (badness 10000) in paragraph at lines 231--234
+Underfull \hbox (badness 10000) in paragraph at lines 246--249
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 245--248
+Underfull \hbox (badness 10000) in paragraph at lines 260--263
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--256
+Underfull \hbox (badness 10000) in paragraph at lines 266--271
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--256
+Underfull \hbox (badness 10000) in paragraph at lines 266--271
 
  []
 
-[7] [8] (./rendu.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 265.
+[7]
+
+Package hyperref Warning: bookmark level for unknown subsubsubsection defaults 
+to 0.
+
+
+Package hyperref Warning: Difference (3) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 279.
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 280.
+
+
+Package hyperref Warning: Difference (3) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 286.
+
+[8] (./rendu.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 293.
  [9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 265.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 293.
  (./rendu.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 265.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 265.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 293.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 293.
 Package rerunfilecheck Info: File `rendu.out' has not changed.
-(rerunfilecheck)             Checksum: EBF140138D28470FDAC7D782566B5551;960.
+(rerunfilecheck)             Checksum: 71916DD9EDBF8C995D676B881C8B724B;2061.
  ) 
 Here is how much of TeX's memory you used:
- 10215 strings out of 494924
- 151241 string characters out of 6179709
- 257626 words of memory out of 5000000
- 13298 multiletter control sequences out of 15000+600000
+ 10252 strings out of 494924
+ 151983 string characters out of 6179709
+ 257826 words of memory out of 5000000
+ 13321 multiletter control sequences out of 15000+600000
  65475 words of font info for 89 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  36i,10n,39p,826b,557s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -940,10 +958,10 @@ type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utm
 b8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on rendu.pdf (10 pages, 143363 bytes).
+Output written on rendu.pdf (10 pages, 145788 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
- 164 compressed objects within 2 object streams
- 40 named destinations out of 1000 (max. 500000)
- 115 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 263 PDF objects out of 1000 (max. 8388607)
+ 236 compressed objects within 3 object streams
+ 54 named destinations out of 1000 (max. 500000)
+ 227 words of extra memory for PDF output out of 10000 (max. 10000000)
 
