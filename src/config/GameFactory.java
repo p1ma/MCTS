@@ -62,12 +62,9 @@ public abstract class GameFactory {
 			System.out.println("Nombre d'itérations : " + iter);
 			System.out.println( selectionFinale + " sur " + racine.nbEnfant() + " noeuds");
 		}
-		//racine.afficherStatistiques();
 		// On selectionne le meilleur enfant en utilisant les propriétés de 'selectionFinale'
-		//System.out.println("SELECTION EN COURS :");
 		enfant = selectionFinale.selectionner(racine);
-		//System.out.println("SELECTED ONE :");
-		//enfant.afficherStatistiques();
+
 		// On affiche (ou non) l'Action choisit
 		if (output) {
 			System.out.println("Action choisi " + enfant.getAction());

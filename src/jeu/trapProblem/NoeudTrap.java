@@ -76,6 +76,8 @@ public class NoeudTrap extends NoeudContinu {
 	public NoeudContinu ajouterEnfantBruite(Action action) {
 		NoeudContinu enfant = new NoeudTrap(this, new EtatTrap(etat), action);
 		
+		// Pas sur aussi ici 
+		enfant.visiter( resultat() );
 		
 		bruits.add( (double)action.getRepresentation() );
 		

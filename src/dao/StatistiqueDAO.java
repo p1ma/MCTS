@@ -207,8 +207,6 @@ public class StatistiqueDAO {
 			e = noeudEnfant.getEtat();
 			writer3.append((double)e.getPosition() + "");
 			writer3.append(separateur);
-			writer3.append("");
-			writer3.append(separateur);
 			double recomp = (double)noeudEnfant.resultat() + (double)noeudRacine.getEtat().getScore();
 			writer3.append(recomp + "");
 			writer3.append(separateur);
