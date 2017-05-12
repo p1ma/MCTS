@@ -54,11 +54,11 @@ public class DPWidening implements FormuleSelection {
 				break;
 			} else {
 				// equivalent UCB
-				totalReward = s.nbRecompense() + enfant.resultat();
+				totalReward = enfant.nbRecompense() + enfant.resultat();
 
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
-				System.out.println();
+				/*System.out.println();
 				System.out.println("pos enfant num " + i + " = " + (double)enfant.getEtat().getPosition());
 				System.out.println("#enfant enfant num " + i + " = " + enfant.nbEnfant());
 				for(int j = 0 ; j < enfant.nbEnfant() ; j++) {
@@ -66,7 +66,7 @@ public class DPWidening implements FormuleSelection {
 				}
 				System.out.println("totalReward enfant num " + i + " = " + totalReward);
 				System.out.println("score enfant num " + i + " = " + score);
-				System.out.println();
+				System.out.println();*/
 			}
 			if ( score > min ) {
 				min = score;

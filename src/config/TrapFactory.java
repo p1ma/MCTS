@@ -59,10 +59,10 @@ public class TrapFactory extends GameFactory {
 
 		// boucle de décision
 		do {
-			System.out.println("Position : " + (double)etat.getPosition());
+			System.out.println("Position au lancement : " + (double)etat.getPosition());
 			// execution de MCTS
 			mcts(etat, strategie, selectionFinale, mcts, output);
-			System.exit(1);
+			
 			// affichage de l'état du jeu (ou non si output = false)
 			if (output) { etat.afficherJeu(); }
 

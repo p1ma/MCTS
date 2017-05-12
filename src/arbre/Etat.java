@@ -13,6 +13,7 @@ public interface Etat {
 	public List<Action> coups_possibles(int k);
 	public FinDePartie testFin();
 	
+	public boolean initial();
 	public boolean jouerAction(Action action);
 	public void jouerActionBruite(Action action);
 	

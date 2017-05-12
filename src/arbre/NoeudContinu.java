@@ -68,6 +68,9 @@ public abstract class NoeudContinu implements Noeud {
 		parent = null;
 		action = null;
 		etat = e;
+
+		//peut etre
+		//recompenses = (double)etat.getScore();
 		enfants = new LinkedList<NoeudContinu>();
 		bruits = new HashSet<Double>();
 	}
@@ -187,6 +190,11 @@ public abstract class NoeudContinu implements Noeud {
 		} else {
 			System.out.println("\t-Racine : oui");
 		}
+		if (FinDePartie.NON == etat.testFin()) {
+			System.out.println("\t-Noeud : non terminal");
+		} else {
+			System.out.println("\t-Noeud : terminal");
+		}
 		double pos = (double)etat.getPosition();
 		System.out.println("\t-Recompense : " + recompenses);
 		System.out.println("\t-Resultat : " + resultat());
@@ -198,7 +206,9 @@ public abstract class NoeudContinu implements Noeud {
 		for(NoeudContinu enfant : enfants) {
 			System.out.println("\t\t-Position enfant " + k + " : " + (double)enfant.getEtat().getPosition());
 			System.out.println("\t\t-Action enfant " + k + " : " + enfant.getAction());
-			System.out.println("\t\t-Recompense enfant " + k + ": " + enfant.resultat());
+			System.out.println("\t\t-Resultat enfant " + k + ": " + enfant.resultat());
+			System.out.println("\t\t-Recompense enfant " + k + ": " + enfant.nbRecompense());
+			System.out.println("\t\t-Simulations enfant " + k + ": " + enfant.nbSimulation()+ "\n");
 			k++;
 		}
 	}

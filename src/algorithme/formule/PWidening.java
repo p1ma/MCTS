@@ -38,7 +38,7 @@ public class PWidening implements FormuleSelection{
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
 		double score = 0.0, totalReward;
-		
+
 		for(int i = 0 ; i < k ; i++) {
 			enfant = s.recuperer(actions.get(i));
 
@@ -49,20 +49,20 @@ public class PWidening implements FormuleSelection{
 				return s.ajouterEnfant( actions.get(i) );
 			} else {
 				// equivalent UCB
-				totalReward = s.nbRecompense() + enfant.resultat();
+				totalReward = enfant.nbRecompense();
 				
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
-			}
-
-			if ( score > min ) {
-				min = score;
-				best = i;
+				
+				if ( score > min ) {
+					min = score;
+					best = i;
+				}
 			}
 		}
 		// On recupere le meilleur enfant selon les criteres UCB
 		enfant = s.retournerEnfant(best);
-		
+
 		// On lui applique un bruit (ou non)
 		//enfant = enfant.bruite();
 		

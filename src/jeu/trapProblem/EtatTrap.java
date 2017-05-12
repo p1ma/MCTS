@@ -45,10 +45,6 @@ public class EtatTrap implements Etat {
 	public Object getScore() {
 		return score;
 	}
-	
-	private boolean etatInitial() {
-		return pas == 2 && position == 0.0;
-	}
 
 	@Override
 	public void afficherJeu() {
@@ -128,17 +124,22 @@ public class EtatTrap implements Etat {
 	}
 
 	@Override
+	public boolean initial() {
+		return (pas == 2) && (position == 0.00);
+	}
+	
+	@Override
 	public double resultat() {
-		//if ( !etatInitial() ) {
+		if ( !initial() ) {
 			for (Double[] i : (Double[][])plateau) {
 				if (position <= i[0]) {
 					return i[1];
 				}
 			}
 			return plateau[plateau.length - 1][1];
-		/*} else {
-			return .0;
-		}*/
+		} else {
+			return 0.0;
+		}
 	}
 
 	@Override

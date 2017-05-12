@@ -33,8 +33,8 @@ public class MCTSPW extends MCTS {
 
 		/* 2. On mets a jour le meilleur enfant */
 		noeud = mettreAJour(noeud, noeud.resultat());
-		
-		// On retourne ensuite le noeud initial
+
+		/* On retourne ensuite le noeud initial */
 		return noeud;
 	}
 	
@@ -57,13 +57,21 @@ public class MCTSPW extends MCTS {
 	/* 3. */
 	private Noeud mettreAJour(Noeud noeud, double recompense) {
 
+		/*System.out.println("TERMINAL Position : " + (double)noeud.getEtat().getPosition()
+				+ " - Recompense : " + noeud.nbRecompense()
+				+ " - Resultat : " + recompense + " noeud.resultat() : " + noeud.resultat()
+				+ " - Simulations : " + noeud.nbSimulation());*/
 		while( !noeud.estRacine() ) {
 			// On augmente le reward des noeuds precedents
 			noeud.visiter( recompense );
-			
+
+			/*System.out.println("TERMINAL Position : " + (double)noeud.getEtat().getPosition()
+					+ " - Recompense : " + noeud.nbRecompense()
+					+ " - Resultat : " + recompense + " noeud.resultat() : " + noeud.resultat()
+					+ " - Simulations : " + noeud.nbSimulation());*/
 			noeud = noeud.predecesseur();
 		}
-		noeud.visiter( recompense );
+		//noeud.visiter( recompense );
 		return noeud;
 	}
 }

@@ -16,14 +16,14 @@ public class Main {
 		// si on desire des affichages sur la sortie std
 		boolean output = true;
 		
-		for(int i = 0 ; i < 100 ; i++) {
+		for(int i = 0 ; i < 1 ; i++) {
 			// continu avec PWidening
-			/*new TrapFactory().jouer(new PWidening(), 
-					new Robuste(), output);*/
+			new TrapFactory().jouer(new PWidening(), 
+					new Robuste(), output);
 
 			// continu avec DPWidening
-			new TrapFactory().jouer(new DPWidening(), 
-					 new Robuste(), output);
+			/*new TrapFactory().jouer(new DPWidening(), 
+					 new Robuste(), output);*/
 
 		}
 	}
