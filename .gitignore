@@ -15,9 +15,9 @@ hs_err_pid*
 .desktop
 .classpath
 .project
-/LATEX/*.toc
-/LATEX/*.blg
-/LATEX/*.log
-/LATEX/*.aux
-/LATEX/*.out
-/LATEX/*.bbl
+/latex/*.toc
+/latex/*.blg
+/latex/*.log
+/latex/*.aux
+/latex/*.out
+/latex/*.bbl
