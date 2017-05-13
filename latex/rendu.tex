@@ -375,7 +375,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 		\end{figure}
 
 		Néanmoins, nous verrons dans la partie \ref{exp:mctsD} que cette modification n'est pas aussi efficace que les deux prochains algorithmes.
-	\subsubsection{Progressive widening}
+	\subsubsection{Progressive widening} \label{pw}
 
 		\subsubsubsection{Principe} \label{pw:principe}
 
@@ -390,7 +390,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 
 		Ce principe nous permet de développer de manière efficace les noeuds les plus visités, donc les noeuds plus intéressants.
 
-		\subsubsubsection{Pseudo-code}
+		\subsubsubsection{Pseudo-code} \label{pw:code}
 
 		\begin{algorithm}[H]
 			\caption{Progressive widening (PW) appliqué à un État $s$ avec la constante d'exploration $C > 0$ and $\alpha \in ]0, 1[$.}
@@ -423,14 +423,14 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 
 		Même si nous avions explicité dans la partie \ref{pw:principe} quelle était la différence entre le MCTS générique \ref{alg:mcts} et le MCTS avec le progressive widening, voici tout de même le pseudo code de ce dernier :
 
-		\begin{algorithm}
+		\begin{algorithm}[H]
 			\caption{MCTS avec le progressive widening}
 			\label{alg:mctspw}
 				\begin{algorithmic}[1]
 					\Function{MCTS}{État $s$}
 						\While{$temps < tempsLimite $}\Comment{tant qu'il reste du temps}
 							\While{$s$ n'est pas terminal}
-								\State $s \gets PW(s)$ \Comment{On applique le progressive widening à $n$}
+								\State $s \gets PW(s)$ \Comment{On applique le progressive widening à $s$}
 							\EndWhile
 						\State $s \gets miseAjour(s)$
 						\EndWhile
@@ -439,13 +439,94 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 					\EndFunction
 				\end{algorithmic}
 		\end{algorithm}
-	\subsubsection{Double progressive widening}
-\subsection{Expérimentations}
+	\subsubsection{Double progressive widening} \label{dpw}
+		\subsubsubsection{Principe} \label{dpw:principe}
+			Cette seconde amélioration prend la même base que le progressive widening \ref{pw} mais permet, en plus de gérer un nombre d'actions très grand, gérer le cas où, lorsque l'on a sélectionné la meilleure action possible, un bruit parasite se produit.
+
+			De ce fait, en un seul appel, la fonction double progressive widening va produire à partir d'un noeud $s$ (potentiellement) 2 noeuds.
+
+			Le premier noeud correspondra à la meilleure action possible (même principe que PW), puis le second noeud correspondra à un bruit parasite que l'on appliquera à l'action appartenant au premier noeud.
+
+			Afin de savoir si l'on doit ajouter un bruit, le double progressive widening va donc utiliser le nombre de simulation de l'état $s'$
+
+			
+
+		\subsubsubsection{Pseudo-code} \label{dpw:code}
+
+			\begin{algorithm}[H]
+				\caption{Double progressive widening (PW) appliqué à un État $s$ avec la constante d'exploration $C > 0$ and $\alpha \in ]0, 1[$.}
+				\label{alg:dpw}
+					\begin{algorithmic}[1]
+						\Function{DPW}{État $s$}
+							\State $nbSimulation(s) \gets nbSimulation(s) + 1$ 
+							\State $t \gets nbSimulation(s)$
+							\State $k \gets \lceil{C \times t^{\alpha}}\rceil$
+							\State \textit{// On va parcourir les actions possibles entre 0 et k}
+							\For{$i \in [0 ,k]$}
+								\State \textit{/* On récupère la récompense de s plus la récompense si on applique $action_{i}$ à $s$ */}
+								\State $recompense \gets recompense(s) + recompense(s, action_{i})$
+								\State \textit{// On récupère le nombre de simulation où $action_{i}$ a été appliqué à $s$}
+								\State $nb \gets nbSimulation(s, action_{i})$
+								\If{$nb = 0$}
+									\State \textit{/* Si $action_{i}$ fournit un État jamais exploré, alors on retourne ce dernier */}
+									\State \textbf{return} $(s, action_{i})$
+								\Else
+									\State \textit{// Sinon on calcul le score correspondant}
+									\State $score(i) \gets \frac{recompense}{nb} + \textbf{$k_{ucb}$}\sqrt{\log(t)/(nb + 1)}$							
+								\EndIf
+							\EndFor
+							\State \textit{// La boucle for est terminée, on recupère l'indice ayant le score maximal}
+							\State $i_{max} \gets indiceMaximisant(score)$
+							\State \textit{// On récupère le meilleur enfant dans s'}
+							\State $s' \gets (s, action_{i_{max}})$
+							\State \textit{// On récupère le nombre de simulation de s'}
+							\State $nb \gets nbSimulation(s')$
+							\State \textit{// On récupère le nombre d'enfant de s'}
+							\State $nbEnfant \gets nbEnfant(s')$
+							\State $k' \gets \lceil{C \times nb^{\alpha}}\rceil$
+							\If{$k' > nbEnfant$}
+								\State \textit{// On bruite le noeud s'}
+								\State $s'' \gets bruitage(s')$
+								\If{$s'' \notin enfants(s')$}
+									\State \textit{// On ajoute s'' comme enfant de s'}
+									\State $enfants(s') \gets enfants(s') \cup s''$
+									\State \textbf{return} $s''$
+								\Else
+									\State \textit{// On retourne directement s''}
+									\State \textbf{return} $s''$
+								\EndIf
+							\Else
+								\State \textit{// Sinon on retourne un enfant tiré aléatoirement dans s'}
+								\State \textbf{return} $enfantAleatoire(s')$
+							\EndIf
+						\EndFunction
+					\end{algorithmic}
+			\end{algorithm}
+
+			Et voici, ci-dessous, l'algorithme MCTS avec la stratégie double progressive widening.
+
+			\begin{algorithm}[h]
+			\caption{MCTS avec le double progressive widening}
+			\label{alg:mctdpw}
+				\begin{algorithmic}[1]
+					\Function{MCTS}{État $s$}
+						\While{$temps < tempsLimite $}\Comment{tant qu'il reste du temps}
+							\While{$s$ n'est pas terminal}
+								\State $s \gets DPW(s)$ \Comment{On applique le double progressive widening à $s$}
+							\EndWhile
+						\State $s \gets miseAjour(s)$
+						\EndWhile
+						\State \textit{/* Lorsque le temps est écoulé, on applique la stratégie robuste pour déterminer le meilleur prochain État */}
+					\State \textbf{return} Robuste($s$)
+					\EndFunction
+				\end{algorithmic}
+		\end{algorithm}
+\subsection{Expérimentations} \label{exp}
 	\subsubsection{MCTS discret dans un monde continu} \label{exp:mctsD}
-	\subsubsection{Progressive widening}
+	\subsubsection{Progressive widening} \label{exp:pw}
 			\subsubsubsection{Sans ajout de bruit}
 		\subsubsubsection{Avec ajout de bruit}
-	\subsubsection{Double progressive widening}
+	\subsubsection{Double progressive widening} \label{exp:dpw}
 \subsection{Conclusion}
 \newpage
 \selectlanguage{french}
