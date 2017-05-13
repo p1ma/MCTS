@@ -17,6 +17,7 @@
 \usepackage{multirow}
 \usepackage{caption}
 \usepackage{hyperref}
+\usepackage{tikz}
 
 % modifie les parametres de la balise \paragraph
 
@@ -129,7 +130,7 @@
 		Dans la figure~\ref{fig:mcts}, l'algorithme rajoute au noeud courant $(3/3)$ le noeud enfant $(0/0)$.
 		\item \textbf{Simulation}
 
-		Maintenant qu'un nouveau noeud a été ajouté, l'algorithme va jouer aléatoirement jusqu'à atteindre un noeud qualifié de terminal.
+		Maintenant qu'un nouveau noeud a été ajouté, l'algorithme va jouer aléatoirement jusqu'à atteindre un noeud terminal.
 		C'est dans cette partie qu'on utilise le principe Monte Carlo, c'est-à-dire l'utilisation de l'aléatoire.
 		\item \textbf{Mise à jour} 
 
@@ -270,10 +271,56 @@ Donc, de la même façon que la stratégie Maxi, la stratégie Robuste n'est pas
 Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre d'états et d'actions discret, essayons de le mettre en pratique dans un monde à actions ou états continue.
 
 \newpage
-\section{Application dans un monde continue}
+\section{Application dans un monde continu}
 \subsection{Abstrait}
-	\subsubsection{Définitions}
-	\subsubsection{Contexte}
+	\subsubsection{Définition}
+
+	Précèdemment, nous avons vu quel était l'algorithme MCTS appliqué aux variables discrètes, c'est-à-dire des variables dont l'ensemble des valeurs possibles est fini, dénombrable.
+	Maintenant comme le titre le laisse supposer, nous allons nous intéresser au monde continu.
+
+	De ce fait, nous allons rappeler ce qu'est une variable continue, et pour ce faire nous allons utiliser un exemple : 
+
+	Supposons que nous avons une voiture, sa vitesse correspond donc à une variable continue car elle peut être de $40,00$ km/h tout comme de $16,24575$ km/h, il existe donc une infinitée de valeurs réelles entre les intervalles $0$ km/h et $Vitesse_{max}$ km/h. \\
+
+	Donc, dans cette partie, nos différentes variantes de MCTS vous travailler avec des variables de ce type.
+
+	\subsubsection{Explications du problème}
+
+	Voici une illustration du problème que nous allons essayer de résoudre : \\
+
+	\begin{figure}[h]
+	\centering
+		\begin{tikzpicture}
+		% axe abscisse
+		\draw[->] (1, 1) node[below] {0} -- (5, 1) node[below] {position};
+
+		% axe ordonné
+		\draw[->] (1, 1) -- (1, 5) node[right] {récompense};
+
+		% premier palier
+		\draw (1, 2) -- (2, 2);
+		\draw (2, 1) -- (2, 2);
+
+		% deuxieme palier
+		\draw (2.7, 1) -- (2.7, 3);
+		\draw (2.7, 3) -- (5, 3);
+
+		% double fleche a
+		\draw[<->] (0.75, 1) -- (0.75, 2) node[pos=.5, left] {a};
+
+		% double fleche l
+		\draw[<->] (1, 2.25) -- (2, 2.25) node[pos=.5, above] {l};
+
+		% double fleche w
+		\draw[<->] (2, 0.75) -- (2.7, 0.75) node[pos=.5, below] {w};
+
+		% double fleche h
+		\draw[<->] (5.25, 1) -- (5.25, 3) node[pos=.5, left] {h};
+
+		\end{tikzpicture}
+		\caption{Illustration du problème} \label{fig:probleme}
+	\end{figure}
+
 	\subsubsection{Première approche}
 		\subsubsubsection{Modification du MCTS discret}
 	\subsubsection{Progressive widening}
