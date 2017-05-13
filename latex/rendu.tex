@@ -159,7 +159,7 @@
     
     
     
-	\subsection{Formule de sélection utilisée}
+	\subsection{Formule de sélection utilisée} \label{selection}
 	Précédemment, nous avions parlé lors de l'étape de sélection, de formule de sélection. 
 
 	En effet, afin de choisir le meilleur noeud possible des formules ont été mise en place.
@@ -174,11 +174,9 @@
 		\item Upper Confidence Bounds (\textbf{UCB}) \\
 		\[ \frac{recompenses(n)}{simulations(n)} + C \times \sqrt{\frac{simulations(N)}{simulations(n)}} \] 
 
-		On se rend compte ici que si notre constante \textit{C} est égale à $0$ alors, l'algorithme va choisir le noeud $n$ avec le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ possible. 
+		On se rend compte ici que si notre constante d'exploration \textit{C} est égale à $0$ alors, l'algorithme va choisir le noeud $n$ avec le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ possible. 
 
 		Donc si l'on souhaite permettre une exploration de l'arbre, il faut que $C$ soit différent de $0$ sinon on voit bien que si à l'état initiale l'algorithme sélectionne un noeud $n$, alors ce dernier aura nécessaire le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ vu qu'il est le seul à avoir été développé, et donc il sera tout au long de l'algorithme choisit. 
-
-		De ce fait, la constante d'exploration $C$ est donc fixé à $\sqrt{2}$ afin de permettre de développer l'arbre de recherche.
 
 
 		\underline{\textbf{Lexique}} : On utilise le terme UCT (\textit{Upper Confidence Bound for Trees}) pour désigner l'algorithme MCTS utilisant une formule de sélection de type UCB.
@@ -378,10 +376,50 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 
 		Néanmoins, nous verrons dans la partie \ref{exp:mctsD} que cette modification n'est pas aussi efficace que les deux prochains algorithmes.
 	\subsubsection{Progressive widening}
+
 		\subsubsubsection{Principe}
-			Cette amélioration d'UCB permet ici, contrairement à la version précédente, de nous pencher sur des problèmes dont le nombre d'actions est très grand voir même infini.
-			Le principe est donc, à chaque itération d'ajouter  à une liste d'actions possible, un certain nombre d'actions en plus. Cette limitation est donnée par la formule $k = Ct^\alpha$ avec $C > 0$, $\alpha \in ]0;1[$ et $t$ étant le nombre de simulation qui a été fait sur le nœud courant.
-			Nous allons donc, parmi les $n$ ($n$ étant très grand) actions disponibles pour un état donné, ne garder que k actions et y choisir la plus inintéressante a développer (celle dont la récompense est la plus grande).
+
+		Contrairement à la version précédente, cette amélioration permet de résoudre des problèmes dont le nombre d'actions est très grand voire infini sans utiliser d'adaptateurs ou autres artifices.
+
+		De plus cet algorithme garde un peu près la même structure que l'algorithme générique MCTS \ref{alg:mcts}, la principale différence est que les étapes $selection(n)$ et $simulation(n)$ seront regroupées en une seule étape.
+
+		Étant donné le fait que nous avons pour tout noeud $n$ un nombre extrêmement grand d'actions possibles, cet algorithme va donc à chaque itération ajouter (ou non) à la liste des actions possibles d'un noeud courant, une ou plusieurs action(s) supplémentaire(s).
+
+		Afin de savoir si l'algorithme doit ajouter une ou plusieur(s) action(s), on va principalement utiliser le nombre de simulation, noté $t$, du noeud courant.
+		Puis le principe sera le suivant: initialemment, un noeud aura une liste d'actions possibles de taille égale à la valeur de la constante d'exploration $C$ \ref{selection} utilisée, puis plus le noeud sera visité plus sa liste d'actions possibles augmentera.
+
+		Ce principe nous permet de développer de manière efficace les noeuds les plus visités, donc les noeuds plus intéressants.
+
+		\subsubsubsection{Pseudo-code}
+
+		\begin{algorithm}[H]
+			\caption{Progressive widening (PW) appliqué à un État $s$ avec la constante d'exploration $C > 0$ and $\alpha \in ]0, 1[$.}
+			\label{alg:spw}
+				\begin{algorithmic}[1]
+					\Function{PW}{État $s$}
+						\State $nbSimulation(s) \gets nbSimulation(s) + 1$ 
+						\State $t \gets nbSimulation(s)$
+						\State $k \gets \lceil{C \times t^{\alpha}}\rceil$
+						\State \textit{// On va parcourir les actions possibles entre 0 et k}
+						\For{$i \in [0 ,k]$}
+							\State \textit{/* On récupère la récompense de s plus la récompense si on applique $action_{i}$ à $s$ */}
+							\State $recompense \gets recompense(s) + recompense(s, action_{i})$
+							\State \textit{// On récupère le nombre de simulation où $action_{i}$ a été appliqué à $s$}
+							\State $nb \gets nbSimulation(s, action_{i})$
+							\If{$nb = 0$}
+								\State \textit{/* Si $action_{i}$ fournit un État jamais exploré, alors on retourne ce dernier */}
+								\State \textbf{return} $(s, action_{i})$
+							\Else
+								\State \textit{// Sinon on calcul le score correspondant}
+								\State $score(i) \gets \frac{recompense}{nb} + \textbf{$k_{ucb}$}\sqrt{\log(t)/(nb + 1)}$							
+							\EndIf
+						\EndFor
+						\State \textit{// La boucle for est terminée, on recupère l'indice ayant le score maximal}
+						\State $i_{max} \gets indiceMaximisant(score)$
+						\State \textbf{return} $(s, action_{i_{max}})$
+					\EndFunction
+				\end{algorithmic}
+		\end{algorithm}
 	\subsubsection{Double progressive widening}
 \subsection{Expérimentations}
 	\subsubsection{MCTS discret dans un monde continu} \label{exp:mctsD}
