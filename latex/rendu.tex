@@ -349,7 +349,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 		Et ce type d'entité, en programmation logiciel, correspond à un design pattern $Adapter$.\\
 
 		Ci-dessous un diagramme de séquence simplifié ~\ref{fig:actionsPossibles}, pour mieux comprendre, ce que donne ce système lorsque le MCTS va demander à un problème ses actions possibles.
-		\begin{figure}[h]
+		\begin{figure}[H]
 			\centering
 			\begin{tikzpicture}
 				% axe MCTS discret
@@ -375,12 +375,18 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 			\end{tikzpicture}
 			\caption{Obtenir les actions possibles d'un problème continu dans le MCTS discret} \label{fig:actionsPossibles}
 		\end{figure}
+
+		Néanmoins, nous verrons dans la partie \ref{exp:mctsD} que cette modification n'est pas aussi efficace que les deux prochains algorithmes.
 	\subsubsection{Progressive widening}
+		\subsubsubsection{Principe}
+			Cette amélioration d'UCB permet ici, contrairement à la version précédente, de nous pencher sur des problèmes dont le nombre d'actions est très grand voir même infini.
+			Le principe est donc, à chaque itération d'ajouter  à une liste d'actions possible, un certain nombre d'actions en plus. Cette limitation est donnée par la formule $k = Ct^\alpha$ avec $C > 0$, $\alpha \in ]0;1[$ et $t$ étant le nombre de simulation qui a été fait sur le nœud courant.
+			Nous allons donc, parmi les $n$ ($n$ étant très grand) actions disponibles pour un état donné, ne garder que k actions et y choisir la plus inintéressante a développer (celle dont la récompense est la plus grande).
 	\subsubsection{Double progressive widening}
 \subsection{Expérimentations}
-	\subsubsection{MCTS discret dans un monde continu}
+	\subsubsection{MCTS discret dans un monde continu} \label{exp:mctsD}
 	\subsubsection{Progressive widening}
-		\subsubsubsection{Sans ajout de bruit}
+			\subsubsubsection{Sans ajout de bruit}
 		\subsubsubsection{Avec ajout de bruit}
 	\subsubsection{Double progressive widening}
 \subsection{Conclusion}
