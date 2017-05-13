@@ -14,7 +14,10 @@ public class Robuste implements FormuleSelection {
 		System.out.println("(ROBUSTE) sur " + enfants + " noeuds");
 		while(k < enfants ) {
 			value = noeud.retournerEnfant(k).nbSimulation();
-
+			System.out.println("Noeud num " 
+			+ k 
+			+ " - position " + (double)noeud.retournerEnfant(k).getEtat().getPosition()
+			+ " possède " + value + " simulations");
 			if (value > maxi) {
 				maxi = value;
 				indice = k;
