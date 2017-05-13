@@ -145,11 +145,11 @@
 	\begin{algorithmic}[1]
 	\Function{MCTS}{État $s$}
 	\State création d'un noeud $n$ à partir de $s$
-	\While{$temps < tempsLimite $}\Comment{tant qu'il reste du temps}
-	\State $n \gets selection(n)$ \Comment{L'étape d'expension est incluse dans cet appel}
-	\State $n \gets simulation(n)$
-	\State $n \gets miseAjour(n)$
-	\EndWhile
+		\While{$temps < tempsLimite $}\Comment{tant qu'il reste du temps}
+			\State $n \gets selection(n)$ \Comment{L'étape d'expension est incluse dans cet appel}
+			\State $n \gets simulation(n)$
+			\State $n \gets miseAjour(n)$
+		\EndWhile
 	\State \textbf{return} $meilleurEnfant(n)$
 	\EndFunction
 	\end{algorithmic}
@@ -377,7 +377,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 		Néanmoins, nous verrons dans la partie \ref{exp:mctsD} que cette modification n'est pas aussi efficace que les deux prochains algorithmes.
 	\subsubsection{Progressive widening}
 
-		\subsubsubsection{Principe}
+		\subsubsubsection{Principe} \label{pw:principe}
 
 		Contrairement à la version précédente, cette amélioration permet de résoudre des problèmes dont le nombre d'actions est très grand voire infini sans utiliser d'adaptateurs ou autres artifices.
 
@@ -417,6 +417,25 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 						\State \textit{// La boucle for est terminée, on recupère l'indice ayant le score maximal}
 						\State $i_{max} \gets indiceMaximisant(score)$
 						\State \textbf{return} $(s, action_{i_{max}})$
+					\EndFunction
+				\end{algorithmic}
+		\end{algorithm}
+
+		Même si nous avions explicité dans la partie \ref{pw:principe} quelle était la différence entre le MCTS générique \ref{alg:mcts} et le MCTS avec le progressive widening, voici tout de même le pseudo code de ce dernier :
+
+		\begin{algorithm}
+			\caption{MCTS avec le progressive widening}
+			\label{alg:mctspw}
+				\begin{algorithmic}[1]
+					\Function{MCTS}{État $s$}
+						\While{$temps < tempsLimite $}\Comment{tant qu'il reste du temps}
+							\While{$s$ n'est pas terminal}
+								\State $s \gets PW(s)$ \Comment{On applique le progressive widening à $n$}
+							\EndWhile
+						\State $s \gets miseAjour(s)$
+						\EndWhile
+						\State \textit{/* Lorsque le temps est écoulé, on applique la stratégie robuste pour déterminer le meilleur prochain État */}
+					\State \textbf{return} Robuste($s$)
 					\EndFunction
 				\end{algorithmic}
 		\end{algorithm}
