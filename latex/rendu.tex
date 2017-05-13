@@ -286,7 +286,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 
 	\subsubsection{Explications du problème}
 
-	Voici une illustration du problème que nous allons essayer de résoudre : \\
+	Voici une illustration du problème \cite{couetoux01} que nous allons essayer de résoudre : \\
 
 	\begin{figure}[h]
 	\centering
@@ -306,20 +306,36 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 		\draw (2.7, 3) -- (5, 3);
 
 		% double fleche a
-		\draw[<->] (0.75, 1) -- (0.75, 2) node[pos=.5, left] {a};
+		\draw[<->] (0.75, 1) -- (0.75, 2) node[pos=.5, left] {a = 70};
 
 		% double fleche l
-		\draw[<->] (1, 2.25) -- (2, 2.25) node[pos=.5, above] {l};
+		\draw[<->] (1, 2.25) -- (2, 2.25) node[pos=.5, above] {l = 1};
 
 		% double fleche w
-		\draw[<->] (2, 0.75) -- (2.7, 0.75) node[pos=.5, below] {w};
+		\draw[<->] (2, 0.75) -- (2.7, 0.75) node[pos=.5, below] {w = 0.7};
 
 		% double fleche h
-		\draw[<->] (5.25, 1) -- (5.25, 3) node[pos=.5, left] {h};
+		\draw[<->] (5.25, 1) -- (5.25, 3) node[pos=.5, right] {h = 100};
 
 		\end{tikzpicture}
 		\caption{Illustration du problème} \label{fig:probleme}
 	\end{figure}
+
+	Notre algorithme va partir de la position initiale $0$, puis devra en $2$ actions, maximiser les récompenses cumulées.
+
+	Pour ce faire la fonction récompense est définie ainsi :
+	$$recompense(x) = \left\{
+	\begin{array}{ll}
+ 	a & \mbox{ si $x <= l$}\\
+ 	0 & \mbox{ si $l < x < l + w$}\\
+ 	h & \mbox{ si $x >= l + w$}
+ 	\end{array}\right.$$
+
+	Sachant qu'une action $\in [0, 1]$, et que la récompense cumulée optimale est de $170$ (décomposée en $70 + 100$).
+	La principale difficultée ici réside dans le fait qu'il existe un "piège" illustré par la variable $w$ situé entre les positions $1$ et $1.7$.
+
+	Il va donc être intéressant de voir si l'algorithme préfère effectuer $2$ actions dans l'intervalle $[0,1]$ et donc obtenir en récompenses cumulées
+	$140$ ou bien s'il va essayer de franchir ce fameux piège est ainsi obtenir la récompense optimale.
 
 	\subsubsection{Première approche}
 		\subsubsubsection{Modification du MCTS discret}
