@@ -441,19 +441,23 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 		\end{algorithm}
 	\subsubsection{Double progressive widening} \label{dpw}
 		\subsubsubsection{Principe} \label{dpw:principe}
+
 			Cette seconde amélioration prend la même base que le progressive widening \ref{pw} mais permet, en plus de gérer un nombre d'actions très grand, gérer le cas où, lorsque l'on a sélectionné la meilleure action possible, un bruit parasite se produit.
 
-			De ce fait, en un seul appel, la fonction double progressive widening va produire à partir d'un noeud $s$ (potentiellement) 2 noeuds.
+			De ce fait, en un seul appel, la fonction double progressive widening va produire à partir d'un état $s$ (potentiellement) 2 noeuds (pas de 2 fils).
 
-			Le premier noeud correspondra à la meilleure action possible (même principe que PW), puis le second noeud correspondra à un bruit parasite que l'on appliquera à l'action appartenant au premier noeud.
+			Le premier noeud fils, noté $s'$ correspondra à la meilleure action $a$ appliqué à l'état $s$ (même principe que PW); puis le second noeud noté $s''$, un noeud fils du premier noeud, correspondra à un bruit parasite appliqué à $s'$.
+			Dans notre cas, le bruit est toujours additif, néanmoins l'algorithme est censé marcher peu importe si le bruit est additif ou soustractif.
 
-			Afin de savoir si l'on doit ajouter un bruit, le double progressive widening va donc utiliser le nombre de simulation de l'état $s'$
+			Afin de savoir si l'on doit ajouter un bruit, le double progressive widening va principalement utiliser le nombre de simulation ainsi que le nombre d'enfants de l'état $s'$.
 
-			
+			Puis le principe sera le suivant: plus un état $s'$ sera simulé, plus il aura de chance d'être bruité, donc d'avoir un nouvel enfant $s''$. Néanmoins, à partir d'un certain seuil aucun enfant ne sera ajouté, et l'algorithme retournera alors un enfant tiré aléatoirement parmi les enfants de $s'$.
+
+			Donc, cet algorithme va nous permettre de gérer des situations dans lesquelles un évènement tiers perturbe les résultats, type d'évènement que l'on retrouve très souvent dans la vie de tout les jours. Par exemple, en hiver avec les plaques de verglas, pour calculer les pas optimaux à faire afin de ne pas tomber où glisser hors du trottoir.
 
 		\subsubsubsection{Pseudo-code} \label{dpw:code}
 
-			\begin{algorithm}[H]
+			\begin{algorithm}
 				\caption{Double progressive widening (PW) appliqué à un État $s$ avec la constante d'exploration $C > 0$ and $\alpha \in ]0, 1[$.}
 				\label{alg:dpw}
 					\begin{algorithmic}[1]
@@ -503,9 +507,11 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 					\end{algorithmic}
 			\end{algorithm}
 
-			Et voici, ci-dessous, l'algorithme MCTS avec la stratégie double progressive widening.
+			
+			Et voici, l'algorithme MCTS avec la stratégie double progressive widening, algorithme très proche de l'algorithme MCTS avec progressive widening \ref{alg:mctspw}
 
-			\begin{algorithm}[h]
+
+			\begin{algorithm}
 			\caption{MCTS avec le double progressive widening}
 			\label{alg:mctdpw}
 				\begin{algorithmic}[1]
