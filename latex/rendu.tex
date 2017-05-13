@@ -125,7 +125,7 @@
 		Dans la figure~\ref{fig:mcts}, on s'aperçoit que l'algorithme sélectionne à tour de rôle le noeud $(7/10)$, puis le noeud $(5/6)$ et enfin le noeud $(3/3)$ et s'arrête car ce noeud n'est pas développé.
 		\item \textbf{Expension}
 
-		Une fois le meilleur noeud sélectionné, cet étape va lui rajouté un ou plusieurs noeud enfants, accessible en faisant 1 seule action à partir du noeud courant. 
+		Une fois le meilleur noeud sélectionné, cette étape va lui rajouter un ou plusieurs noeud(s) enfant, accessible en faisant 1 seule action à partir du noeud courant. 
 
 		Dans la figure~\ref{fig:mcts}, l'algorithme rajoute au noeud courant $(3/3)$ le noeud enfant $(0/0)$.
 		\item \textbf{Simulation}
@@ -134,7 +134,7 @@
 		C'est dans cette partie qu'on utilise le principe Monte Carlo, c'est-à-dire l'utilisation de l'aléatoire.
 		\item \textbf{Mise à jour} 
 
-		L'algorithme a atteint un noeud terminal, il faut donc récupérer sa récompense (par exemple +1 si c'est un noeud gagnant 0 sinon). Puis faire remonter cette récompense jusqu'au noeud racine et mettre à jour les statistiques. 
+		L'algorithme a atteint un noeud terminal, il faut donc récupérer sa récompense (par exemple +1 si c'est un noeud gagnant 0 sinon). Puis faire remonter cette récompense jusqu'au noeud racine et mettre à jour les statistiques de chacun des noeuds parcouru. 
 
 		Dans la figure~\ref{fig:mcts} ci-dessus le noeud terminal était donc perdant car $(0/1)$, donc on va augmenter uniquement le nombre de simulation de chacun de ces noeuds, d'où la transformation du noeud $(3/3)$ en $(3/4)$ par exemple.
 	\end{enumerate}
@@ -339,8 +339,44 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 
 	\subsubsection{Première approche}
 		\subsubsubsection{Modification du MCTS discret}
+
+		Étant donné que nous avions passer quelques temps sur le MCTS discret, nous avons essayer de ré-utiliser ce dernier.
+
+		Cependant nous avons donc été confronté à une première problématique : "Comment faire fonctionner un problème ayant des variables continues dans un algorithme fait pour des problèmes discrets ?" \\
+
+		Et la réponse est simple, nous avons tout bonnement créé une entité permettant de faire la jonction entre le problème continu et notre MCTS discret. 
+
+		Et ce type d'entité, en programmation logiciel, correspond à un design pattern $Adapter$.\\
+
+		Ci-dessous un diagramme de séquence simplifié ~\ref{fig:actionsPossibles}, pour mieux comprendre, ce que donne ce système lorsque le MCTS va demander à un problème ses actions possibles.
+		\begin{figure}[h]
+			\centering
+			\begin{tikzpicture}
+				% axe MCTS discret
+				\draw (1, 2) -- (1, 5) node[above] {$MCTS_{discret}$};
+
+				% axe adaptateur
+				\draw (5, 2) -- (5, 5) node[above] {$Adaptateur$};
+
+				% axe simulateur
+				\draw (10, 2) -- (10, 5) node[above] {$Probleme_{continu}$};
+
+				% segment actions ?
+				\draw[->] (1, 4.5) -- (5, 4.5) node[pos=.5, above] { \textit{actions ?} };
+
+				% segment intervalle d'actions ?
+				\draw[->] (5, 4) -- (10, 4) node[pos=.5, above] { \textit{intervalles d'actions ?} };
+
+				% segment réponse intervalle probleme->adaptateur
+				\draw[->] (10, 3.25) -- (5, 3.25) node[pos=.5, above] { \textit{[0, 1]} };
+
+				% segment réponse intervalle adaptateur->mcts
+				\draw[->] (5, 2.75) -- (1, 2.75) node[pos=.5, above] { \textit{\{0.1, 0.2, 0.3, ...\}} };
+			\end{tikzpicture}
+			\caption{Obtenir les actions possibles d'un problème continu dans le MCTS discret} \label{fig:actionsPossibles}
+		\end{figure}
 	\subsubsection{Progressive widening}
-	\subsubsection{Double peogressive widening}
+	\subsubsection{Double progressive widening}
 \subsection{Expérimentations}
 	\subsubsection{MCTS discret dans un monde continu}
 	\subsubsection{Progressive widening}
