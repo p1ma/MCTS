@@ -104,7 +104,7 @@
 \section{Le B.A.-BA de l'algorithme MCTS}
 	\subsection{Les bases du Monte Carlo Tree Search}
 	\subsubsection{Définition}
-	Monte Carlo Tree Search ou bien MCTS est un algorithme de recherche, qui, à partir d'un noeud initial $n_{i}$ indique la meilleure action $a_i$ à utiliser afin d'atteindre un noeud intermédiaire $n_{int}$ proche du noeud terminal recherché $n_{t}$. 
+	Monte Carlo Tree Search ou bien MCTS est un algorithme de recherche, qui, à partir d'un nœud initial $n_{i}$ indique la meilleure action $a_i$ à utiliser afin d'atteindre un nœud intermédiaire $n_{int}$ proche du nœud terminal recherché $n_{t}$. 
 
 	L'application de méthodes de Monte Carlo fait appel à de nombreuses simulations, cela veut donc dire que lors du déroulement de l'algorithme, un certain nombre d'actions seront joués de manière aléatoire.
 	\subsubsection{Déroulement de l'algorithme}
@@ -116,27 +116,27 @@
 		 \label{fig:mcts}
 	\end{figure}
 
-\textit{Notation : Le noeud correspond à un état du jeu et (12/21) signifie 12 victoires sur 21 simulations.} 
+\textit{Notation : Le nœud correspond à un état du jeu et (12/21) signifie 12 victoires sur 21 simulations.} 
 	\begin{enumerate}
 		\item \textbf{Sélection}
 
-		À cette étape, l'algorithme va sélectionner parmis ses noeuds suivants le noeud avec la plus grande valeur selon la formule de sélection utilisée (voir section 2.2). 
+		À cette étape, l'algorithme va sélectionner parmis ses nœuds suivants le nœud avec la plus grande valeur selon la formule de sélection utilisée \ref{selection}. 
 
-		Dans la figure~\ref{fig:mcts}, on s'aperçoit que l'algorithme sélectionne à tour de rôle le noeud $(7/10)$, puis le noeud $(5/6)$ et enfin le noeud $(3/3)$ et s'arrête car ce noeud n'est pas développé.
+		Dans la figure~\ref{fig:mcts}, on s'aperçoit que l'algorithme sélectionne à tour de rôle le nœud $(7/10)$, puis le nœud $(5/6)$ et enfin le nœud $(3/3)$ et s'arrête car ce nœud n'est pas développé.
 		\item \textbf{Expension}
 
-		Une fois le meilleur noeud sélectionné, cette étape va lui rajouter un ou plusieurs noeud(s) enfant, accessible en faisant 1 seule action à partir du noeud courant. 
+		Une fois le meilleur nœud sélectionné, cette étape va lui rajouter un ou plusieurs nœud(s) enfant, accessible en faisant 1 seule action à partir du nœud courant. 
 
-		Dans la figure~\ref{fig:mcts}, l'algorithme rajoute au noeud courant $(3/3)$ le noeud enfant $(0/0)$.
+		Dans la figure~\ref{fig:mcts}, l'algorithme rajoute au nœud courant $(3/3)$ le nœud enfant $(0/0)$.
 		\item \textbf{Simulation}
 
-		Maintenant qu'un nouveau noeud a été ajouté, l'algorithme va jouer aléatoirement jusqu'à atteindre un noeud terminal.
+		Maintenant qu'un nouveau nœud a été ajouté, l'algorithme va jouer aléatoirement jusqu'à atteindre un nœud terminal.
 		C'est dans cette partie qu'on utilise le principe Monte Carlo, c'est-à-dire l'utilisation de l'aléatoire.
 		\item \textbf{Mise à jour} 
 
-		L'algorithme a atteint un noeud terminal, il faut donc récupérer sa récompense (par exemple +1 si c'est un noeud gagnant 0 sinon). Puis faire remonter cette récompense jusqu'au noeud racine et mettre à jour les statistiques de chacun des noeuds parcouru. 
+		L'algorithme a atteint un nœud terminal, il faut donc récupérer sa récompense (par exemple +1 si c'est un nœud gagnant 0 sinon). Puis faire remonter cette récompense jusqu'au nœud racine et mettre à jour les statistiques de chacun des nœuds parcouru. 
 
-		Dans la figure~\ref{fig:mcts} ci-dessus le noeud terminal était donc perdant car $(0/1)$, donc on va augmenter uniquement le nombre de simulation de chacun de ces noeuds, d'où la transformation du noeud $(3/3)$ en $(3/4)$ par exemple.
+		Dans la figure~\ref{fig:mcts} ci-dessus le nœud terminal était donc perdant car $(0/1)$, donc on va augmenter uniquement le nombre de simulation de chacun de ces nœuds, d'où la transformation du nœud $(3/3)$ en $(3/4)$ par exemple.
 	\end{enumerate}
 	\subsubsection{Pseudo-code}
 	\begin{algorithm}
@@ -144,7 +144,7 @@
 	  \label{alg:mcts}
 	\begin{algorithmic}[1]
 	\Function{MCTS}{État $s$}
-	\State création d'un noeud $n$ à partir de $s$
+	\State création d'un nœud $n$ à partir de $s$
 		\While{$temps < tempsLimite $}\Comment{tant qu'il reste du temps}
 			\State $n \gets selection(n)$ \Comment{L'étape d'expension est incluse dans cet appel}
 			\State $n \gets simulation(n)$
@@ -162,21 +162,21 @@
 	\subsection{Formule de sélection utilisée} \label{selection}
 	Précédemment, nous avions parlé lors de l'étape de sélection, de formule de sélection. 
 
-	En effet, afin de choisir le meilleur noeud possible des formules ont été mise en place.
+	En effet, afin de choisir le meilleur nœud possible des formules ont été mise en place.
 
 	C'est dans cette partie que nous allons en expliquer une, de nouvelles formules de sélection seront introduites
 	dans la section suivante.
 
 
-	\textit{Notation : Soit $n$ un noeud, $N$ son noeud parent, et C une constante d'exploration.} 
+	\textit{Notation : Soit $n$ un nœud, $N$ son nœud parent, et C une constante d'exploration.} 
 
 	\begin{enumerate}
 		\item Upper Confidence Bounds (\textbf{UCB}) \\
 		\[ \frac{recompenses(n)}{simulations(n)} + C \times \sqrt{\frac{simulations(N)}{simulations(n)}} \] 
 
-		On se rend compte ici que si notre constante d'exploration \textit{C} est égale à $0$ alors, l'algorithme va choisir le noeud $n$ avec le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ possible. 
+		On se rend compte ici que si notre constante d'exploration \textit{C} est égale à $0$ alors, l'algorithme va choisir le nœud $n$ avec le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ possible. 
 
-		Donc si l'on souhaite permettre une exploration de l'arbre, il faut que $C$ soit différent de $0$ sinon on voit bien que si à l'état initiale l'algorithme sélectionne un noeud $n$, alors ce dernier aura nécessaire le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ vu qu'il est le seul à avoir été développé, et donc il sera tout au long de l'algorithme choisit. 
+		Donc si l'on souhaite permettre une exploration de l'arbre, il faut que $C$ soit différent de $0$ sinon on voit bien que si à l'état initiale l'algorithme sélectionne un nœud $n$, alors ce dernier aura nécessaire le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ vu qu'il est le seul à avoir été développé, et donc il sera tout au long de l'algorithme choisit. 
 
 
 		\underline{\textbf{Lexique}} : On utilise le terme UCT (\textit{Upper Confidence Bound for Trees}) pour désigner l'algorithme MCTS utilisant une formule de sélection de type UCB.
@@ -191,20 +191,20 @@
 
 	Dans cette partie, l'algorithme est terminé et l'arbre a été développé. Nous ne pouvons donc plus réutiliser les formules précèdentes car la constante d'exploration \textit{C} n'a plus de sens ici. 
 
-Il faut donc trouver d'autres moyens pour choisir le meilleur noeud enfant. 
+Il faut donc trouver d'autres moyens pour choisir le meilleur nœud enfant. 
 Cette étape correspond à l'appel \textit{meilleurEnfant(n)} dans l'algorithme~\ref{alg:mcts}. 
-Or, nous savons qu'un noeud $n$ possède un nombre de simulation, et de récompense.
+Or, nous savons qu'un nœud $n$ possède un nombre de simulation, et de récompense.
 	À partir de ces deux informations nous avons utilisé 3 stratégies de sélection :
 	\begin{enumerate}
 		\item Robuste :
 		
-		On choisit le noeud avec le plus grand nombre de simulation.
+		On choisit le nœud avec le plus grand nombre de simulation.
 		\item Maxi :  
 		
-		On choisit le noeud qui possède la valeur de récompense la plus élevée.
+		On choisit le nœud qui possède la valeur de récompense la plus élevée.
 		\item Maxi-Robuste :
 		
-		On choisit le noeud ayant le meilleur rapport $\frac{recompense}{simulation}$.
+		On choisit le nœud ayant le meilleur rapport $\frac{recompense}{simulation}$.
 	\end{enumerate}
     
     
@@ -253,20 +253,20 @@ Réfléchissons sur la stratégie Maxi, dans le jeu Puissance $4$ nous avons fix
 
 Or plaçons nous maintenant dans le cas où nous aurions fait des récompenses différentes selon le type de victoire, posons par exemple $1$ par une victoire "serrée" et $10$ pour une victoire "écrasante". 
 
-De ce fait, si nous avions un noeud avec $19$ de récompense décomposé en $19$ victoires dites "serrées" et $1$ défaite, et un autre noeud avec $20$ de récompense mais composée seulement de $2$ victoires "écrantes" et $18$ défaites.
-Alors dans ce cas, la stratégie Maxi nous retournera le noeud avec $20$ de récompense alors que nous aurions pu prendre le noeud qui a $19$ victoires sur $20$ simulations et qui est donc plus intéressant car son pourcentage de victoire est plus élévé.
+De ce fait, si nous avions un nœud avec $19$ de récompense décomposé en $19$ victoires dites "serrées" et $1$ défaite, et un autre nœud avec $20$ de récompense mais composée seulement de $2$ victoires "écrantes" et $18$ défaites.
+Alors dans ce cas, la stratégie Maxi nous retournera le nœud avec $20$ de récompense alors que nous aurions pu prendre le nœud qui a $19$ victoires sur $20$ simulations et qui est donc plus intéressant car son pourcentage de victoire est plus élévé.
 
-Donc, pour pouvoir utiliser la stratégie Maxi de manière efficace, il est préférable de l'utiliser sur un jeu où l'on a une unique récompense en cas de victoire (ce qui est le cas du Puissance $4$).
+Donc, pour pouvoir utiliser la stratégie Maxi de manière efficace, il est préférable de l'utiliser sur un jeu où l'on a une unique récompense en cas de victoire (ce qui est le cas ici).
 \\ \\
-Utilisons maintenant ce même raisonnement ainsi que ce même cas de figure pour la stratégie Robuste, nous avons donc $2$ noeuds avec $20$ simulations chacuns. 
+Utilisons maintenant ce même raisonnement ainsi que ce même cas de figure pour la stratégie Robuste, nous avons donc $2$ nœuds avec $20$ simulations chacuns. 
 
-Or on est censé choisir le noeud ayant le maximum de simulations possible, donc notre stratégie Robuste va tout simplement retourner le premier noeud lu car le deuxième noeud lu n'aura pas un nombre de simulation strictement supérieur au premier noeud. Alors, dans notre cas de figure, la stratégie Robuste aura une probabilité de $\frac{1}{2}$ de retourner le meilleur noeud (celui avec les $19$ victoires).
+Or on est censé choisir le nœud ayant le maximum de simulations possible, donc notre stratégie Robuste va tout simplement retourner le premier nœud lu car le deuxième nœud lu n'aura pas un nombre de simulation strictement supérieur au premier nœud. Alors, dans notre cas de figure, la stratégie Robuste aura une probabilité de $\frac{1}{2}$ de retourner le meilleur nœud (celui avec les $19$ victoires).
 
-Donc, de la même façon que la stratégie Maxi, la stratégie Robuste n'est pas nécessairement bonne pour choisir le meilleur noeud possible.
+Donc, de la même façon que la stratégie Maxi, la stratégie Robuste n'est pas nécessairement bonne pour choisir le meilleur nœud possible.
 \\ \\
-À partir des raisonnements ci-dessus il est donc facile de se convaincre que choisir la stratégie Maxi-Robuste est préférable, car le fait qu'elle prenne le meilleur rapport $\frac{recompense}{simulation}$ l'empêche donc d'être biaisé, car son choix dépend donc de 2 critères.
+À partir des raisonnements ci-dessus il est donc facile de se convaincre que choisir la stratégie Maxi-Robuste est préférable, car le fait qu'elle prenne le meilleur rapport $\frac{recompense}{simulation}$ l'empêche donc d'être biaisé, car son choix dépend de 2 critères.
 \\ \\
-Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre d'états et d'actions discret, essayons de le mettre en pratique dans un monde à actions ou états continue.
+Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre d'états et d'actions discrets, essayons de le mettre en pratique dans un monde à actions ou états continues.
 
 \newpage
 \section{Application dans un monde continu}
@@ -330,7 +330,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
  	\end{array}\right.$$
 
 	Sachant qu'une action $\in [0, 1]$, et que la récompense cumulée optimale est de $170$ (décomposée en $70 + 100$).
-	La principale difficultée ici réside dans le fait qu'il existe un "piège" illustré par la variable $w$ situé entre les positions $1$ et $1.7$.
+	La principale difficultée ici réside dans le fait qu'il existe un "piège" illustré par la variable $w$ située entre les positions $1$ et $1.7$.
 
 	Il va donc être intéressant de voir si l'algorithme préfère effectuer $2$ actions dans l'intervalle $[0,1]$ et donc obtenir en récompenses cumulées
 	$140$ ou bien s'il va essayer de franchir ce fameux piège est ainsi obtenir la récompense optimale.
@@ -338,13 +338,13 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 	\subsubsection{Première approche}
 		\subsubsubsection{Modification du MCTS discret}
 
-		Étant donné que nous avions passer quelques temps sur le MCTS discret, nous avons essayer de ré-utiliser ce dernier.
+		Étant donné que nous avions passé quelques temps sur le MCTS discret, nous avons essayé de ré-utiliser ce dernier.
 
-		Cependant nous avons donc été confronté à une première problématique : "Comment faire fonctionner un problème ayant des variables continues dans un algorithme fait pour des problèmes discrets ?" \\
+		Cependant, nous avons donc été confronté à une première problématique : "Comment faire fonctionner un problème ayant des variables continues dans un algorithme fait pour des problèmes discrets ?" \\
 
 		Et la réponse est simple, nous avons tout bonnement créé une entité permettant de faire la jonction entre le problème continu et notre MCTS discret. 
 
-		Et ce type d'entité, en programmation logiciel, correspond à un design pattern $Adapter$.\\
+		Et ce type d'entité, en programmation logicielle, correspond à un design pattern $Adapter$.\\
 
 		Ci-dessous un diagramme de séquence simplifié ~\ref{fig:actionsPossibles}, pour mieux comprendre, ce que donne ce système lorsque le MCTS va demander à un problème ses actions possibles.
 		\begin{figure}[H]
@@ -381,14 +381,14 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 
 		Contrairement à la version précédente, cette amélioration permet de résoudre des problèmes dont le nombre d'actions est très grand voire infini sans utiliser d'adaptateurs ou autres artifices.
 
-		De plus cet algorithme garde un peu près la même structure que l'algorithme générique MCTS \ref{alg:mcts}, la principale différence est que les étapes $selection(n)$ et $simulation(n)$ seront regroupées en une seule étape.
+		De plus, cet algorithme garde à peu près la même structure que l'algorithme générique MCTS \ref{alg:mcts}, la principale différence est que les étapes $selection(n)$ et $simulation(n)$ seront regroupées en une seule étape.
 
-		Étant donné le fait que nous avons pour tout noeud $n$ un nombre extrêmement grand d'actions possibles, cet algorithme va donc à chaque itération ajouter (ou non) à la liste des actions possibles d'un noeud courant, une ou plusieurs action(s) supplémentaire(s).
+		Étant donné le fait que nous avons pour tout nœud $n$ un nombre extrêmement grand d'actions possibles, cet algorithme va donc à chaque itération ajouter (ou non) à la liste des actions possibles d'un nœud courant, une ou plusieurs action(s) supplémentaire(s).
 
-		Afin de savoir si l'algorithme doit ajouter une ou plusieur(s) action(s), on va principalement utiliser le nombre de simulation, noté $t$, du noeud courant.
-		Puis le principe sera le suivant: initialemment, un noeud aura une liste d'actions possibles de taille égale à la valeur de la constante d'exploration $C$ \ref{selection} utilisée, puis plus le noeud sera visité plus sa liste d'actions possibles augmentera.
+		Afin de savoir si l'algorithme doit ajouter une ou plusieur(s) action(s), on va principalement utiliser le nombre de simulation, noté $t$, du nœud courant.
+		Puis le principe sera le suivant : initialemment, un nœud aura une liste d'actions possibles de taille égale à la valeur de la constante d'exploration $C$ \ref{selection} utilisée, puis plus le nœud sera visité plus sa liste d'actions possibles augmentera.
 
-		Ce principe nous permet de développer de manière efficace les noeuds les plus visités, donc les noeuds plus intéressants.
+		Ce principe nous permet de développer de manière efficace les nœuds les plus visités, donc les nœuds plus intéressants.
 
 		\subsubsubsection{Pseudo-code} \label{pw:code}
 
@@ -421,7 +421,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 				\end{algorithmic}
 		\end{algorithm}
 
-		Même si nous avions explicité dans la partie \ref{pw:principe} quelle était la différence entre le MCTS générique \ref{alg:mcts} et le MCTS avec le progressive widening, voici tout de même le pseudo code de ce dernier :
+		Même si nous avions explicité dans la partie \ref{pw:principe} quelle était la différence entre le MCTS générique \ref{alg:mcts} et le MCTS avec le progressive widening, voici tout de même le pseudo code de ce dernier \ref{alg:mctspw}.
 
 		\begin{algorithm}[H]
 			\caption{MCTS avec le progressive widening}
@@ -442,22 +442,22 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 	\subsubsection{Double progressive widening} \label{dpw}
 		\subsubsubsection{Principe} \label{dpw:principe}
 
-			Cette seconde amélioration prend la même base que le progressive widening \ref{pw} mais permet, en plus de gérer un nombre d'actions très grand, gérer le cas où, lorsque l'on a sélectionné la meilleure action possible, un bruit parasite se produit.
+			Cette seconde amélioration prend la même base que le progressive widening \ref{pw} mais permet, en plus de gérer un nombre d'action très grand, gérer le cas où, lorsque l'on a sélectionné la meilleure action possible, un bruit parasite se produit.
 
-			De ce fait, en un seul appel, la fonction double progressive widening va produire à partir d'un état $s$ (potentiellement) 2 noeuds (pas de 2 fils).
+			De ce fait, en un seul appel, la fonction double progressive widening va produire à partir d'un état $s$ (potentiellement) 2 nœuds (pas de 2 fils).
 
-			Le premier noeud fils, noté $s'$ correspondra à la meilleure action $a$ appliqué à l'état $s$ (même principe que PW); puis le second noeud noté $s''$, un noeud fils du premier noeud, correspondra à un bruit parasite appliqué à $s'$.
+			Le premier nœud fils, noté $s'$ correspondra à la meilleure action $a$ appliqué à l'état $s$ (même principe que PW); puis le second nœud noté $s''$, un nœud fils du premier nœud, correspondra à un bruit parasite appliqué à $s'$.
 			Dans notre cas, le bruit est toujours additif, néanmoins l'algorithme est censé marcher peu importe si le bruit est additif ou soustractif.
 
 			Afin de savoir si l'on doit ajouter un bruit, le double progressive widening va principalement utiliser le nombre de simulation ainsi que le nombre d'enfants de l'état $s'$.
 
 			Puis le principe sera le suivant: plus un état $s'$ sera simulé, plus il aura de chance d'être bruité, donc d'avoir un nouvel enfant $s''$. Néanmoins, à partir d'un certain seuil aucun enfant ne sera ajouté, et l'algorithme retournera alors un enfant tiré aléatoirement parmi les enfants de $s'$.
 
-			Donc, cet algorithme va nous permettre de gérer des situations dans lesquelles un évènement tiers perturbe les résultats, type d'évènement que l'on retrouve très souvent dans la vie de tout les jours. Par exemple, en hiver avec les plaques de verglas, pour calculer les pas optimaux à faire afin de ne pas tomber où glisser hors du trottoir.
+			Donc, cet algorithme va nous permettre de gérer des situations dans lesquelles un évènement tiers perturbe les résultats, type d'évènement que l'on retrouve très souvent dans la vie de tous les jours. Par exemple, en hiver avec les plaques de verglas, pour calculer les pas optimaux à faire afin de ne pas tomber où glisser hors du trottoir.
 
 		\subsubsubsection{Pseudo-code} \label{dpw:code}
 
-			\begin{algorithm}
+			\begin{algorithm}[H]
 				\caption{Double progressive widening (PW) appliqué à un État $s$ avec la constante d'exploration $C > 0$ and $\alpha \in ]0, 1[$.}
 				\label{alg:dpw}
 					\begin{algorithmic}[1]
@@ -489,7 +489,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 							\State $nbEnfant \gets nbEnfant(s')$
 							\State $k' \gets \lceil{C \times nb^{\alpha}}\rceil$
 							\If{$k' > nbEnfant$}
-								\State \textit{// On bruite le noeud s'}
+								\State \textit{// On bruite le nœud s'}
 								\State $s'' \gets bruitage(s')$
 								\If{$s'' \notin enfants(s')$}
 									\State \textit{// On ajoute s'' comme enfant de s'}
@@ -508,12 +508,12 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 			\end{algorithm}
 
 			
-			Et voici, l'algorithme MCTS avec la stratégie double progressive widening, algorithme très proche de l'algorithme MCTS avec progressive widening \ref{alg:mctspw}
+			Et voici, l'algorithme MCTS avec la stratégie double progressive widening \ref{alg:mctsdpw}, cet algorithme reste structurellement très proche de l'algorithme MCTS avec progressive widening \ref{alg:mctspw}
 
 
-			\begin{algorithm}
+			\begin{algorithm}[H]
 			\caption{MCTS avec le double progressive widening}
-			\label{alg:mctdpw}
+			\label{alg:mctsdpw}
 				\begin{algorithmic}[1]
 					\Function{MCTS}{État $s$}
 						\While{$temps < tempsLimite $}\Comment{tant qu'il reste du temps}

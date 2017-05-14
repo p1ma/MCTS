@@ -19,8 +19,8 @@ public class Main {
 		
 		for(int i = 0 ; i < boucle ; i++) {
 			// continu avec PWidening
-			/*new TrapFactory().jouer(new PWidening(), 
-					new Robuste(), output);*/
+			new TrapFactory().jouer(new PWidening(), 
+					new Robuste(), output);
 
 			// continu avec DPWidening
 			new TrapFactory().jouer(new DPWidening(), 

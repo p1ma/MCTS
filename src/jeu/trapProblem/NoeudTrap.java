@@ -3,6 +3,7 @@
  */
 package jeu.trapProblem;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
@@ -106,11 +107,8 @@ public class NoeudTrap extends NoeudContinu {
 		double bruit = R * Y;
 		
 		// On garde que les 3 decimales apres le .
-		int decimal = 1000;
-		bruit = bruit * decimal;
-		bruit = Math.round(bruit);
-		bruit = bruit / decimal;
-		
+		int decimal = 3;
+		BigDecimal.valueOf(bruit).setScale(decimal, BigDecimal.ROUND_HALF_UP);
 		// On créé l'action
 		ActionTrap actionBruit = new ActionTrap(bruit);
 		
