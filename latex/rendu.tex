@@ -449,11 +449,12 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 
 			Puis le principe sera le suivant: plus un état $s'$ sera simulé, plus il aura de chance d'être bruité, donc d'avoir un nouvel enfant $s''$. Néanmoins, à partir d'un certain seuil aucun enfant ne sera ajouté, et l'algorithme retournera alors un enfant tiré aléatoirement parmi les enfants de $s'$.
 
-			Donc, cet algorithme va nous permettre de gérer des situations dans lesquelles un évènement tiers perturbe les résultats, type d'évènement que l'on retrouve très souvent dans la vie de tous les jours. Par exemple, en hiver avec les plaques de verglas, pour calculer les pas optimaux à faire afin de ne pas tomber où glisser hors du trottoir.
+			Donc, cet algorithme va nous permettre de gérer des situations dans lesquelles un évènement tiers perturbe les résultats, type d'évènement que l'on retrouve très souvent dans la vie de tous les jours. Par exemple, en hiver avec les plaques de verglas, pour calculer les pas optimaux à faire afin de ne pas tomber où glisser 
 
 		\subsubsection{Pseudo-code} \label{dpw:code}
 
 			\begin{algorithm}[H]
+				\centering
 				\caption{Double progressive widening (PW) appliqué à un État $s$ avec la constante d'exploration $C > 0$ and $\alpha \in ]0, 1[$.}
 				\label{alg:dpw}
 					\begin{algorithmic}[1]
@@ -468,7 +469,7 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 								\State \textit{// On récupère le nombre de simulation où $action_{i}$ a été appliqué à $s$}
 								\State $nb \gets nbSimulation(s, action_{i})$
 								\If{$nb = 0$}
-									\State \textit{/* Si $action_{i}$ fournit un État jamais exploré, alors on retourne ce dernier */}
+									\State \textit{// Si $action_{i}$ renvoit un état jamais exploré, alors on retourne cet état}
 									\State \textbf{return} $(s, action_{i})$
 								\Else
 									\State \textit{// Sinon on calcul le score correspondant}
@@ -477,23 +478,17 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 							\EndFor
 							\State \textit{// La boucle for est terminée, on recupère l'indice ayant le score maximal}
 							\State $i_{max} \gets indiceMaximisant(score)$
-							\State \textit{// On récupère le meilleur enfant dans s'}
-							\State $s' \gets (s, action_{i_{max}})$
-							\State \textit{// On récupère le nombre de simulation de s'}
+							\State $s' \gets (s, action_{i_{max}})$ \Comment{On récupère le meilleur enfant dans s'}
 							\State $nb \gets nbSimulation(s')$
-							\State \textit{// On récupère le nombre d'enfant de s'}
 							\State $nbEnfant \gets nbEnfant(s')$
 							\State $k' \gets \lceil{C \times nb^{\alpha}}\rceil$
 							\If{$k' > nbEnfant$}
-								\State \textit{// On bruite le nœud s'}
-								\State $s'' \gets bruitage(s')$
+								\State $s'' \gets bruitage(s')$ \Comment{On applique un bruit à s'}
 								\If{$s'' \notin enfants(s')$}
-									\State \textit{// On ajoute s'' comme enfant de s'}
-									\State $enfants(s') \gets enfants(s') \cup s''$
-									\State \textbf{return} $s''$
+									\State $enfants(s') \gets enfants(s') \cup s''$ \Comment{On ajoute s'' comme enfant de s'}
+									\State \textbf{return} $s''$ \Comment{On retourne l'enfant bruité}
 								\Else
-									\State \textit{// On retourne directement s''}
-									\State \textbf{return} $s''$
+									\State \textbf{return} $s''$ \Comment{On retourne l'enfant bruité}
 								\EndIf
 							\Else
 								\State \textit{// Sinon on retourne un enfant tiré aléatoirement dans s'}
@@ -502,12 +497,11 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 						\EndFunction
 					\end{algorithmic}
 			\end{algorithm}
-
 			
+			\newpage
 			Et voici, l'algorithme MCTS avec la stratégie double progressive widening \ref{alg:mctsdpw}, cet algorithme reste structurellement très proche de l'algorithme MCTS avec progressive widening \ref{alg:mctspw}
-
-
 			\begin{algorithm}[H]
+			\centering
 			\caption{MCTS avec le double progressive widening}
 			\label{alg:mctsdpw}
 				\begin{algorithmic}[1]
