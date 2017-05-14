@@ -49,13 +49,12 @@
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics{lorraine.png}
+\includegraphics[width=5cm,height=6cm,keepaspectratio]{lorraine.png}
 \end{center}
 \end{figure}
 
 \vspace{4em}
-\textsc{\Large \textbf{Planification d'actions \\ dans un monde continu}}\\[3em]
-\vspace{4em}
+\textsc{\Large \textbf{Planification d'actions \\ dans un monde continu}}\\[10em]
 \textsc{\textit{Léopold BELLEC, Pierre-Marie JUNGES}}\\[1em]
 \vspace{1em}
 \textsc{Encadrants : \textit{Olivier BUFFET, Vincent THOMAS}}\\[1em]
@@ -278,7 +277,7 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 
 	Donc, dans cette partie, nos différentes variantes de MCTS vont travailler avec des variables de ce type.
 
-	\subsection{Explications du problème}
+	\subsection{Explications du problème} \label{probleme}
 
 	Voici une illustration du problème \cite{couetoux01} que nous allons essayer de résoudre : \\
 
@@ -518,6 +517,11 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 				\end{algorithmic}
 		\end{algorithm}
 \subsection{Expérimentations} \label{exp}
+	Dans cette partie, nous allons  appliquer chacun des algorithmes précèdemment décrit au problème \ref{probleme}.
+	De plus, nous ferons varier différents paramètres tels que la constante d'exploration $C$, $\alpha$ et le temps d'éxécution, afin observer les différentes conséquences sur les résultats obtenus.
+
+	Ces tests ont été effectués sur un ordinateur avec un processeur i7 et $16$ Go de RAM.
+
 	\subsubsection{MCTS discret dans un monde continu} \label{exp:mctsD}
 	\subsubsection{Progressive widening} \label{exp:pw}
 			\subsubsubsection{Sans ajout de bruit}
