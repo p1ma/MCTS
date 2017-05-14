@@ -70,7 +70,7 @@ public abstract class NoeudContinu implements Noeud {
 		etat = e;
 
 		//peut etre
-		//recompenses = (double)etat.getScore();
+		recompenses = (double)etat.getScore();
 		enfants = new LinkedList<NoeudContinu>();
 		bruits = new HashSet<Double>();
 	}

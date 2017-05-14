@@ -67,15 +67,30 @@ public class EtatTrap implements Etat {
 		if (options == null) {
 			options = new LinkedList<Action>();
 		}
-		uniforme(k);
+		//uniforme(k);
+		gaussien(k);
 		return options;
 	}
 
+	private void gaussien(int k) {
+		// options is not null
+		int t = options.size();
+		double step = .0;
+		double esperance = (max - min) / 2;
+		double ecartType = .2;
+		for(int i = 0 ; i < (k - t) ; i++) {
+			step = (( esperance + (ecartType * random.nextGaussian()) ));
+			step = step < 0 ? max - (-step) % max : step %max;
+			//StatistiqueDAO.getInstance().ecrire(step);
+			options.add( new ActionTrap(step) );
+		}
+	}
+	
 	private void uniforme(int k) {
 		// options is not null
 		int t = options.size();
 		double step;
-
+		
 		for(int i = 0 ; i < (k - t) ; i++) {
 			step = ((random.nextDouble() * max) + min) % max;
 			//StatistiqueDAO.getInstance().ecrire(step);

@@ -54,7 +54,7 @@ public class DPWidening implements FormuleSelection {
 				break;
 			} else {
 				// equivalent UCB
-				totalReward = enfant.nbRecompense();
+				totalReward = s.nbRecompense() + enfant.resultat();
 
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
@@ -82,8 +82,25 @@ public class DPWidening implements FormuleSelection {
 				return enfant.retournerEnfant(bruite);
 			}
 		} else {	
+			/*
+			 * On retourne le meilleur enfant
+			 */
+			int somme = 0;
+			int j = 0;
+			for(j = 0 ; j < enfant.nbEnfant() ; j++) {
+				somme += enfant.retournerEnfant(j).nbSimulation();
+			}
+			
+			int index = random.nextInt(somme);
+			somme = 0;
+			j = 0;
+			while (somme < index) {
+				somme += enfant.retournerEnfant(j).nbSimulation();
+				j++;
+			}
+			
 			return enfant.retournerEnfant(
-					random.nextInt(enfant.nbEnfant())
+					Math.max(0, j - 1)
 					);
 		}
 	}

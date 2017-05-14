@@ -37,7 +37,7 @@ public class PWidening implements FormuleSelection{
 		NoeudContinu enfant = null;
 		int best = 0;
 		double min = Double.NEGATIVE_INFINITY;
-		double score = 0.0, totalReward;
+		double score = .0, totalReward = .0;
 
 		for(int i = 0 ; i < k ; i++) {
 			enfant = s.recuperer(actions.get(i));
@@ -49,12 +49,12 @@ public class PWidening implements FormuleSelection{
 				return s.ajouterEnfant( actions.get(i) );
 			} else {
 				// equivalent UCB
-				totalReward = enfant.nbRecompense();
+				totalReward = s.nbRecompense() + enfant.resultat();
 				
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
 				
-				if ( score > min ) {
+				if ( score >= min ) {
 					min = score;
 					best = i;
 				}

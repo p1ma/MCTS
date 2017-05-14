@@ -36,6 +36,7 @@ public interface Noeud {
 	
 	public int nbEnfant();
 	public int nbSimulation();
+	public int nbEnfantPiege();
 	
 	public void visiter();
 	public void visiter(double r);

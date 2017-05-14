@@ -22,7 +22,7 @@ public class NoeudTrap extends NoeudContinu {
 	 * Variable utilisé pour la génération du bruit
 	 * bruit = R x Y , avec Y aléatoire dans ]0, 1[
 	 */
-	public static double R = 0.5;
+	public static double R = 0.01;
 	
 	/** 
 	 * Constructeur de NoeudTrap
@@ -58,8 +58,8 @@ public class NoeudTrap extends NoeudContinu {
 	@Override
 	public NoeudContinu ajouterEnfant(Action action) {
 		NoeudContinu enfant = new NoeudTrap(this, new EtatTrap(etat), action);
-		
-		enfant.visiter( resultat() );
+
+		//enfant.visiter( totalRecompense() );
 		
 		// On recupere l'Etat puis on lui applique le bruit
 		Etat et = enfant.getEtat();
@@ -74,12 +74,11 @@ public class NoeudTrap extends NoeudContinu {
 	
 	@Override
 	public NoeudContinu ajouterEnfantBruite(Action action) {
-		NoeudContinu enfant = new NoeudTrap(this, new EtatTrap(etat), action);
-		
-		// Pas sur aussi ici 
-		enfant.visiter( resultat() );
+		NoeudContinu enfant = new NoeudTrap(this, new EtatTrap(etat), action);		
 		
 		bruits.add( (double)action.getRepresentation() );
+		
+		//enfant.visiter( resultat() );
 		
 		// On recupere l'Etat puis on lui applique le bruit
 		Etat et = enfant.getEtat();
@@ -120,5 +119,16 @@ public class NoeudTrap extends NoeudContinu {
 		 * et l'Action actionBruit
 		 */
 		return appliquer(actionBruit);
+	}
+	
+	public int nbEnfantPiege() {
+		int cpt = 0;
+		
+		for(NoeudContinu nd : enfants) {
+			if (nd.resultat() == 0.0) {
+				cpt++;
+			}
+		}
+		return cpt;
 	}
 }
