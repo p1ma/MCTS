@@ -49,17 +49,23 @@ public class PWidening implements FormuleSelection{
 				return s.ajouterEnfant( actions.get(i) );
 			} else {
 				// equivalent UCB
-				totalReward = s.nbRecompense() + enfant.resultat();
+				totalReward = s.nbRecompense() + enfant.nbRecompense();
 				
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
 				
-				if ( score >= min ) {
+				/*System.out.println("Enfant numéro :" + (i+1) + "/" + k + " : ");
+				System.out.print("\tPosition " + (double)enfant.getEtat().getPosition());
+				System.out.print(" - Score " + score);
+				System.out.print(" - Simulation " + enfant.nbSimulation());
+				System.out.print(" - TotalReward " + totalReward + "\n");*/
+				if ( score > min ) {
 					min = score;
 					best = i;
 				}
 			}
 		}
+		System.out.println("\n---\n");
 		// On recupere le meilleur enfant selon les criteres UCB
 		enfant = s.retournerEnfant(best);
 

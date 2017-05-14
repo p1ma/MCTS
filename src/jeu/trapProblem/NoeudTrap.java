@@ -109,6 +109,7 @@ public class NoeudTrap extends NoeudContinu {
 		// On garde que les 3 decimales apres le .
 		int decimal = 3;
 		BigDecimal.valueOf(bruit).setScale(decimal, BigDecimal.ROUND_HALF_UP);
+		
 		// On créé l'action
 		ActionTrap actionBruit = new ActionTrap(bruit);
 		

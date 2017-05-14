@@ -23,8 +23,8 @@ public class Main {
 					new Robuste(), output);
 
 			// continu avec DPWidening
-			new TrapFactory().jouer(new DPWidening(), 
-					 new Robuste(), output);
+			/*new TrapFactory().jouer(new DPWidening(), 
+					 new Robuste(), output);*/
 
 		}
 	}

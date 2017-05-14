@@ -54,7 +54,7 @@ public class DPWidening implements FormuleSelection {
 				break;
 			} else {
 				// equivalent UCB
-				totalReward = s.nbRecompense() + enfant.resultat();
+				totalReward = s.nbRecompense() + enfant.nbRecompense();
 
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
