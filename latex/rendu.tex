@@ -78,30 +78,33 @@
 \newpage
 \selectlanguage{english}
 \section{Introduction au problème}
-	\subsection{Problèmatique}
+	\subsection{Problématique}
 	Une des problématiques importantes en intelligence artificielle est la planification automatique d’actions, que ce soit pour la robotique, pour les jeux (échecs, go, ...), pour la gestion de sources d’énergie, ou pour la protection d’espèces menacées. La plupart des algorithmes développés n’abordent que des situations dans lesquelles le nombre d’états (le nombre de situations) possibles est fini et relativement petit, tout comme le nombre d’actions disponibles. Ces limitations viennent de ce que ces algorithmes raisonnent sur l’arbre des évolutions possible du “système” à contrôler, arbre dont la taille subit une explosion combinatoire avec les nombres d’états et d’actions (et qui n’a plus de sens quand les facteurs de branchement sont infinis).
-	\subsection{Pourquoi ce sujet ?}
-	Nous avions étudié lors de l'UE \textit{Modèles de perception, de raisonnement et d’interaction} l'algorithme \textbf{M}onte \textbf{C}arlo \textbf{T}ree \textbf{S}earch \cite{coulom01} appliqué au jeu Puissance $4$. 
+	\subsection{En quoi ce sujet est-il intéressant ?}
 
-	Or cette application était dans un espace où les états et actions possibles étaient finis, et au vue des parties effectuées contre cet algorithme il était difficile voir impossible de le battre. 
+	La principale raison est que les algorithmes que nous allons étudier permettent de résoudre des problèmes proches de l'environnement réel.
 
-	C'est pourquoi, nous avons souhaité pousser un peu plus nos connaissances sur cet algorithme et surtout étudier ses performances dans un espace qui serait maintenant continu (une infinitée d'actions ou états possibles) soit un espace proche de la réalité, proche du comportement humain. 
+	En effet, ces algorithmes peuvent résoudre des problèmes auxquels nous sommes régulièrement confrontés, par exemple, lorsque l'on suit quelqu'un en marchant, inconsciemment nous faisons en sorte que notre vitesse ne soit pas plus rapide (resp. lente) que la personne que nous suivons, nous devons donc accélérer ou réduire notre vitesse.
 
-	De plus, ce sujet est peu étudié ce qui le rend encore plus intéressant.
+	Et bien, c'est exactement le genre de problème que ces algorithmes peuvent résoudre.
+
+	De plus, une variante de cet algorithme permettra de gérer des cas où un évènement tiers perturbe les résultats, si nous faisons encore le parallèle avec le monde réel, cet évènement peut être un coup de vent ou bien une glissade.
+
+	C'est pourquoi, nous avons souhaité prendre ce sujet et pousser un peu plus nos connaissances sur les algorithmes de décisions.
 	
 	\subsection{Notre approche}
 	Étant donné le nombre imposant d'états ou d'actions possibles à chaque étape, nous avons donc tout simplement essayer à chaque étape de réduire ce nombre de choix possible jusqu'à avoir un espace plus restreint \cite{couetoux01}.
 
 	C'est donc cette solution que nous avons choisie pour répondre à cette problèmatique. 
 
-	Afin de pouvoir mettre en place l'algorithme, nous avions deux choix d'implémentations, utiliser le langage C ou bien le langage Java. Notre choix s'est finalement porté sur le langage Java.
-\newpage
-
-
-
-
+	Afin de pouvoir mettre en place l'algorithme, nous avions deux choix d'implémentations, utiliser le langage C ou bien le langage Java. 
+	Notre choix s'est finalement porté sur le langage Java, car nous sommes plus habitué à celui-ci et nous trouvons la gestion de mémoire également plus simple.
 
 \section{Le B.A.-BA de l'algorithme MCTS}
+
+	Dans cette partie nous allons introduire les notions importantes relatives à l'algorithme \textbf{M}onte \textbf{C}arlo \textbf{T}ree \textbf{S}earch \cite{coulom01}
+	appliqué à un problème discret, c'est-à-dire un problème où le nombre d'états ou actions est fini.
+
 	\subsection{Les bases du Monte Carlo Tree Search}
 	\subsubsection{Définition}
 	Monte Carlo Tree Search ou bien MCTS est un algorithme de recherche, qui, à partir d'un nœud initial $n_{i}$ indique la meilleure action $a_i$ à utiliser afin d'atteindre un nœud intermédiaire $n_{int}$ proche du nœud terminal recherché $n_{t}$. 
@@ -156,17 +159,13 @@
 	\end{algorithm}
     
     
-    
-    
-    
 	\subsection{Formule de sélection utilisée} \label{selection}
 	Précédemment, nous avions parlé lors de l'étape de sélection, de formule de sélection. 
-
 	En effet, afin de choisir le meilleur nœud possible des formules ont été mise en place.
 
-	C'est dans cette partie que nous allons en expliquer une, de nouvelles formules de sélection seront introduites
-	dans la section suivante.
 
+	Et, c'est dans cette partie que nous allons en expliquer une (la principale utilisée), puis de nouvelles seront introduites
+	dans la section suivante \ref{continu}.
 
 	\textit{Notation : Soit $n$ un nœud, $N$ son nœud parent, et C une constante d'exploration.} 
 
@@ -176,7 +175,7 @@
 
 		On se rend compte ici que si notre constante d'exploration \textit{C} est égale à $0$ alors, l'algorithme va choisir le nœud $n$ avec le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ possible. 
 
-		Donc si l'on souhaite permettre une exploration de l'arbre, il faut que $C$ soit différent de $0$ sinon on voit bien que si à l'état initiale l'algorithme sélectionne un nœud $n$, alors ce dernier aura nécessaire le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ vu qu'il est le seul à avoir été développé, et donc il sera tout au long de l'algorithme choisit. 
+		Donc si l'on souhaite permettre l'exploration de l'arbre, il faut que la constante $C$ soit différente de $0$ sinon on voit bien qu'à l'état initial l'algorithme sélectionne un nœud $n$, alors ce dernier aura nécessaire le meilleur rapport $\frac{recompenses(n)}{simulations(n)}$ vu qu'il est le seul à avoir été développé et,  il sera tout au long de l'algorithme choisit. 
 
 
 		\underline{\textbf{Lexique}} : On utilise le terme UCT (\textit{Upper Confidence Bound for Trees}) pour désigner l'algorithme MCTS utilisant une formule de sélection de type UCB.
@@ -264,25 +263,22 @@ Or on est censé choisir le nœud ayant le maximum de simulations possible, donc
 
 Donc, de la même façon que la stratégie Maxi, la stratégie Robuste n'est pas nécessairement bonne pour choisir le meilleur nœud possible.
 \\ \\
-À partir des raisonnements ci-dessus il est donc facile de se convaincre que choisir la stratégie Maxi-Robuste est préférable, car le fait qu'elle prenne le meilleur rapport $\frac{recompense}{simulation}$ l'empêche donc d'être biaisé, car son choix dépend de 2 critères.
-\\ \\
-Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre d'états et d'actions discrets, essayons de le mettre en pratique dans un monde à actions ou états continues.
+À partir des raisonnements ci-dessus il est donc facile de se convaincre que choisir la stratégie Maxi-Robuste est préférable, car le fait qu'elle prenne le meilleur rapport $\frac{recompense}{simulation}$ l'empêche donc d'être biaisé, car son choix dépend de 2 critères différents.
 
 \newpage
-\section{Application dans un monde continu}
-\subsection{Abstrait}
-	\subsubsection{Définition}
 
-	Précèdemment, nous avons vu quel était l'algorithme MCTS appliqué aux variables discrètes, c'est-à-dire des variables dont l'ensemble des valeurs possibles est fini, dénombrable.
-	Maintenant comme le titre le laisse supposer, nous allons nous intéresser au monde continu.
+\section{Application dans un monde continu} \label{continu}
 
-	De ce fait, nous allons rappeler ce qu'est une variable continue, et pour ce faire nous allons utiliser un exemple : 
+Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, dans cette partie nous étudierons son fonctionnement dans un monde continu à travers 3 variantes différentes.
+	\subsection{Définition}
 
-	Supposons que nous avons une voiture, sa vitesse correspond donc à une variable continue car elle peut être de $40,00$ km/h tout comme de $16,24575$ km/h, il existe donc une infinitée de valeurs réelles entre les intervalles $0$ km/h et $Vitesse_{max}$ km/h. \\
+	À la différence d'une variable discrète, qui a donc un ensemble de valeurs possibles fini; une variable continue est une variable dont l'ensemble des valeurs possibles est infini.
 
-	Donc, dans cette partie, nos différentes variantes de MCTS vous travailler avec des variables de ce type.
+	Par un exemple : supposons que nous avons une voiture, sa vitesse correspond donc à une variable continue car elle peut être de $40,00$ km/h tout comme de $16,24575$ km/h, il existe donc une infinitée de valeurs réelles entre les intervalles $0$ km/h et $Vitesse_{max}$ km/h. \\
 
-	\subsubsection{Explications du problème}
+	Donc, dans cette partie, nos différentes variantes de MCTS vont travailler avec des variables de ce type.
+
+	\subsection{Explications du problème}
 
 	Voici une illustration du problème \cite{couetoux01} que nous allons essayer de résoudre : \\
 
@@ -333,10 +329,10 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 	La principale difficultée ici réside dans le fait qu'il existe un "piège" illustré par la variable $w$ située entre les positions $1$ et $1.7$.
 
 	Il va donc être intéressant de voir si l'algorithme préfère effectuer $2$ actions dans l'intervalle $[0,1]$ et donc obtenir en récompenses cumulées
-	$140$ ou bien s'il va essayer de franchir ce fameux piège est ainsi obtenir la récompense optimale.
+	$140$ ou bien s'il va essayer de franchir ce fameux piège et ainsi obtenir la récompense optimale.
 
-	\subsubsection{Première approche}
-		\subsubsubsection{Modification du MCTS discret}
+	\subsection{Première approche}
+		\subsubsection{Modification du MCTS discret}
 
 		Étant donné que nous avions passé quelques temps sur le MCTS discret, nous avons essayé de ré-utiliser ce dernier.
 
@@ -375,9 +371,9 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 		\end{figure}
 
 		Néanmoins, nous verrons dans la partie \ref{exp:mctsD} que cette modification n'est pas aussi efficace que les deux prochains algorithmes.
-	\subsubsection{Progressive widening} \label{pw}
+	\subsection{Progressive widening} \label{pw}
 
-		\subsubsubsection{Principe} \label{pw:principe}
+		\subsubsection{Principe} \label{pw:principe}
 
 		Contrairement à la version précédente, cette amélioration permet de résoudre des problèmes dont le nombre d'actions est très grand voire infini sans utiliser d'adaptateurs ou autres artifices.
 
@@ -390,7 +386,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 
 		Ce principe nous permet de développer de manière efficace les nœuds les plus visités, donc les nœuds plus intéressants.
 
-		\subsubsubsection{Pseudo-code} \label{pw:code}
+		\subsubsection{Pseudo-code} \label{pw:code}
 
 		\begin{algorithm}[H]
 			\caption{Progressive widening (PW) appliqué à un État $s$ avec la constante d'exploration $C > 0$ and $\alpha \in ]0, 1[$.}
@@ -439,8 +435,8 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 					\EndFunction
 				\end{algorithmic}
 		\end{algorithm}
-	\subsubsection{Double progressive widening} \label{dpw}
-		\subsubsubsection{Principe} \label{dpw:principe}
+	\subsection{Double progressive widening} \label{dpw}
+		\subsubsection{Principe} \label{dpw:principe}
 
 			Cette seconde amélioration prend la même base que le progressive widening \ref{pw} mais permet, en plus de gérer un nombre d'action très grand, gérer le cas où, lorsque l'on a sélectionné la meilleure action possible, un bruit parasite se produit.
 
@@ -455,7 +451,7 @@ Maintenant que nous savons comment MCTS fonctionne dans un monde avec un nombre 
 
 			Donc, cet algorithme va nous permettre de gérer des situations dans lesquelles un évènement tiers perturbe les résultats, type d'évènement que l'on retrouve très souvent dans la vie de tous les jours. Par exemple, en hiver avec les plaques de verglas, pour calculer les pas optimaux à faire afin de ne pas tomber où glisser hors du trottoir.
 
-		\subsubsubsection{Pseudo-code} \label{dpw:code}
+		\subsubsection{Pseudo-code} \label{dpw:code}
 
 			\begin{algorithm}[H]
 				\caption{Double progressive widening (PW) appliqué à un État $s$ avec la constante d'exploration $C > 0$ and $\alpha \in ]0, 1[$.}
