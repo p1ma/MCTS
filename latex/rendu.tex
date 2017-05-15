@@ -122,10 +122,10 @@
 	\begin{enumerate}
 		\item \textbf{Sélection}
 
-		À cette étape, l'algorithme va sélectionner parmis ses nœuds suivants le nœud avec la plus grande valeur selon la formule de sélection utilisée \ref{selection}. 
+		À cette étape, l'algorithme va sélectionner parmi ses nœuds suivants le nœud avec la plus grande valeur selon la formule de sélection utilisée \ref{selection}. 
 
 		Dans la figure~\ref{fig:mcts}, on s'aperçoit que l'algorithme sélectionne à tour de rôle le nœud $(7/10)$, puis le nœud $(5/6)$ et enfin le nœud $(3/3)$ et s'arrête car ce nœud n'est pas développé.
-		\item \textbf{Expension}
+		\item \textbf{Expansion}
 
 		Une fois le meilleur nœud sélectionné, cette étape va lui rajouter un ou plusieurs nœud(s) enfant, accessible en faisant 1 seule action à partir du nœud courant. 
 
@@ -136,7 +136,7 @@
 		C'est dans cette partie qu'on utilise le principe Monte Carlo, c'est-à-dire l'utilisation de l'aléatoire.
 		\item \textbf{Mise à jour} 
 
-		L'algorithme a atteint un nœud terminal, il faut donc récupérer sa récompense (par exemple +1 si c'est un nœud gagnant 0 sinon). Puis faire remonter cette récompense jusqu'au nœud racine et mettre à jour les statistiques de chacun des nœuds parcouru. 
+		L'algorithme a atteint un nœud terminal, il faut donc récupérer sa récompense (par exemple +1 si c'est un nœud gagnant 0 sinon). Puis faire remonter cette récompense jusqu'au nœud racine et mettre à jour les statistiques de chacun des nœuds parcourus. 
 
 		Dans la figure~\ref{fig:mcts} ci-dessus le nœud terminal était donc perdant car $(0/1)$, donc on va augmenter uniquement le nombre de simulation de chacun de ces nœuds, d'où la transformation du nœud $(3/3)$ en $(3/4)$ par exemple.
 	\end{enumerate}
@@ -148,7 +148,7 @@
 	\Function{MCTS}{État $s$}
 	\State création d'un nœud $n$ à partir de $s$
 		\While{$temps < tempsLimite $}\Comment{tant qu'il reste du temps}
-			\State $n \gets selection(n)$ \Comment{L'étape d'expension est incluse dans cet appel}
+			\State $n \gets selection(n)$ \Comment{L'étape d'expansion est incluse dans cet appel}
 			\State $n \gets simulation(n)$
 			\State $n \gets miseAjour(n)$
 		\EndWhile
@@ -160,7 +160,7 @@
     
 	\subsection{Formule de sélection utilisée} \label{selection}
 	Précédemment, nous avions parlé lors de l'étape de sélection, de formule de sélection. 
-	En effet, afin de choisir le meilleur nœud possible des formules ont été mise en place.
+	En effet, afin de choisir le meilleur nœud possible des formules ont été mises en place.
 
 
 	Et, c'est dans cette partie que nous allons en expliquer une (la principale utilisée), puis de nouvelles seront introduites
@@ -191,7 +191,7 @@
 
 Il faut donc trouver d'autres moyens pour choisir le meilleur nœud enfant. 
 Cette étape correspond à l'appel \textit{meilleurEnfant(n)} dans l'algorithme~\ref{alg:mcts}. 
-Or, nous savons qu'un nœud $n$ possède un nombre de simulation, et de récompense.
+Or, nous savons qu'un nœud $n$ possède un nombre de simulation et, de récompense.
 	À partir de ces deux informations nous avons utilisé 3 stratégies de sélection :
 	\begin{enumerate}
 		\item Robuste :
@@ -210,7 +210,7 @@ Or, nous savons qu'un nœud $n$ possède un nombre de simulation, et de récompe
     
     
 	\subsection{Application sur un exemple}
-	Maintenant que nous avons vu comment l'algorithme fonctionnait de manière générale, nous l'avons mis en pratique sur le jeu du type Puissance $4$. 
+	Maintenant que nous avons vu comment l'algorithme fonctionnait de manière générale, mettons le en pratique sur le jeu Puissance $4$. 
     
 
     Pour rappel voici la règle du jeu selon wikipedia\footnote{\url{https://fr.wikipedia.org/wiki/Puissance_4}} :
@@ -223,7 +223,7 @@ Or, nous savons qu'un nœud $n$ possède un nombre de simulation, et de récompe
 	Après de nombreux essais, humain contre ordinateur, nous avons remarqué qu'il était très compliqué voir impossible de battre l'algorithme à partir d'un certain temps $t$, et sur un ordinateur avec un processeur type $i7$ ce temps est d'environ $2$ secondes.
 	
 
-Afin de poursuivre un peu plus notre expérience, nous avons décidé de faire jouer $2$ ordinateurs l'un contre l'autre, et, de cette facon, comparer les différentes stratégies de sélection finales et voir si effectivement certaines sont plus efficaces que d'autres.
+Afin de poursuivre un peu plus notre expérience, nous avons décidé de faire jouer $2$ ordinateurs l'un contre l'autre et, de cette façon, comparer les différentes stratégies de sélection finale et voir si effectivement certaines sont plus efficaces que d'autres.
 		\\
 		\begin{table}[h]
 		\begin{tabular}{cc|c|c|c|c}
@@ -244,21 +244,21 @@ Afin de poursuivre un peu plus notre expérience, nous avons décidé de faire j
 \\ \\
 L'ordinateur 1 commence \textbf{toujours} les parties, la notation $x-y-z$ signifie $x\%$ de victoire(s) pour l'ordinateur 1, $y\%$ de victoire(s) pour l'ordinateur 2, $z\%$ de match(s) nul(s).
 
-Comme nous pouvons le remarquer, l'ordinateur commencant la partie à globalement plus de chance de gagner, peu importe la stratégie utilisée.
+Comme nous pouvons le remarquer, l'ordinateur commençant la partie à globalement plus de chance de gagner, peu importe la stratégie utilisée.
 
 
 Réfléchissons sur la stratégie Maxi, dans le jeu Puissance $4$ nous avons fixé la récompense en cas de victoire à $1$ peu importe si la victoire était "serrée" ou bien "écrasante". 
 
-Or plaçons nous maintenant dans le cas où nous aurions fait des récompenses différentes selon le type de victoire, posons par exemple $1$ par une victoire "serrée" et $10$ pour une victoire "écrasante". 
+Or, plaçons nous maintenant dans le cas où nous aurions fait des récompenses différentes selon le type de victoire, posons par exemple $1$ par une victoire "serrée" et $10$ pour une victoire "écrasante". 
 
-De ce fait, si nous avions un nœud avec $19$ de récompense décomposé en $19$ victoires dites "serrées" et $1$ défaite, et un autre nœud avec $20$ de récompense mais composée seulement de $2$ victoires "écrantes" et $18$ défaites.
-Alors dans ce cas, la stratégie Maxi nous retournera le nœud avec $20$ de récompense alors que nous aurions pu prendre le nœud qui a $19$ victoires sur $20$ simulations et qui est donc plus intéressant car son pourcentage de victoire est plus élévé.
+De ce fait, si nous avions un nœud avec $19$ de récompense décomposé en $19$ victoires dites "serrées" et $1$ défaite, et un autre nœud avec $20$ de récompense mais composée seulement de $2$ victoires "écrasantes" et $18$ défaites.
+Alors dans ce cas, la stratégie Maxi nous retournera le nœud avec $20$ de récompense alors que nous aurions pu prendre le nœud qui a $19$ victoires sur $20$ simulations et qui est donc plus intéressant car son pourcentage de victoire est plus élevé.
 
 Donc, pour pouvoir utiliser la stratégie Maxi de manière efficace, il est préférable de l'utiliser sur un jeu où l'on a une unique récompense en cas de victoire (ce qui est le cas ici).
 \\ \\
-Utilisons maintenant ce même raisonnement ainsi que ce même cas de figure pour la stratégie Robuste, nous avons donc $2$ nœuds avec $20$ simulations chacuns. 
+Utilisons maintenant ce même raisonnement ainsi que ce même cas de figure pour la stratégie Robuste, nous avons donc $2$ nœuds avec $20$ simulations chacun. 
 
-Or on est censé choisir le nœud ayant le maximum de simulations possible, donc notre stratégie Robuste va tout simplement retourner le premier nœud lu car le deuxième nœud lu n'aura pas un nombre de simulation strictement supérieur au premier nœud. Alors, dans notre cas de figure, la stratégie Robuste aura une probabilité de $\frac{1}{2}$ de retourner le meilleur nœud (celui avec les $19$ victoires).
+Or on est censé choisir le nœud ayant le maximum de simulations possibles, donc notre stratégie Robuste va tout simplement retourner le premier nœud lu car le deuxième nœud lu n'aura pas un nombre de simulation strictement supérieur au premier nœud. Alors, dans notre cas de figure, la stratégie Robuste aura une probabilité de $\frac{1}{2}$ de retourner le meilleur nœud (celui avec les $19$ victoires).
 
 Donc, de la même façon que la stratégie Maxi, la stratégie Robuste n'est pas nécessairement bonne pour choisir le meilleur nœud possible.
 \\ \\
@@ -273,7 +273,7 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 
 	À la différence d'une variable discrète, qui a donc un ensemble de valeurs possibles fini; une variable continue est une variable dont l'ensemble des valeurs possibles est infini.
 
-	Par un exemple : supposons que nous avons une voiture, sa vitesse correspond donc à une variable continue car elle peut être de $40,00$ km/h tout comme de $16,24575$ km/h, il existe donc une infinitée de valeurs réelles entre les intervalles $0$ km/h et $Vitesse_{max}$ km/h. \\
+	Par un exemple : supposons que nous avons une voiture, sa vitesse correspond donc à une variable continue car elle peut être de $40,00$ km/h tout comme de $16,24575$ km/h, il existe donc une infinité de valeurs réelles entre les intervalles $0$ km/h et $Vitesse_{max}$ km/h. \\
 
 	Donc, dans cette partie, nos différentes variantes de MCTS vont travailler avec des variables de ce type.
 
@@ -325,7 +325,7 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
  	\end{array}\right.$$
 
 	Sachant qu'une action $\in [0, 1]$, et que la récompense cumulée optimale est de $170$ (décomposée en $70 + 100$).
-	La principale difficultée ici réside dans le fait qu'il existe un "piège" illustré par la variable $w$ située entre les positions $1$ et $1.7$.
+	La principale difficulté ici réside dans le fait qu'il existe un "piège" illustré par la variable $w$ située entre les positions $1$ et $1.7$.
 
 	Il va donc être intéressant de voir si l'algorithme préfère effectuer $2$ actions dans l'intervalle $[0,1]$ et donc obtenir en récompenses cumulées
 	$140$ ou bien s'il va essayer de franchir ce fameux piège et ainsi obtenir la récompense optimale.
@@ -380,8 +380,8 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 
 		Étant donné le fait que nous avons pour tout nœud $n$ un nombre extrêmement grand d'actions possibles, cet algorithme va donc à chaque itération ajouter (ou non) à la liste des actions possibles d'un nœud courant, une ou plusieurs action(s) supplémentaire(s).
 
-		Afin de savoir si l'algorithme doit ajouter une ou plusieur(s) action(s), on va principalement utiliser le nombre de simulation, noté $t$, du nœud courant.
-		Puis le principe sera le suivant : initialemment, un nœud aura une liste d'actions possibles de taille égale à la valeur de la constante d'exploration $C$ \ref{selection} utilisée, puis plus le nœud sera visité plus sa liste d'actions possibles augmentera.
+		Afin de savoir si l'algorithme doit ajouter une ou plusieurs action(s), on va principalement utiliser le nombre de simulation, noté $t$, du nœud courant.
+		Puis le principe sera le suivant : initialement, un nœud aura une liste d'actions possibles de taille égale à la valeur de la constante d'exploration $C$ \ref{selection} utilisée, puis plus le nœud sera visité plus sa liste d'actions possibles augmentera.
 
 		Ce principe nous permet de développer de manière efficace les nœuds les plus visités, donc les nœuds plus intéressants.
 
@@ -446,7 +446,7 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 
 			Afin de savoir si l'on doit ajouter un bruit, le double progressive widening va principalement utiliser le nombre de simulation ainsi que le nombre d'enfants de l'état $s'$.
 
-			Puis le principe sera le suivant: plus un état $s'$ sera simulé, plus il aura de chance d'être bruité, donc d'avoir un nouvel enfant $s''$. Néanmoins, à partir d'un certain seuil aucun enfant ne sera ajouté, et l'algorithme retournera alors un enfant tiré aléatoirement parmi les enfants de $s'$.
+			Puis le principe sera le suivant: plus un état $s'$ sera simulé, plus il aura de chance d'être bruité, donc d'avoir un nouvel enfant $s''$. Néanmoins, à partir d'un certain seuil, aucun enfant ne sera ajouté, et l'algorithme retournera alors un enfant tiré aléatoirement parmi les enfants de $s'$.
 
 			Donc, cet algorithme va nous permettre de gérer des situations dans lesquelles un évènement tiers perturbe les résultats, type d'évènement que l'on retrouve très souvent dans la vie de tous les jours. Par exemple, en hiver avec les plaques de verglas, pour calculer les pas optimaux à faire afin de ne pas tomber où glisser 
 
@@ -517,8 +517,8 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 				\end{algorithmic}
 		\end{algorithm}
 \subsection{Expérimentations} \label{exp}
-	Dans cette partie, nous allons  appliquer chacun des algorithmes précèdemment décrit au problème \ref{probleme}.
-	De plus, nous ferons varier différents paramètres tels que la constante d'exploration $C$, $\alpha$ et le temps d'éxécution, afin observer les différentes conséquences sur les résultats obtenus.
+	Dans cette partie, nous allons  appliquer chacun des algorithmes précédemment décrit au problème \ref{probleme}.
+	De plus, nous ferons varier différents paramètres tels que la constante d'exploration $C$, $\alpha$ et le temps d'exécution, afin observer les différentes conséquences sur les résultats obtenus.
 
 	Ces tests ont été effectués sur un ordinateur avec un processeur i7 et $16$ Go de RAM.
 
