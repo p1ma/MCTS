@@ -64,6 +64,7 @@ public class MCTSPW extends MCTS {
 			// On recupere le noeud parent
 			noeud = noeud.predecesseur();
 		}
+
 		return noeud;
 	}
 }

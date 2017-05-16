@@ -1,6 +1,5 @@
 package main;
 
-import algorithme.formule.DPWidening;
 import algorithme.formule.PWidening;
 import algorithme.formule.Robuste;
 import config.TrapFactory;

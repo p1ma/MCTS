@@ -67,6 +67,9 @@ public class NoeudTrap extends NoeudContinu {
 		
 		// On lui applique l'action
 		et.jouerAction(action);
+
+		enfant.visiter( et.resultat() );
+		System.out.println("---- "+enfant.getEtat().getScore());
 		
 		this.enfants.add( enfant );
 		

@@ -65,7 +65,7 @@ public class PWidening implements FormuleSelection{
 				}
 			}
 		}
-		System.out.println("\n---\n");
+		//System.out.println("\n---\n");
 		// On recupere le meilleur enfant selon les criteres UCB
 		enfant = s.retournerEnfant(best);
 

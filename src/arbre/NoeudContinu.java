@@ -70,8 +70,8 @@ public abstract class NoeudContinu implements Noeud {
 		etat = e;
 
 		//peut etre
-		//recompenses = (double)etat.getScore();
-		enfants = new LinkedList<NoeudContinu>();
+		recompenses = resultat();
+ 		enfants = new LinkedList<NoeudContinu>();
 		bruits = new HashSet<Double>();
 	}
 
@@ -82,6 +82,8 @@ public abstract class NoeudContinu implements Noeud {
 		parent = p;
 		action = a;
 		etat = e;
+		
+		this.recompenses = p.nbRecompense();
 		enfants = new LinkedList<NoeudContinu>();
 		bruits = new HashSet<Double>();
 	}
