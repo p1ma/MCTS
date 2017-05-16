@@ -3,6 +3,7 @@
  */
 package arbre;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +30,8 @@ public interface Noeud {
 	public Action getAction();
 	
 	public Etat getEtat();
+	
+	public Date getDate();
 	
 	public double resultat();
 	public double nbRecompense();

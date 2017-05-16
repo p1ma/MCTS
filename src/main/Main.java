@@ -1,5 +1,6 @@
 package main;
 
+import algorithme.formule.DPWidening;
 import algorithme.formule.PWidening;
 import algorithme.formule.Robuste;
 import config.TrapFactory;
@@ -14,16 +15,16 @@ public class Main {
 	public static void main(String[] args) {
 		// si on desire des affichages sur la sortie std
 		boolean output = true;
-		int boucle = 1;
+		int boucle = 100;
 		
 		for(int i = 0 ; i < boucle ; i++) {
 			// continu avec PWidening
-			new TrapFactory().jouer(new PWidening(), 
-					new Robuste(), output);
-
+			/*new TrapFactory().jouer(new PWidening(), 
+					new Robuste(), output);*/
+			
 			// continu avec DPWidening
-			/*new TrapFactory().jouer(new DPWidening(), 
-					 new Robuste(), output);*/
+			new TrapFactory().jouer(new DPWidening(), 
+					 new Robuste(), output);
 
 		}
 	}

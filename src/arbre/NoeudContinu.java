@@ -3,6 +3,8 @@
  */
 package arbre;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,6 +56,11 @@ public abstract class NoeudContinu implements Noeud {
 	public Set<Double> bruits;
 	
 	/**
+	 * Date de creation du Noeud
+	 */
+	private Date creation = Calendar.getInstance().getTime();
+	
+	/**
 	 * Constructeur de NoeudContinu
 	 */
 	public NoeudContinu() {
@@ -70,8 +77,9 @@ public abstract class NoeudContinu implements Noeud {
 		etat = e;
 
 		//peut etre
-		recompenses = resultat();
- 		enfants = new LinkedList<NoeudContinu>();
+		recompenses = (double)etat.getScore();
+		
+		enfants = new LinkedList<NoeudContinu>();
 		bruits = new HashSet<Double>();
 	}
 
@@ -80,10 +88,11 @@ public abstract class NoeudContinu implements Noeud {
 	 */
 	public NoeudContinu(Noeud p, Etat e, Action a) {
 		parent = p;
+		
+		recompenses = parent.resultat();
+		
 		action = a;
 		etat = e;
-		
-		this.recompenses = p.nbRecompense();
 		enfants = new LinkedList<NoeudContinu>();
 		bruits = new HashSet<Double>();
 	}
@@ -112,6 +121,11 @@ public abstract class NoeudContinu implements Noeud {
 		return this.etat.testFin() != FinDePartie.NON;
 	}
 
+	@Override
+	public Date getDate() {
+		return creation;
+	}
+	
 	@Override
 	public boolean estRacine() {
 		return this.parent == null;
@@ -210,7 +224,8 @@ public abstract class NoeudContinu implements Noeud {
 			System.out.println("\t\t-Action enfant " + k + " : " + enfant.getAction());
 			System.out.println("\t\t-Resultat enfant " + k + ": " + enfant.resultat());
 			System.out.println("\t\t-Recompense enfant " + k + ": " + enfant.nbRecompense());
-			System.out.println("\t\t-Simulations enfant " + k + ": " + enfant.nbSimulation()+ "\n");
+			System.out.println("\t\t-Simulations enfant " + k + ": " + enfant.nbSimulation());
+			System.out.println("\t\t-stats enfant " + k + ": " + enfant.nbEnfantPiege() + "/" + enfant.nbEnfant() + "\n");
 			k++;
 		}
 	}

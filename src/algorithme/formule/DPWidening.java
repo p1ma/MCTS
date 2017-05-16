@@ -17,7 +17,7 @@ import arbre.NoeudContinu;
  */
 public class DPWidening implements FormuleSelection {
 
-	public static final double C = 3; // > 0
+	public static final double C = 13; // > 0
 	public static final double alpha = 0.4; // ]O,1[
 	public static final double kucb = Math.sqrt(2.0);
 

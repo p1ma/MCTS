@@ -56,7 +56,7 @@ public class MCTSPW extends MCTS {
 
 	/* 3. */
 	private Noeud mettreAJour(Noeud noeud, double recompense) {
-
+		
 		while( !noeud.estRacine() ) {
 			// On augmente le reward des noeuds precedents
 			noeud.visiter( recompense );
@@ -64,7 +64,6 @@ public class MCTSPW extends MCTS {
 			// On recupere le noeud parent
 			noeud = noeud.predecesseur();
 		}
-
 		return noeud;
 	}
 }

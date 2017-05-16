@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import dao.StatistiqueDAO;
+
 import arbre.Action;
 import arbre.Etat;
 

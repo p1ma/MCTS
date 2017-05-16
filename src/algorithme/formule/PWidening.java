@@ -16,7 +16,7 @@ import arbre.NoeudContinu;
  */
 public class PWidening implements FormuleSelection{
 
-	public static final double C = 3; // > 0
+	public static final double C = 13; // > 0
 	public static final double alpha = 0.4; // ]O,1[
 	public static final double kucb = Math.sqrt(2.0);
 
@@ -56,16 +56,18 @@ public class PWidening implements FormuleSelection{
 				
 				/*System.out.println("Enfant numéro :" + (i+1) + "/" + k + " : ");
 				System.out.print("\tPosition " + (double)enfant.getEtat().getPosition());
+				System.out.print(" - Pas restant " + enfant.getEtat().getPas());
 				System.out.print(" - Score " + score);
 				System.out.print(" - Simulation " + enfant.nbSimulation());
-				System.out.print(" - TotalReward " + totalReward + "\n");*/
+				System.out.print(" - TotalReward " + totalReward);
+				System.out.print(" - créé le " + enfant.getDate() + "\n");*/
+				
 				if ( score > min ) {
 					min = score;
 					best = i;
 				}
 			}
 		}
-		//System.out.println("\n---\n");
 		// On recupere le meilleur enfant selon les criteres UCB
 		enfant = s.retournerEnfant(best);
 

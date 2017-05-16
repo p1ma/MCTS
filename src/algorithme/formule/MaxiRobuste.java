@@ -10,17 +10,10 @@ public class MaxiRobuste implements FormuleSelection {
 		int indice = 0;
 		double value = 0;
 		int enfants = noeud.nbEnfant();
-		
-		System.out.println("(ROBUSTE) sur " + enfants + " noeuds");
+		System.out.println("MAXI sur " + enfants + " noeuds");
 		while(k < enfants ) {
-			value = noeud.retournerEnfant(k).nbRecompense()/noeud.retournerEnfant(k).nbSimulation();
-			System.out.println("Noeud num " 
-			+ k 
-			+ " - position : " + (double)noeud.retournerEnfant(k).getEtat().getPosition()
-			+ " - recompense : " + value
-			+ " - enfantsPieges : " + noeud.retournerEnfant(k).nbEnfantPiege()
-			+ "/" + noeud.retournerEnfant(k).nbEnfant()
-			+ " possède " + noeud.retournerEnfant(k).nbSimulation() + " simulations");
+			value = noeud.retournerEnfant(k).nbRecompense() / noeud.retournerEnfant(k).nbSimulation();
+
 			if (value > maxi) {
 				maxi = value;
 				indice = k;
@@ -29,9 +22,8 @@ public class MaxiRobuste implements FormuleSelection {
 		}
 		return noeud.retournerEnfant(indice);
 	}
-	
-	public String toString() {
-		return "Robuste";
-	}
 
+	public String toString() {
+		return "Maxi-Robuste";
+	}
 }
