@@ -259,6 +259,17 @@ public abstract class NoeudContinu implements Noeud {
 		}
 		return appliquer( action );
 	}
+	
+	// Utiliser pour PW
+	public NoeudContinu contientAction(Action action) {
+		for(NoeudContinu noeud : enfants) {
+			Action a = noeud.getAction();
+			if (a.equals(action)) {
+				return noeud;
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public boolean contientEnfant(Noeud enfant) {

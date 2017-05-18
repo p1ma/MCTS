@@ -16,8 +16,8 @@ import arbre.NoeudContinu;
  */
 public class PWidening implements FormuleSelection{
 
-	public static final double C = 13; // > 0
-	public static final double alpha = 0.4; // ]O,1[
+	public static double C = 5; // > 0
+	public static double alpha = 0.7; // ]O,1[
 	public static final double kucb = Math.sqrt(2.0);
 
 	@Override
@@ -54,14 +54,6 @@ public class PWidening implements FormuleSelection{
 				score = ( totalReward / (nb + 1));
 				score += kucb * Math.sqrt( Math.log( t ) / (nb + 1));
 				
-				/*System.out.println("Enfant numéro :" + (i+1) + "/" + k + " : ");
-				System.out.print("\tPosition " + (double)enfant.getEtat().getPosition());
-				System.out.print(" - Pas restant " + enfant.getEtat().getPas());
-				System.out.print(" - Score " + score);
-				System.out.print(" - Simulation " + enfant.nbSimulation());
-				System.out.print(" - TotalReward " + totalReward);
-				System.out.print(" - créé le " + enfant.getDate() + "\n");*/
-				
 				if ( score > min ) {
 					min = score;
 					best = i;
@@ -71,11 +63,19 @@ public class PWidening implements FormuleSelection{
 		// On recupere le meilleur enfant selon les criteres UCB
 		enfant = s.retournerEnfant(best);
 
-		// On lui applique un bruit (ou non)
-		//enfant = enfant.bruite();
+		// On recupere la valeur du bruit
+		Action bruit = enfant.bruite().getAction();
 		
-		// On retourne le noeud
-		return enfant;
+		// On recupere ou non l'enfant bruité
+		NoeudContinu enfantBruite = enfant.contientAction(bruit);
+		if ( enfantBruite == null) {
+			enfantBruite = enfant.ajouterEnfantBruite(bruit);
+		} 
+		// On retourne un noeud bruité
+		return enfantBruite;
+		
+		// On retourne le noeud non bruité
+		//return enfant;
 	}
 	
 	public String toString() {

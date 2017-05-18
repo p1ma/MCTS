@@ -16,16 +16,29 @@ public class Main {
 		// si on desire des affichages sur la sortie std
 		boolean output = true;
 		int boucle = 100;
+		double C = 6.0;
+		double a = 0.5;
 		
+		pw(boucle, C, a, output);
+		
+		//dpw(boucle, C, a, output);
+	}
+	
+	public static void pw(int boucle, double C, double alpha, boolean output) {
+		PWidening.C = C;
+		PWidening.alpha = alpha;
 		for(int i = 0 ; i < boucle ; i++) {
-			// continu avec PWidening
-			/*new TrapFactory().jouer(new PWidening(), 
-					new Robuste(), output);*/
-			
-			// continu avec DPWidening
+			new TrapFactory().jouer(new PWidening(), 
+					new Robuste(), output);
+		}
+	}
+	
+	public static void dpw(int boucle, int C, double alpha, boolean output) {
+		DPWidening.C = C;
+		DPWidening.alpha = alpha;
+		for(int i = 0 ; i < boucle ; i++) {
 			new TrapFactory().jouer(new DPWidening(), 
 					 new Robuste(), output);
-
 		}
 	}
 }

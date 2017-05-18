@@ -231,11 +231,11 @@ Afin de poursuivre un peu plus notre expérience, nous avons décidé de faire j
 			& & \multicolumn{3}{ c| }{Ordinateur 2} \\ \cline{3-5}
 			& & Robuste & Maxi & Robuste-Maxi \\ \cline{1-5}
 			\multicolumn{1}{ |c  }{\multirow{3}{*}{Ordinateur 1} } &
-			\multicolumn{1}{ |c| }{Robuste} & 70-30-0 & 60-40-0 & 60-40-0 &    \\ \cline{2-5}
+			\multicolumn{1}{ |c| }{Robuste} & 55-45-0 & 55-45-0 & 60-40-0 &    \\ \cline{2-5}
 			\multicolumn{1}{ |c  }{}                        &
-			\multicolumn{1}{ |c| }{Maxi} & 80-20-0 & 80-20-0 & 50-50-0 &     \\ \cline{2-5}
+			\multicolumn{1}{ |c| }{Maxi} & 50-50-0 & 60-40-0 & 50-50-0 &     \\ \cline{2-5}
 			\multicolumn{1}{ |c  }{}                        &
-			\multicolumn{1}{ |c| }{Maxi-Robuste} & 90-10-0 & 60-40-0 & 70-30-0 &     \\ \cline{1-5}
+			\multicolumn{1}{ |c| }{Maxi-Robuste} & 45-55-0 & 55-45-0 & 70-30-0 &     \\ \cline{1-5}
 		\end{tabular}
 			\caption{Comparatif des différentes stratégies}\label{tabular:compa}
 		\end{table}
@@ -268,7 +268,9 @@ Donc, de la même façon que la stratégie Maxi, la stratégie Robuste n'est pas
 
 \section{Application dans un monde continu} \label{continu}
 
-Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, dans cette partie nous étudierons son fonctionnement dans un monde continu à travers 3 variantes différentes.
+Nous avons vu comment fonctionne le MCTS dans un monde discret, étudions maintenant son fonctionnement dans un monde continu à travers 3 variantes différentes. 
+
+La première variante \ref{modifDiscret} consiste à réutiliser le MCTS discret, la deuxième variante \ref{pw} permet de travailler directement avec des entités continues cependant la gestion d'un bruit parasite n'est pas effectuée. Et la dernière variante \ref{dpw} gère les entités continues ainsi que la gestion des bruits parasites.
 	\subsection{Définition}
 
 	À la différence d'une variable discrète, qui a donc un ensemble de valeurs possibles fini; une variable continue est une variable dont l'ensemble des valeurs possibles est infini.
@@ -331,7 +333,7 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 	$140$ ou bien s'il va essayer de franchir ce fameux piège et ainsi obtenir la récompense optimale.
 
 	\subsection{Première approche}
-		\subsubsection{Modification du MCTS discret}
+		\subsubsection{Modification du MCTS discret} \label{modifDiscret}
 
 		Étant donné que nous avions passé quelques temps sur le MCTS discret, nous avons essayé de ré-utiliser ce dernier.
 
@@ -524,8 +526,6 @@ Maintenant, que nous avons vu comment fonctionne le MCTS dans un monde discret, 
 
 	\subsubsection{MCTS discret dans un monde continu} \label{exp:mctsD}
 	\subsubsection{Progressive widening} \label{exp:pw}
-			\subsubsubsection{Sans ajout de bruit}
-		\subsubsubsection{Avec ajout de bruit}
 	\subsubsection{Double progressive widening} \label{exp:dpw}
 \subsection{Conclusion}
 \newpage

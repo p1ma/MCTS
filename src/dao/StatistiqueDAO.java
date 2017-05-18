@@ -7,8 +7,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import algorithme.formule.DPWidening;
+import algorithme.formule.PWidening;
 import arbre.Etat;
 import arbre.Noeud;
+import config.GameFactory;
 
 /**
  * @author JUNGES Pierre-Marie - M1 Informatique 2016/2017
@@ -35,8 +38,20 @@ public class StatistiqueDAO {
 	private FileWriter writer;
 	private FileWriter writer2;
 	private FileWriter writer3;
-	private final String file = "statsPW.csv";
-	private final String file2 = "statsDPW.csv";
+	private final String file = "PW_C"
+	+ PWidening.C 
+	+ "_A" 
+	+ PWidening.alpha 
+	+ "_T" 
+	+ GameFactory.TEMPS
+	+ ".csv";
+	private final String file2 = "DPW_C"
+			+ DPWidening.C 
+			+ "_A" 
+			+ DPWidening.alpha 
+			+ "_T" 
+			+ GameFactory.TEMPS
+			+ ".csv";
 	private final String random = "randoms.csv";
 	private final String separateur = ",";
 	

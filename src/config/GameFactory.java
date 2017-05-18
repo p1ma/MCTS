@@ -10,7 +10,7 @@ import dao.StatistiqueDAO;
 
 public abstract class GameFactory {
 
-	protected final int TEMPS = 10; // 50 ms
+	public static int TEMPS = 10; // 50 ms
 
 	public abstract Etat getEtat(int joueur);
 	public abstract Etat getEtat();
