@@ -84,8 +84,8 @@ public abstract class GameFactory {
 		 */
 		if (strategie instanceof DPWidening) {
 			StatistiqueDAO.getInstance().ecrireDPW(TEMPS, 
-					PWidening.C, 
-					PWidening.alpha, 
+					DPWidening.C, 
+					DPWidening.alpha, 
 					iter,
 					racine,
 					enfant);

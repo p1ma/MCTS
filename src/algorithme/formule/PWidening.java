@@ -64,7 +64,7 @@ public class PWidening implements FormuleSelection{
 		enfant = s.retournerEnfant(best);
 
 		// On recupere la valeur du bruit
-		Action bruit = enfant.bruite().getAction();
+		/*Action bruit = enfant.bruite().getAction();
 		
 		// On recupere ou non l'enfant bruité
 		NoeudContinu enfantBruite = enfant.contientAction(bruit);
@@ -72,10 +72,10 @@ public class PWidening implements FormuleSelection{
 			enfantBruite = enfant.ajouterEnfantBruite(bruit);
 		} 
 		// On retourne un noeud bruité
-		return enfantBruite;
+		return enfantBruite;*/
 		
 		// On retourne le noeud non bruité
-		//return enfant;
+		return enfant;
 	}
 	
 	public String toString() {

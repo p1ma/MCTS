@@ -38,14 +38,14 @@ public class StatistiqueDAO {
 	private FileWriter writer;
 	private FileWriter writer2;
 	private FileWriter writer3;
-	private final String file = "PW_C"
+	private String file = "PW_C"
 	+ PWidening.C 
 	+ "_A" 
 	+ PWidening.alpha 
 	+ "_T" 
 	+ GameFactory.TEMPS
 	+ ".csv";
-	private final String file2 = "DPW_C"
+	private String file2 = "DPW_C"
 			+ DPWidening.C 
 			+ "_A" 
 			+ DPWidening.alpha 
@@ -238,5 +238,10 @@ public class StatistiqueDAO {
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
+	}
+
+	
+	public void update() {
+		INSTANCE = new StatistiqueDAO();
 	}
 }
