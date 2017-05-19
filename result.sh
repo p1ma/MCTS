@@ -9,3 +9,6 @@ do
 i=$(($i+1))
 done
 echo $ligne;
+echo ",=MOYENNE(J2:J101)";
+echo ",=ECARTYPE(J2:J101)";
+echo ",=(B104/100)";
